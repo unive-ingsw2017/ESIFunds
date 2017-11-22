@@ -3,6 +3,6 @@
 # ESIFunds
 
 ## Group - GLS
-* Gemin Francesco
-* Longhin Federico
-* Sponchiado Francesco
+* 854447 - Gemin Francesco
+* 857179 - Longhin Federico
+* 856166 - Sponchiado Francesco
