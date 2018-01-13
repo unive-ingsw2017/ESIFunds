@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativeLayoutFragmentLogin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <ImageView
+        android:id="@+id/imageViewLoginBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/cd_mono_background"
+        android:src="@color/colorPrimaryDark" />
+
+    <ImageView
+        android:id="@+id/imageViewLoginApplicationLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:contentDescription="@string/cd_welcome_app_logo"
+        android:src="@drawable/ic_aws_mobilehub" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageViewLoginApplicationLogo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp"
+        android:background="@android:color/white"
+        android:minWidth="@dimen/dimen_256dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/login_input_username" />
+    </android.support.design.widget.TextInputLayout>
+</RelativeLayout>

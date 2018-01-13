@@ -1,9 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayoutFragmentMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/background_light"
     tools:context="com.esifunds.MainActivityFragment"
     tools:showIn="@layout/activity_main">
 
-</android.support.constraint.ConstraintLayout>
+    <ImageView
+        android:id="@+id/imageViewWelcomeBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/cd_mono_background"
+        android:src="@color/colorPrimaryDark" />
+
+    <ImageView
+        android:id="@+id/imageViewWelcomeApplicationLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:contentDescription="@string/cd_welcome_app_logo"
+        android:src="@drawable/ic_aws_mobilehub" />
+
+    <Button
+        android:id="@+id/buttonWelcomeLogin"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageViewWelcomeApplicationLogo"
+        android:layout_centerHorizontal="false"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/dimen_32dp"
+        android:width="@dimen/dimen_256dp"
+        android:height="@dimen/dimen_16dp"
+        android:fontFamily="@font/roboto_medium"
+        android:paddingLeft="@dimen/dimen_16dp"
+        android:paddingRight="@dimen/dimen_16dp"
+        android:text="@string/welcome_button_login"
+        android:textAlignment="center"
+        android:textStyle="normal"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/buttonWelcomeRegister"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonWelcomeLogin"
+        android:layout_centerHorizontal="false"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:width="@dimen/dimen_256dp"
+        android:height="@dimen/dimen_36dp"
+        android:fontFamily="@font/roboto_medium"
+        android:paddingLeft="@dimen/dimen_16dp"
+        android:paddingRight="@dimen/dimen_16dp"
+        android:text="@string/welcome_button_register"
+        android:textAlignment="center"
+        android:textStyle="normal" />
+
+    <Button
+        android:id="@+id/buttonWelcomeGuest"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonWelcomeRegister"
+        android:layout_centerHorizontal="false"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:width="@dimen/dimen_256dp"
+        android:height="@dimen/dimen_36dp"
+        android:fontFamily="@font/roboto_medium"
+        android:paddingLeft="@dimen/dimen_16dp"
+        android:paddingRight="@dimen/dimen_16dp"
+        android:text="@string/welcome_button_guest"
+        android:textAlignment="center"
+        android:textStyle="normal" />
+
+</RelativeLayout>
