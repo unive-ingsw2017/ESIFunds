@@ -10,5 +10,6 @@
     <string name="login_input_username">Username</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cd_login_logo">Logo</string>
+    <string name="login_input_password" translatable="false">Password</string>
 </resources>

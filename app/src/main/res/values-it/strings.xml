@@ -8,4 +8,5 @@
     <string name="welcome_button_register">Registrati</string>
     <string name="welcome_button_guest">Ospite</string>
     <string name="login_input_username">Nome utente</string>
+    <string name="cd_login_logo">Logo</string>
 </resources>
