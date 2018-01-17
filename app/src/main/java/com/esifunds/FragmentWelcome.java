@@ -16,7 +16,6 @@ public class FragmentWelcome extends Fragment implements View.OnClickListener
 
     public FragmentWelcome()
     {
-        // Required empty public constructor
     }
 
     @Override
