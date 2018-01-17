@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayoutFragmentWelcome"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context="com.esifunds.FragmentWelcome">
+
+    <ImageView
+        android:id="@+id/imageViewWelcomeLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/dimen_32dp"
+        android:contentDescription="@string/cd_welcome_app_logo"
+        android:src="@drawable/ic_aws_mobilehub" />
+
+    <Button
+        android:id="@+id/buttonLogin"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageViewWelcomeLogo"
+        android:layout_centerHorizontal="false"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/dimen_32dp"
+        android:text="@string/welcome_button_login" />
+
+    <Button
+        android:id="@+id/buttonRegister"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonLogin"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:text="@string/welcome_button_register" />
+
+    <Button
+        android:id="@+id/buttonGuest"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonRegister"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:text="@string/welcome_button_guest" />
+</RelativeLayout>
