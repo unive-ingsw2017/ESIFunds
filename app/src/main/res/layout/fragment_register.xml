@@ -2,11 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_default"
-    tools:context="com.esifunds.FragmentLogin">
+    tools:context="com.esifunds.FragmentRegister">
 
     <ImageView
-        android:id="@+id/imageViewLoginLogo"
+        android:id="@+id/imageViewRegisterLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -14,19 +13,19 @@
         android:layout_centerInParent="true"
         android:layout_marginTop="@dimen/dimen_32dp"
         android:contentDescription="@string/cd_login_logo"
-        android:src="@drawable/ic_login_user" />
+        android:src="@drawable/ic_register_user" />
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/loginUsernameLayout"
+        android:id="@+id/registerUsernameLayout"
         android:layout_width="@dimen/dimen_256dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageViewLoginLogo"
+        android:layout_below="@+id/imageViewRegisterLogo"
         android:layout_centerInParent="true"
         android:layout_marginTop="@dimen/dimen_32dp"
         android:textColorHint="@color/colorAccent">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/loginUsername"
+            android:id="@+id/registerUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/login_input_username"
@@ -37,16 +36,16 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/loginPasswordLayout"
+        android:id="@+id/registerPasswordLayout"
         android:layout_width="@dimen/dimen_256dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/loginUsernameLayout"
+        android:layout_below="@+id/registerUsernameLayout"
         android:layout_centerInParent="true"
         android:layout_marginTop="@dimen/dimen_16dp"
         android:textColorHint="@color/colorAccent">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/loginPassword"
+            android:id="@+id/registerPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/login_input_password"
@@ -56,13 +55,12 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/buttonLoginProcedure"
+        android:id="@+id/buttonRegisterProcedure"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="@dimen/dimen_256dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/loginPasswordLayout"
+        android:layout_below="@+id/registerPasswordLayout"
         android:layout_centerInParent="true"
-        android:layout_marginTop="@dimen/dimen_32dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="@string/welcome_button_login" />
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:text="@string/welcome_button_register" />
 </RelativeLayout>

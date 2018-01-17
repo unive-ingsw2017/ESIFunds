@@ -25,8 +25,10 @@ public class FragmentWelcome extends Fragment implements View.OnClickListener
         View viewRoot = inflater.inflate(R.layout.fragment_welcome, container, false);
 
         buttonLogin = viewRoot.findViewById(R.id.buttonLogin);
+        buttonRegister = viewRoot.findViewById(R.id.buttonRegister);
 
         buttonLogin.setOnClickListener(this);
+        buttonRegister.setOnClickListener(this);
 
         return viewRoot;
     }
@@ -43,6 +45,12 @@ public class FragmentWelcome extends Fragment implements View.OnClickListener
                 fragmentReplace(fragmentReplacement);
 
                 break;
+            }
+
+            case R.id.buttonRegister:
+            {
+                fragmentReplacement = new FragmentRegister();
+                fragmentReplace(fragmentReplacement);
             }
         }
     }

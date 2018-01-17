@@ -9,4 +9,5 @@
     <string name="welcome_button_guest">Ospite</string>
     <string name="login_input_username">Nome Utente</string>
     <string name="cd_login_logo">Logo</string>
+    <string name="cd_register_logo">Logo</string>
 </resources>
