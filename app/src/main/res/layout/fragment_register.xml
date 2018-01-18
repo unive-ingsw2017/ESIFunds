@@ -13,7 +13,7 @@
         android:layout_centerHorizontal="false"
         android:layout_centerInParent="true"
         android:layout_marginTop="@dimen/dimen_32dp"
-        android:contentDescription="@string/cd_login_logo"
+        android:contentDescription="@string/logo_login"
         android:src="@drawable/ic_register_user" />
 
     <android.support.design.widget.TextInputLayout
@@ -29,7 +29,7 @@
             android:id="@+id/registerUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/login_input_username"
+            android:hint="@string/string_username"
             android:inputType="textEmailAddress"
             android:textColor="@color/colorAccent"
             android:textColorHint="@color/colorAccent" />
@@ -49,7 +49,7 @@
             android:id="@+id/registerPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/login_input_password"
+            android:hint="@string/string_password"
             android:inputType="textPassword"
             android:textColor="@color/colorAccent"
             android:textColorHint="@color/colorAccent" />
@@ -63,5 +63,5 @@
         android:layout_below="@+id/registerPasswordLayout"
         android:layout_centerInParent="true"
         android:layout_marginTop="@dimen/dimen_16dp"
-        android:text="@string/welcome_button_register" />
+        android:text="@string/string_register" />
 </RelativeLayout>

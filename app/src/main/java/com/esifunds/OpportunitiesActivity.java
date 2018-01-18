@@ -41,14 +41,14 @@ public class OpportunitiesActivity extends AppCompatActivity
         setSupportActionBar(opportunitiesToolbar);
 
         // Drawer Code
-        PrimaryDrawerItem drawerItemOpportunitiesList = new PrimaryDrawerItem().withIdentifier(0).withName("Opportunities List").withIcon(GoogleMaterial.Icon.gmd_list);
-        SecondaryDrawerItem drawerItemSearch = new SecondaryDrawerItem().withIdentifier(1).withName("Search").withIcon(GoogleMaterial.Icon.gmd_search);
-        SecondaryDrawerItem drawerItemFavourites = new SecondaryDrawerItem().withIdentifier(2).withName("Favourites").withIcon(GoogleMaterial.Icon.gmd_star);
+        PrimaryDrawerItem drawerItemOpportunitiesList = new PrimaryDrawerItem().withIdentifier(0).withName(R.string.string_opportunities_list).withIcon(GoogleMaterial.Icon.gmd_list);
+        SecondaryDrawerItem drawerItemSearch = new SecondaryDrawerItem().withIdentifier(1).withName(R.string.string_search).withIcon(GoogleMaterial.Icon.gmd_search);
+        SecondaryDrawerItem drawerItemFavourites = new SecondaryDrawerItem().withIdentifier(2).withName(R.string.string_favourites).withIcon(GoogleMaterial.Icon.gmd_star);
 
-        SecondaryDrawerItem drawerItemLoginRegister = new SecondaryDrawerItem().withIdentifier(100).withName("Login/Register").withIcon(FontAwesome.Icon.faw_sign_in);
-        SecondaryDrawerItem drawerItemLogout = new SecondaryDrawerItem().withIdentifier(100).withName("Logout").withIcon(FontAwesome.Icon.faw_sign_out);
+        SecondaryDrawerItem drawerItemLoginRegister = new SecondaryDrawerItem().withIdentifier(100).withName(R.string.string_login_register).withIcon(FontAwesome.Icon.faw_sign_in);
+        SecondaryDrawerItem drawerItemLogout = new SecondaryDrawerItem().withIdentifier(100).withName(R.string.string_logout).withIcon(FontAwesome.Icon.faw_sign_out);
 
-        ProfileDrawerItem profileDrawerItemGuest = new ProfileDrawerItem().withName(R.string.welcome_button_guest).withIcon(R.drawable.ic_login_user);
+        ProfileDrawerItem profileDrawerItemGuest = new ProfileDrawerItem().withName(R.string.string_guest).withIcon(R.drawable.ic_login_user);
         ProfileDrawerItem profileDrawerItemUser = new ProfileDrawerItem().withName(userName).withEmail(userMail).withIcon(R.drawable.ic_login_user);
 
         AccountHeader drawerHeaderResult = new AccountHeaderBuilder().withActivity(this).withHeaderBackground(R.drawable.material_drawer_badge)
