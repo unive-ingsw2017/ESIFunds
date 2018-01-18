@@ -1,5 +1,6 @@
 package com.esifunds;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -25,9 +26,11 @@ public class FragmentWelcome extends Fragment implements View.OnClickListener
 
         buttonLogin = viewRoot.findViewById(R.id.buttonLogin);
         buttonRegister = viewRoot.findViewById(R.id.buttonRegister);
+        buttonGuest = viewRoot.findViewById(R.id.buttonGuest);
 
         buttonLogin.setOnClickListener(this);
         buttonRegister.setOnClickListener(this);
+        buttonGuest.setOnClickListener(this);
 
         return viewRoot;
     }
@@ -54,7 +57,11 @@ public class FragmentWelcome extends Fragment implements View.OnClickListener
 
             case R.id.buttonGuest:
             {
+                Intent intentOpportunities = new Intent(getActivity(), OpportunitiesActivity.class);
 
+                intentOpportunities.putExtra("ACTIVITY_TYPE", "GUEST");
+
+                startActivity(intentOpportunities);
             }
         }
     }
