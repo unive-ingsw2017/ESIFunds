@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -22,6 +24,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 public class OpportunitiesActivity extends AppCompatActivity
 {
     private Toolbar opportunitiesToolbar;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -29,12 +32,21 @@ public class OpportunitiesActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opportunities);
 
+        mAuth = FirebaseAuth.getInstance();
+
         // Intent Parsing
+        FirebaseUser user = mAuth.getCurrentUser();
+
         Intent intentRoot = getIntent();
         String activityType = intentRoot.getStringExtra("ACTIVITY_TYPE");
 
-        String userName = intentRoot.getStringExtra("USER_FIRSTNAME") + ' ' + intentRoot.getStringExtra("USER_LASTNAME");
-        String userMail = intentRoot.getStringExtra("USER_MAIL");
+        String userName = "";
+        String userMail = "";
+        if(user != null)
+        {
+            userName = user.getDisplayName();
+            userMail = user.getEmail();
+        }
 
         // Toolbar Code
         opportunitiesToolbar = findViewById(R.id.toolbarOpportunitiesActivity);

@@ -10,6 +10,7 @@
     <string name="string_register">Register</string>
     <string name="string_guest">Guest</string>
     <string name="string_username">Username</string>
+    <string name="string_email">Email</string>
     <string name="string_password">Password</string>
     <string name="string_logout">Logout</string>
     <string name="string_login_register">Login/Register</string>
