@@ -51,13 +51,18 @@ public class FragmentWelcome extends Fragment implements View.OnClickListener
                 fragmentReplacement = new FragmentRegister();
                 fragmentReplace(fragmentReplacement);
             }
+
+            case R.id.buttonGuest:
+            {
+
+            }
         }
     }
 
     public void fragmentReplace(Fragment fragment)
     {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayoutPlaceholderMainActivity, fragment);
+        fragmentTransaction.replace(R.id.fragmentPlaceholderMainActivity, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
