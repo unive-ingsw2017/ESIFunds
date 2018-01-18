@@ -17,7 +17,7 @@
         android:src="@drawable/ic_register_user" />
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/registerUsernameLayout"
+        android:id="@+id/registerFirstNameLayout"
         android:layout_width="@dimen/dimen_256dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageViewRegisterLogo"
@@ -26,10 +26,48 @@
         android:textColorHint="@color/colorAccent">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/registerUsername"
+            android:id="@+id/registerFirstName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/string_username"
+            android:hint="@string/string_firstname"
+            android:inputType="text"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorAccent" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/registerLastNameLayout"
+        android:layout_width="@dimen/dimen_256dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/registerFirstNameLayout"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:textColorHint="@color/colorAccent">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/registerLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/string_lastname"
+            android:inputType="text"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorAccent" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/registerMailLayout"
+        android:layout_width="@dimen/dimen_256dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/registerLastNameLayout"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:textColorHint="@color/colorAccent">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/registerMail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/string_mail"
             android:inputType="textEmailAddress"
             android:textColor="@color/colorAccent"
             android:textColorHint="@color/colorAccent" />
@@ -40,7 +78,7 @@
         android:id="@+id/registerPasswordLayout"
         android:layout_width="@dimen/dimen_256dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/registerUsernameLayout"
+        android:layout_below="@+id/registerMailLayout"
         android:layout_centerInParent="true"
         android:layout_marginTop="@dimen/dimen_16dp"
         android:textColorHint="@color/colorAccent">
@@ -64,4 +102,5 @@
         android:layout_centerInParent="true"
         android:layout_marginTop="@dimen/dimen_16dp"
         android:text="@string/string_register" />
+
 </RelativeLayout>

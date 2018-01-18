@@ -15,7 +15,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class FragmentLogin extends Fragment implements View.OnClickListener
 {
@@ -46,7 +45,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener
         {
             case R.id.buttonLoginProcedure:
             {
-                String email = ((TextInputEditText)getView().findViewById(R.id.loginEmail)).getText().toString();
+                String email = ((TextInputEditText)getView().findViewById(R.id.loginMail)).getText().toString();
                 String password = ((TextInputEditText)getView().findViewById(R.id.loginPassword)).getText().toString();
 
                 mAuth.signInWithEmailAndPassword(email, password)

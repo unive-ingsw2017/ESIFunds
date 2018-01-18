@@ -10,11 +10,13 @@
     <string name="string_register">Register</string>
     <string name="string_guest">Guest</string>
     <string name="string_username">Username</string>
-    <string name="string_email">Email</string>
+    <string name="string_mail">E-Mail</string>
     <string name="string_password">Password</string>
     <string name="string_logout">Logout</string>
     <string name="string_login_register">Login/Register</string>
     <string name="string_favourites">Favourites</string>
     <string name="string_search">Search</string>
     <string name="string_opportunities_list">Opportunities List</string>
+    <string name="string_firstname">First Name</string>
+    <string name="string_lastname">Last Name</string>
 </resources>
