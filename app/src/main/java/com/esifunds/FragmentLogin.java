@@ -2,15 +2,25 @@ package com.esifunds;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class FragmentLogin extends Fragment implements View.OnClickListener
 {
     private Button buttonLoginProcedure;
+    private FirebaseAuth mAuth;
 
     public FragmentLogin()
     {
@@ -25,6 +35,8 @@ public class FragmentLogin extends Fragment implements View.OnClickListener
 
         buttonLoginProcedure.setOnClickListener(this);
 
+        mAuth = FirebaseAuth.getInstance();
+
         return viewRoot;
     }
 
@@ -34,15 +46,28 @@ public class FragmentLogin extends Fragment implements View.OnClickListener
         {
             case R.id.buttonLoginProcedure:
             {
-                Intent intentOpportunities = new Intent(getActivity(), OpportunitiesActivity.class);
+                String email = ((TextInputEditText)getView().findViewById(R.id.loginEmail)).getText().toString();
+                String password = ((TextInputEditText)getView().findViewById(R.id.loginPassword)).getText().toString();
 
-                intentOpportunities.putExtra("ACTIVITY_TYPE", "LOGIN");
+                mAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    Intent intentOpportunities = new Intent(getActivity(), OpportunitiesActivity.class);
 
-                intentOpportunities.putExtra("USER_FIRSTNAME", "FirstName");
-                intentOpportunities.putExtra("USER_LASTNAME", "LastName");
-                intentOpportunities.putExtra("USER_MAIL", "email@gmail.com");
+                                    intentOpportunities.putExtra("USER", user);
 
-                startActivity(intentOpportunities);
+                                    startActivity(intentOpportunities);
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Toast.makeText(getContext(), "Authentication failed.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
 
                 break;
             }

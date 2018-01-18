@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "39118488098",
+    "firebase_url": "https://esifunds-unive.firebaseio.com",
+    "project_id": "esifunds-unive",
+    "storage_bucket": "esifunds-unive.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:39118488098:android:2e1ab1f8edac9370",
+        "android_client_info": {
+          "package_name": "com.esifunds"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "39118488098-6u61l8hvb2je5g8k3tfl9j1tg9e4k5j8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.esifunds",
+            "certificate_hash": "5cf0763a4362b501b6f178541e4c682f87282863"
+          }
+        },
+        {
+          "client_id": "39118488098-ki5i2ivirogqi2rdklhl9543h9etum0k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnZytGduZMgDO6LZfwSMALUwlnZyXOvkU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "39118488098-ki5i2ivirogqi2rdklhl9543h9etum0k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
