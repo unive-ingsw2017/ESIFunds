@@ -53,6 +53,7 @@ public class FragmentWelcome extends Fragment implements View.OnClickListener
             {
                 fragmentReplacement = new FragmentRegister();
                 fragmentReplace(fragmentReplacement);
+                break;
             }
 
             case R.id.buttonGuest:
@@ -62,6 +63,7 @@ public class FragmentWelcome extends Fragment implements View.OnClickListener
                 intentOpportunities.putExtra("ACTIVITY_TYPE", "GUEST");
 
                 startActivity(intentOpportunities);
+                break;
             }
         }
     }
