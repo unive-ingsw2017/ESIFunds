@@ -1,8 +1,11 @@
-package com.esifunds;
+package com.esifunds.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+
+import com.esifunds.R;
+import com.esifunds.fragment.FragmentWelcome;
 
 public class MainActivity extends AppCompatActivity
 {

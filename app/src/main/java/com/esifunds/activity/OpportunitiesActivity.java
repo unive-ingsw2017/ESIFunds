@@ -1,11 +1,14 @@
-package com.esifunds;
+package com.esifunds.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.esifunds.R;
+import com.esifunds.fragment.FragmentOpportunities;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
@@ -108,5 +111,9 @@ public class OpportunitiesActivity extends AppCompatActivity
             drawerResult.addItem(drawerItemFavourites);
 
         drawerResult.setSelection(drawerItemOpportunitiesList);
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, new FragmentOpportunities());
+        fragmentTransaction.commit();
     }
 }

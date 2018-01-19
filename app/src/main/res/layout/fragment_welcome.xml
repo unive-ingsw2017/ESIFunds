@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_default"
-    tools:context="com.esifunds.FragmentWelcome">
+    tools:context="com.esifunds.fragment.FragmentWelcome">
 
     <ImageView
         android:id="@+id/imageViewWelcomeLogo"

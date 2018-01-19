@@ -1,4 +1,4 @@
-package com.esifunds;
+package com.esifunds.fragment;
 
 
 import android.content.Intent;
@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.esifunds.R;
+import com.esifunds.activity.OpportunitiesActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

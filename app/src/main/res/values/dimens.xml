@@ -5,4 +5,8 @@
     <dimen name="dimen_256dp">256dp</dimen>
 
     <dimen name="dimen_14pt">14pt</dimen>
+    <dimen name="dimen_16sp">16sp</dimen>
+    <dimen name="dimen_72dp">72dp</dimen>
+    <dimen name="dimen_8dp">8dp</dimen>
+    <dimen name="dimen_1dp">1dp</dimen>
 </resources>

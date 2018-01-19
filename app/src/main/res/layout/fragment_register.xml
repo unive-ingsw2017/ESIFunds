@@ -3,7 +3,7 @@
     android:id="@+id/relativeLayoutFragmentRegister"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.esifunds.FragmentRegister">
+    tools:context="com.esifunds.fragment.FragmentRegister">
 
     <ImageView
         android:id="@+id/imageViewRegisterLogo"
