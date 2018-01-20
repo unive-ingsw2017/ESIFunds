@@ -50,7 +50,9 @@ public class FragmentLogin extends Fragment implements View.OnClickListener
                 String email = ((TextInputEditText) getView().findViewById(R.id.loginMail)).getText().toString();
                 String password = ((TextInputEditText) getView().findViewById(R.id.loginPassword)).getText().toString();
 
-                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>()
+                if(!email.isEmpty() && !password.isEmpty())
+                {
+                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>()
                     {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task)
@@ -69,6 +71,8 @@ public class FragmentLogin extends Fragment implements View.OnClickListener
                             }
                         }
                     });
+
+                }
 
                 break;
             }

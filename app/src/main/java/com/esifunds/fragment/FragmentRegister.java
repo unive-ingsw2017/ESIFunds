@@ -56,39 +56,40 @@ public class FragmentRegister extends Fragment implements View.OnClickListener
                 final String firstName = ((TextInputEditText)getView().findViewById(R.id.registerFirstName)).getText().toString();
                 final String lastName = ((TextInputEditText)getView().findViewById(R.id.registerLastName)).getText().toString();
 
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>()
+                if(!email.isEmpty() && !password.isEmpty() && !firstName.isEmpty() && !lastName.isEmpty())
+                {
+                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>()
+                    {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task)
                         {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task)
+                            if(task.isSuccessful())
                             {
-                                if (task.isSuccessful())
-                                {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                    DatabaseReference userRef = database.getReference("users/" + user.getUid());
-                                    userRef.child("firstname").setValue(firstName);
-                                    userRef.child("lastname").setValue(lastName);
+                                // Sign in success, update UI with the signed-in user's information
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                DatabaseReference userRef = database.getReference("users/" + user.getUid());
+                                userRef.child("firstname").setValue(firstName);
+                                userRef.child("lastname").setValue(lastName);
 
-                                    Intent intentOpportunities = new Intent(getActivity(), OpportunitiesActivity.class);
+                                Intent intentOpportunities = new Intent(getActivity(), OpportunitiesActivity.class);
 
-                                    intentOpportunities.putExtra("ACTIVITY_TYPE", "REGISTER");
+                                intentOpportunities.putExtra("ACTIVITY_TYPE", "REGISTER");
 
-                                    intentOpportunities.putExtra("USER_FIRSTNAME", firstName);
-                                    intentOpportunities.putExtra("USER_LASTNAME", lastName);
-                                    intentOpportunities.putExtra("USER_MAIL", "email@gmail.com");
+                                intentOpportunities.putExtra("USER_FIRSTNAME", firstName);
+                                intentOpportunities.putExtra("USER_LASTNAME", lastName);
+                                intentOpportunities.putExtra("USER_MAIL", "email@gmail.com");
 
-                                    startActivity(intentOpportunities);
-                                }
-                                else
-                                {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(getContext(), "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
+                                startActivity(intentOpportunities);
                             }
-                        });
+                            else
+                            {
+                                // If sign in fails, display a message to the user.
+                                Toast.makeText(getContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
 
                 break;
             }

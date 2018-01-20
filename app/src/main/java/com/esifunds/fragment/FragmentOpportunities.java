@@ -11,10 +11,17 @@ import android.view.ViewGroup;
 
 import com.esifunds.R;
 import com.esifunds.model.Opportunity;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
 import com.mikepenz.fastadapter.listeners.OnClickListener;
+import com.mikepenz.fastadapter_extensions.items.ProgressItem;
+import com.mikepenz.fastadapter_extensions.scroll.EndlessRecyclerOnScrollListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +29,7 @@ import java.util.List;
 public class FragmentOpportunities extends Fragment
 {
     RecyclerView recyclerViewOpportunities;
+    private FirebaseDatabase mDatabase;
 
     public FragmentOpportunities()
     {
@@ -32,12 +40,15 @@ public class FragmentOpportunities extends Fragment
     {
         View viewRoot = inflater.inflate(R.layout.fragment_opportunities, container, false);
 
+        mDatabase = FirebaseDatabase.getInstance();
+
         recyclerViewOpportunities = viewRoot.findViewById(R.id.recyclerViewOpportunities);
 
         recyclerViewOpportunities.setLayoutManager(new LinearLayoutManager(getContext()));
-        ItemAdapter<Opportunity> itemAdapter = new ItemAdapter<>();
+        final ItemAdapter<Opportunity> itemAdapter = new ItemAdapter<>();
+        final ItemAdapter<ProgressItem> footerAdapter = new ItemAdapter<>();
 
-        FastAdapter<Opportunity> fastAdapter = FastAdapter.with(itemAdapter);
+        FastAdapter<Opportunity> fastAdapter = FastAdapter.with(footerAdapter).with(itemAdapter);
         fastAdapter.withSelectable(true);
         fastAdapter.withOnClickListener(new OnClickListener<Opportunity>()
         {
@@ -50,24 +61,50 @@ public class FragmentOpportunities extends Fragment
             }
         });
 
+        recyclerViewOpportunities.addOnScrollListener(new EndlessRecyclerOnScrollListener(footerAdapter) {
+            @Override
+            public void onLoadMore(int currentPage) {
+                footerAdapter.clear();
+                footerAdapter.add(new ProgressItem().withEnabled(true));
+                // Load your items here and add it to FastAdapter
+
+                mDatabase.getReference("opportunities").limitToFirst(currentPage + 25).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
+
+                        List<Opportunity> listOpportunities = new ArrayList<Opportunity>();
+                        for (DataSnapshot aSnapshotIterable : snapshotIterable) {
+                            listOpportunities.add(aSnapshotIterable.getValue(Opportunity.class));
+                        }
+
+                        itemAdapter.add(listOpportunities);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {}
+                });
+            }
+        });
+
         recyclerViewOpportunities.setAdapter(fastAdapter);
 
-        // @TODO: Parametrize this with Database
-        List<Opportunity> listOpportunities = new ArrayList<Opportunity>()
-        {{
-            add(new Opportunity("Name 1", "Description 1"));
-            add(new Opportunity("Name 2", "Description 2"));
-            add(new Opportunity("Name 3", "Description 3"));
-            add(new Opportunity("Name 4", "Description 4"));
-            add(new Opportunity("Name 5", "Description 5"));
-            add(new Opportunity("Name 6", "Description 6"));
-            add(new Opportunity("Name 7", "Description 7"));
-            add(new Opportunity("Name 8", "Description 8"));
-            add(new Opportunity("Name 9", "Description 9"));
-            add(new Opportunity("Name 10", "Description 10"));
-        }};
+        mDatabase.getReference("opportunities").limitToFirst(25).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
 
-        itemAdapter.add(listOpportunities);
+                List<Opportunity> listOpportunities = new ArrayList<Opportunity>();
+                for (DataSnapshot aSnapshotIterable : snapshotIterable) {
+                    listOpportunities.add(aSnapshotIterable.getValue(Opportunity.class));
+                }
+
+                itemAdapter.add(listOpportunities);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {}
+        });
 
         return viewRoot;
     }

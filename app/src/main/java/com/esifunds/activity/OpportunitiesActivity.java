@@ -11,6 +11,11 @@ import com.esifunds.R;
 import com.esifunds.fragment.FragmentOpportunities;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -27,7 +32,6 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 public class OpportunitiesActivity extends AppCompatActivity
 {
     private Toolbar opportunitiesToolbar;
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -35,22 +39,42 @@ public class OpportunitiesActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opportunities);
 
-        mAuth = FirebaseAuth.getInstance();
-
         // Intent Parsing
-        FirebaseUser user = mAuth.getCurrentUser();
-
         Intent intentRoot = getIntent();
-        String activityType = intentRoot.getStringExtra("ACTIVITY_TYPE");
+        final String activityType = intentRoot.getStringExtra("ACTIVITY_TYPE");
 
-        String userName = "";
-        String userMail = "";
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null)
         {
-            userName = user.getDisplayName();
-            userMail = user.getEmail();
-        }
+            final String userEmail = user.getEmail();
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            final DatabaseReference userRef = database.getReference("users/" + user.getUid());
+            userRef.child("firstname").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    final String userFirstName = dataSnapshot.getValue(String.class);
 
+                    userRef.child("lastname").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            // This method is called once with the initial value and again
+                            // whenever data at this location is updated.
+                            init(activityType, userEmail, userFirstName + " " + dataSnapshot.getValue(String.class));
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError error) {}
+                    });
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {}
+            });
+        }
+    }
+
+    private void init(String activityType, String email, String userName)
+    {
         // Toolbar Code
         opportunitiesToolbar = findViewById(R.id.toolbarOpportunitiesActivity);
         setSupportActionBar(opportunitiesToolbar);
@@ -64,48 +88,48 @@ public class OpportunitiesActivity extends AppCompatActivity
         SecondaryDrawerItem drawerItemLogout = new SecondaryDrawerItem().withIdentifier(100).withName(R.string.string_logout).withIcon(FontAwesome.Icon.faw_sign_out);
 
         ProfileDrawerItem profileDrawerItemGuest = new ProfileDrawerItem().withName(R.string.string_guest).withIcon(R.drawable.ic_login_user);
-        ProfileDrawerItem profileDrawerItemUser = new ProfileDrawerItem().withName(userName).withEmail(userMail).withIcon(R.drawable.ic_login_user);
+        ProfileDrawerItem profileDrawerItemUser = new ProfileDrawerItem().withName(userName).withEmail(email).withIcon(R.drawable.ic_login_user);
 
         AccountHeader drawerHeaderResult = new AccountHeaderBuilder().withActivity(this).withHeaderBackground(R.drawable.material_drawer_badge)
-            .addProfiles
-            (
-                activityType.equals("GUEST") ? profileDrawerItemGuest : profileDrawerItemUser
-            )
-            .withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener()
-            {
-                @Override public boolean onProfileImageClick(View view, IProfile profile, boolean current)
+                .addProfiles
+                        (
+                                activityType.equals("GUEST") ? profileDrawerItemGuest : profileDrawerItemUser
+                        )
+                .withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener()
                 {
-                    return false;
-                }
+                    @Override public boolean onProfileImageClick(View view, IProfile profile, boolean current)
+                    {
+                        return false;
+                    }
 
-                @Override public boolean onProfileImageLongClick(View view, IProfile profile, boolean current)
-                {
-                    return false;
-                }
-            })
-            .withSelectionListEnabledForSingleProfile(false)
-            .build();
+                    @Override public boolean onProfileImageLongClick(View view, IProfile profile, boolean current)
+                    {
+                        return false;
+                    }
+                })
+                .withSelectionListEnabledForSingleProfile(false)
+                .build();
 
         Drawer drawerResult = new DrawerBuilder().withActivity(this).withToolbar(opportunitiesToolbar)
-            .withAccountHeader(drawerHeaderResult)
-            .addDrawerItems
-            (
-                drawerItemOpportunitiesList,
-                new DividerDrawerItem(),
-                drawerItemSearch
-            )
-            .addStickyDrawerItems
-            (
-                activityType.equals("GUEST") ? drawerItemLoginRegister : drawerItemLogout
-            )
-            .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener()
-            {
-                @Override public boolean onItemClick(View view, int position, IDrawerItem drawerItem)
+                .withAccountHeader(drawerHeaderResult)
+                .addDrawerItems
+                        (
+                                drawerItemOpportunitiesList,
+                                new DividerDrawerItem(),
+                                drawerItemSearch
+                        )
+                .addStickyDrawerItems
+                        (
+                                activityType.equals("GUEST") ? drawerItemLoginRegister : drawerItemLogout
+                        )
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener()
                 {
-                    return false;
-                }
-            })
-            .build();
+                    @Override public boolean onItemClick(View view, int position, IDrawerItem drawerItem)
+                    {
+                        return false;
+                    }
+                })
+                .build();
 
         if(!activityType.equals("GUEST"))
             drawerResult.addItem(drawerItemFavourites);
