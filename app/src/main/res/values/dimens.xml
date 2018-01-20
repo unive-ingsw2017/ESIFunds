@@ -9,4 +9,13 @@
     <dimen name="dimen_72dp">72dp</dimen>
     <dimen name="dimen_8dp">8dp</dimen>
     <dimen name="dimen_1dp">1dp</dimen>
+    <dimen name="dimen_240dp">240dp</dimen>
+    <dimen name="dimen_112sp">112sp</dimen>
+    <dimen name="dimen_56sp">56sp</dimen>
+    <dimen name="dimen_34sp">34sp</dimen>
+    <dimen name="dimen_24sp">24sp</dimen>
+    <dimen name="dimen_120dp">120dp</dimen>
+    <dimen name="dimen_45sp">45sp</dimen>
+    <dimen name="dimen_12sp">12sp</dimen>
+    <dimen name="dimen_60dp">60dp</dimen>
 </resources>

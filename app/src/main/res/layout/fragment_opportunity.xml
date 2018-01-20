@@ -1,9 +1,175 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayoutOpportunity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.esifunds.fragment.FragmentOpportunity">
 
-    <!-- TODO: Update blank fragment layout -->
 
-</FrameLayout>
+    <RelativeLayout
+        android:id="@+id/relativeLayoutOpportunityMoney"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_240dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/md_teal_500"
+        android:elevation="@dimen/dimen_8dp">
+
+        <ImageView
+            android:id="@+id/imageViewOpportunityAvatarInternal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="@dimen/dimen_16dp"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:src="@drawable/ic_login_user" />
+
+        <TextView
+            android:id="@+id/textViewProgram"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/linearLayoutOpportunityMoney"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:autoSizeMaxTextSize="@dimen/dimen_34sp"
+            android:autoSizeMinTextSize="@dimen/dimen_12sp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/roboto_regular"
+            android:text="POR FSE Friuli Venezia Giulia"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/dimen_34sp" />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutOpportunityMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewOpportunityMoneySymbol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dimen_16dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/string_money_symbol"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/dimen_112sp" />
+
+            <TextView
+                android:id="@+id/textViewOpportunityMoneyValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoSizeMaxTextSize="@dimen/dimen_112sp"
+                android:autoSizeMinTextSize="@dimen/dimen_12sp"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="@font/roboto_light"
+                android:text="300,000"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/dimen_112sp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutOpportunityExpiration"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_60dp"
+        android:layout_below="@+id/relativeLayoutOpportunityMoney"
+        android:background="@color/md_red_700"
+        android:elevation="@dimen/dimen_8dp">
+
+        <TextView
+            android:id="@+id/textViewOpportunityExpirationDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/roboto_regular"
+            android:text="22/12/2017"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/dimen_34sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textViewOpportunityLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayoutOpportunityExpiration"
+        android:layout_marginLeft="@dimen/dimen_16dp"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:fontFamily="@font/roboto_regular"
+        android:text="Friuli Venezia Giulia"
+        android:textSize="@dimen/dimen_56sp" />
+
+    <TextView
+        android:id="@+id/textViewOpportunitySummary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textViewOpportunityLocation"
+        android:layout_below="@+id/textViewOpportunityLocation"
+        android:fontFamily="@font/roboto_regular"
+        android:text="Pagamento compensativo per le zone agricole Natura 2000"
+        android:textSize="@dimen/dimen_24sp" />
+
+    <View
+        android:id="@+id/viewOpportunityDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1dp"
+        android:layout_below="@+id/textViewOpportunitySummary"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:background="@color/blue_grey_100" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutOpportunityTheme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewOpportunityDivider"
+        android:layout_marginLeft="@dimen/dimen_32dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textViewOpportunityThemeString"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dimen_8dp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="@string/string_theme"
+            android:textSize="@dimen/dimen_34sp" />
+
+        <TextView
+            android:id="@+id/textViewOpportunityTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Competitività Imprese"
+            android:textSize="@dimen/dimen_24sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutOpportunityType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/linearLayoutOpportunityTheme"
+        android:layout_below="@+id/linearLayoutOpportunityTheme"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textViewOpportunityTypeString"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dimen_8dp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="@string/string_type"
+            android:textSize="@dimen/dimen_34sp" />
+
+        <TextView
+            android:id="@+id/textViewOpportunityType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aspiranti Imprenditori, Nuove Imprese"
+            android:textSize="@dimen/dimen_24sp" />
+    </LinearLayout>
+
+</RelativeLayout>
