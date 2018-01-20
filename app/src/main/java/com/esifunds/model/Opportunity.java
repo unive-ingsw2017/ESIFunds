@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.esifunds.R;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
-import com.mikepenz.materialize.holder.StringHolder;
 
 import java.util.List;
 
@@ -18,8 +17,8 @@ import butterknife.ButterKnife;
 
 public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolder>
 {
-    public StringHolder opportunityName;
-    public StringHolder opportunityDescription;
+    public String opportunityName;
+    public String opportunityDescription;
 
     public Opportunity()
     {
@@ -27,8 +26,8 @@ public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolde
 
     public Opportunity(String opportunityName, String opportunityDescription)
     {
-        this.opportunityName = new StringHolder(opportunityName);
-        this.opportunityDescription = new StringHolder(opportunityDescription);
+        this.opportunityName = opportunityName;
+        this.opportunityDescription = opportunityDescription;
     }
 
     @Override
@@ -64,13 +63,21 @@ public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolde
         }
 
         @Override
-        public void bindView(Opportunity item, List<Object> payloads)
+        public void bindView(final Opportunity item, List<Object> payloads)
         {
             // @TODO: This Icon should be parametric
             opportunityAvatar.setImageResource(R.drawable.common_google_signin_btn_icon_dark);
 
-            StringHolder.applyTo(item.opportunityName, opportunityName);
-            StringHolder.applyToOrHide(item.opportunityDescription, opportunityDescription);
+            opportunityName.setText(item.opportunityName);
+            opportunityDescription.setText(item.opportunityDescription);
+
+            opportunityIcon.setOnClickListener(new View.OnClickListener()
+            {
+                @Override public void onClick(View v)
+                {
+                    // @TODO: Implement favourite button functionality
+                }
+            });
         }
 
         @Override

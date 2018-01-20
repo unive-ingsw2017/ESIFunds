@@ -47,25 +47,28 @@ public class FragmentLogin extends Fragment implements View.OnClickListener
         {
             case R.id.buttonLoginProcedure:
             {
-                String email = ((TextInputEditText)getView().findViewById(R.id.loginMail)).getText().toString();
-                String password = ((TextInputEditText)getView().findViewById(R.id.loginPassword)).getText().toString();
+                String email = ((TextInputEditText) getView().findViewById(R.id.loginMail)).getText().toString();
+                String password = ((TextInputEditText) getView().findViewById(R.id.loginPassword)).getText().toString();
 
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Intent intentOpportunities = new Intent(getActivity(), OpportunitiesActivity.class);
-                                    intentOpportunities.putExtra("ACTIVITY_TYPE", "LOGIN");
-                                    startActivity(intentOpportunities);
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(getContext(), "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
+                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>()
+                    {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task)
+                        {
+                            if(task.isSuccessful())
+                            {
+                                // Sign in success, update UI with the signed-in user's information
+                                Intent intentOpportunities = new Intent(getActivity(), OpportunitiesActivity.class);
+                                intentOpportunities.putExtra("ACTIVITY_TYPE", "LOGIN");
+                                startActivity(intentOpportunities);
                             }
-                        });
+                            else
+                            {
+                                // If sign in fails, display a message to the user.
+                                Toast.makeText(getContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
 
                 break;
             }
