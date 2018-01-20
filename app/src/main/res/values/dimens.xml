@@ -18,4 +18,9 @@
     <dimen name="dimen_45sp">45sp</dimen>
     <dimen name="dimen_12sp">12sp</dimen>
     <dimen name="dimen_60dp">60dp</dimen>
+    <dimen name="dimen_5sp">5sp</dimen>
+    <dimen name="dimen_6sp">6sp</dimen>
+    <dimen name="dimen_2sp">2sp</dimen>
+    <dimen name="dimen_300dp">300dp</dimen>
+    <dimen name="dimen_280dp">280dp</dimen>
 </resources>

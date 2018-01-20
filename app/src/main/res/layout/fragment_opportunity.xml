@@ -9,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/relativeLayoutOpportunityMoney"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_240dp"
+        android:layout_height="@dimen/dimen_280dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:background="@color/md_teal_500"
@@ -19,8 +19,8 @@
             android:id="@+id/imageViewOpportunityAvatarInternal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="@dimen/dimen_16dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
             android:layout_marginTop="@dimen/dimen_16dp"
             android:src="@drawable/ic_login_user" />
 
@@ -28,13 +28,19 @@
             android:id="@+id/textViewProgram"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/linearLayoutOpportunityMoney"
+            android:layout_below="@+id/imageViewOpportunityAvatarInternal"
             android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/dimen_16dp"
+            android:layout_marginRight="@dimen/dimen_16dp"
             android:layout_marginTop="@dimen/dimen_8dp"
             android:autoSizeMaxTextSize="@dimen/dimen_34sp"
             android:autoSizeMinTextSize="@dimen/dimen_12sp"
+            android:autoSizeStepGranularity="@dimen/dimen_2sp"
             android:autoSizeTextType="uniform"
             android:fontFamily="@font/roboto_regular"
+            android:gravity="center"
+            android:maxHeight="@dimen/dimen_34sp"
+            android:minHeight="@dimen/dimen_12sp"
             android:text="POR FSE Friuli Venezia Giulia"
             android:textColor="@android:color/white"
             android:textSize="@dimen/dimen_34sp" />
@@ -43,15 +49,26 @@
             android:id="@+id/linearLayoutOpportunityMoney"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewProgram"
             android:layout_centerInParent="true"
-            android:orientation="horizontal">
+            android:layout_marginLeft="@dimen/dimen_16dp"
+            android:layout_marginRight="@dimen/dimen_16dp"
+            android:orientation="horizontal"
+            android:textAlignment="center">
 
             <TextView
                 android:id="@+id/textViewOpportunityMoneySymbol"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/dimen_16dp"
+                android:layout_marginRight="@dimen/dimen_8dp"
+                android:autoSizeMaxTextSize="@dimen/dimen_112sp"
+                android:autoSizeMinTextSize="@dimen/dimen_12sp"
+                android:autoSizeStepGranularity="@dimen/dimen_2sp"
+                android:autoSizeTextType="uniform"
                 android:fontFamily="@font/roboto_light"
+                android:gravity="center"
+                android:maxHeight="@dimen/dimen_112sp"
+                android:minHeight="@dimen/dimen_12sp"
                 android:text="@string/string_money_symbol"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/dimen_112sp" />
@@ -62,8 +79,12 @@
                 android:layout_height="wrap_content"
                 android:autoSizeMaxTextSize="@dimen/dimen_112sp"
                 android:autoSizeMinTextSize="@dimen/dimen_12sp"
+                android:autoSizeStepGranularity="@dimen/dimen_2sp"
                 android:autoSizeTextType="uniform"
                 android:fontFamily="@font/roboto_light"
+                android:gravity="center"
+                android:maxHeight="@dimen/dimen_112sp"
+                android:minHeight="@dimen/dimen_12sp"
                 android:text="300,000"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/dimen_112sp" />
@@ -85,7 +106,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:autoSizeMaxTextSize="@dimen/dimen_34sp"
+            android:autoSizeMinTextSize="@dimen/dimen_12sp"
+            android:autoSizeStepGranularity="@dimen/dimen_2sp"
+            android:autoSizeTextType="uniform"
             android:fontFamily="@font/roboto_regular"
+            android:gravity="center"
+            android:maxHeight="@dimen/dimen_34sp"
+            android:minHeight="@dimen/dimen_12sp"
             android:text="22/12/2017"
             android:textColor="@android:color/white"
             android:textSize="@dimen/dimen_34sp" />
@@ -98,7 +126,14 @@
         android:layout_below="@+id/relativeLayoutOpportunityExpiration"
         android:layout_marginLeft="@dimen/dimen_16dp"
         android:layout_marginTop="@dimen/dimen_16dp"
+        android:autoSizeMaxTextSize="@dimen/dimen_56sp"
+        android:autoSizeMinTextSize="@dimen/dimen_12sp"
+        android:autoSizeStepGranularity="@dimen/dimen_5sp"
+        android:autoSizeTextType="uniform"
         android:fontFamily="@font/roboto_regular"
+        android:gravity="left|center_vertical"
+        android:maxHeight="@dimen/dimen_56sp"
+        android:minHeight="@dimen/dimen_12sp"
         android:text="Friuli Venezia Giulia"
         android:textSize="@dimen/dimen_56sp" />
 
@@ -108,7 +143,14 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textViewOpportunityLocation"
         android:layout_below="@+id/textViewOpportunityLocation"
+        android:autoSizeMaxTextSize="@dimen/dimen_24sp"
+        android:autoSizeMinTextSize="@dimen/dimen_6sp"
+        android:autoSizeStepGranularity="@dimen/dimen_2sp"
+        android:autoSizeTextType="uniform"
         android:fontFamily="@font/roboto_regular"
+        android:gravity="left|center_vertical"
+        android:maxHeight="@dimen/dimen_24sp"
+        android:minHeight="@dimen/dimen_6sp"
         android:text="Pagamento compensativo per le zone agricole Natura 2000"
         android:textSize="@dimen/dimen_24sp" />
 
@@ -117,7 +159,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_1dp"
         android:layout_below="@+id/textViewOpportunitySummary"
-        android:layout_marginTop="@dimen/dimen_8dp"
+        android:layout_marginBottom="@dimen/dimen_16dp"
+        android:layout_marginTop="@dimen/dimen_16dp"
         android:background="@color/blue_grey_100" />
 
     <LinearLayout
@@ -126,14 +169,22 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/viewOpportunityDivider"
         android:layout_marginLeft="@dimen/dimen_32dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:textAlignment="viewStart">
 
         <TextView
             android:id="@+id/textViewOpportunityThemeString"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dimen_8dp"
+            android:autoSizeMaxTextSize="@dimen/dimen_34sp"
+            android:autoSizeMinTextSize="@dimen/dimen_12sp"
+            android:autoSizeStepGranularity="@dimen/dimen_2sp"
+            android:autoSizeTextType="uniform"
             android:fontFamily="@font/roboto_regular"
+            android:gravity="left|center_vertical"
+            android:maxHeight="@dimen/dimen_34sp"
+            android:minHeight="@dimen/dimen_12sp"
             android:text="@string/string_theme"
             android:textSize="@dimen/dimen_34sp" />
 
@@ -141,7 +192,14 @@
             android:id="@+id/textViewOpportunityTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autoSizeMaxTextSize="@dimen/dimen_24sp"
+            android:autoSizeMinTextSize="@dimen/dimen_6sp"
+            android:autoSizeStepGranularity="@dimen/dimen_2sp"
+            android:autoSizeTextType="uniform"
             android:fontFamily="@font/roboto_regular"
+            android:gravity="left|center_vertical"
+            android:maxHeight="@dimen/dimen_24sp"
+            android:minHeight="@dimen/dimen_6sp"
             android:text="Competitività Imprese"
             android:textSize="@dimen/dimen_24sp" />
     </LinearLayout>
@@ -153,14 +211,22 @@
         android:layout_alignStart="@+id/linearLayoutOpportunityTheme"
         android:layout_below="@+id/linearLayoutOpportunityTheme"
         android:layout_marginTop="@dimen/dimen_8dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:textAlignment="viewStart">
 
         <TextView
             android:id="@+id/textViewOpportunityTypeString"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dimen_8dp"
+            android:autoSizeMaxTextSize="@dimen/dimen_34sp"
+            android:autoSizeMinTextSize="@dimen/dimen_12sp"
+            android:autoSizeStepGranularity="@dimen/dimen_2sp"
+            android:autoSizeTextType="uniform"
             android:fontFamily="@font/roboto_regular"
+            android:gravity="left|center_vertical"
+            android:maxHeight="@dimen/dimen_34sp"
+            android:minHeight="@dimen/dimen_12sp"
             android:text="@string/string_type"
             android:textSize="@dimen/dimen_34sp" />
 
@@ -168,6 +234,14 @@
             android:id="@+id/textViewOpportunityType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autoSizeMaxTextSize="@dimen/dimen_24sp"
+            android:autoSizeMinTextSize="@dimen/dimen_6sp"
+            android:autoSizeStepGranularity="@dimen/dimen_2sp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="left|center_vertical"
+            android:maxHeight="@dimen/dimen_24sp"
+            android:minHeight="@dimen/dimen_6sp"
             android:text="Aspiranti Imprenditori, Nuove Imprese"
             android:textSize="@dimen/dimen_24sp" />
     </LinearLayout>
