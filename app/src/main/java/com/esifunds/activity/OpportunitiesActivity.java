@@ -43,38 +43,10 @@ public class OpportunitiesActivity extends AppCompatActivity
         Intent intentRoot = getIntent();
         final String activityType = intentRoot.getStringExtra("ACTIVITY_TYPE");
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user != null)
-        {
-            final String userEmail = user.getEmail();
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            final DatabaseReference userRef = database.getReference("users/" + user.getUid());
-            userRef.child("firstname").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    final String userFirstName = dataSnapshot.getValue(String.class);
 
-                    userRef.child("lastname").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            // This method is called once with the initial value and again
-                            // whenever data at this location is updated.
-                            init(activityType, userEmail, userFirstName + " " + dataSnapshot.getValue(String.class));
-                        }
+        String userName = "";
+        String email = "";
 
-                        @Override
-                        public void onCancelled(DatabaseError error) {}
-                    });
-                }
-
-                @Override
-                public void onCancelled(DatabaseError error) {}
-            });
-        }
-    }
-
-    private void init(String activityType, String email, String userName)
-    {
         // Toolbar Code
         opportunitiesToolbar = findViewById(R.id.toolbarOpportunitiesActivity);
         setSupportActionBar(opportunitiesToolbar);
@@ -88,9 +60,9 @@ public class OpportunitiesActivity extends AppCompatActivity
         SecondaryDrawerItem drawerItemLogout = new SecondaryDrawerItem().withIdentifier(100).withName(R.string.string_logout).withIcon(FontAwesome.Icon.faw_sign_out);
 
         ProfileDrawerItem profileDrawerItemGuest = new ProfileDrawerItem().withName(R.string.string_guest).withIcon(R.drawable.ic_login_user);
-        ProfileDrawerItem profileDrawerItemUser = new ProfileDrawerItem().withName(userName).withEmail(email).withIcon(R.drawable.ic_login_user);
+        final ProfileDrawerItem profileDrawerItemUser = new ProfileDrawerItem().withIcon(R.drawable.ic_login_user).withIdentifier(1);
 
-        AccountHeader drawerHeaderResult = new AccountHeaderBuilder().withActivity(this).withHeaderBackground(R.drawable.material_drawer_badge)
+        final AccountHeader drawerHeaderResult = new AccountHeaderBuilder().withActivity(this).withHeaderBackground(R.drawable.material_drawer_badge)
                 .addProfiles
                         (
                                 activityType.equals("GUEST") ? profileDrawerItemGuest : profileDrawerItemUser
@@ -110,7 +82,7 @@ public class OpportunitiesActivity extends AppCompatActivity
                 .withSelectionListEnabledForSingleProfile(false)
                 .build();
 
-        Drawer drawerResult = new DrawerBuilder().withActivity(this).withToolbar(opportunitiesToolbar)
+        final Drawer drawerResult = new DrawerBuilder().withActivity(this).withToolbar(opportunitiesToolbar)
                 .withAccountHeader(drawerHeaderResult)
                 .addDrawerItems
                         (
@@ -130,6 +102,46 @@ public class OpportunitiesActivity extends AppCompatActivity
                     }
                 })
                 .build();
+
+        if(!activityType.equals("GUEST"))
+        {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if(user != null)
+            {
+                final String userEmail = user.getEmail();
+                profileDrawerItemUser.withEmail(userEmail);
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                final DatabaseReference userRef = database.getReference("users/" + user.getUid());
+                userRef.child("firstname").addListenerForSingleValueEvent(new ValueEventListener()
+                {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+                        final String userFirstName = dataSnapshot.getValue(String.class);
+
+                        userRef.child("lastname").addListenerForSingleValueEvent(new ValueEventListener()
+                        {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot)
+                            {
+                                profileDrawerItemUser.withName(userFirstName + " " + dataSnapshot.getValue(String.class));
+                                drawerHeaderResult.updateProfile(profileDrawerItemUser);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError error)
+                            {
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error)
+                    {
+                    }
+                });
+            }
+        }
 
         if(!activityType.equals("GUEST"))
             drawerResult.addItem(drawerItemFavourites);
