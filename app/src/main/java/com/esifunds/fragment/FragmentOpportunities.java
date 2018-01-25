@@ -3,6 +3,7 @@ package com.esifunds.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -58,6 +59,16 @@ public class FragmentOpportunities extends Fragment
                 /* The "item" is the clicked Item */
                 // @TODO: Implement click listener for clicked item
 
+                Fragment fragmentOpportunity = new FragmentOpportunity();
+
+                Bundle args = new Bundle();
+                args.putParcelable("opportunity", item);
+                fragmentOpportunity.setArguments(args);
+
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.add(R.id.fragmentPlaceholderOpportunitiesActivity, fragmentOpportunity);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
                 return true;
             }
         });

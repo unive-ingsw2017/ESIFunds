@@ -1,5 +1,7 @@
 package com.esifunds.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageButton;
@@ -15,7 +17,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolder>
+public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolder> implements Parcelable
 {
     private long ID_OPPORTUNITA;
     private String CODICE_PROGRAMMA;
@@ -52,6 +54,38 @@ public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolde
         this.LINK = LINK;
     }
 
+    protected Opportunity(Parcel in)
+    {
+        ID_OPPORTUNITA = in.readLong();
+        CODICE_PROGRAMMA = in.readString();
+        PROGRAMMA = in.readString();
+        FONDO = in.readString();
+        DATA_PUBBLICAZIONE = in.readLong();
+        DATA_SCADENZA = in.readLong();
+        PROROGA_SCADENZA = in.readString();
+        OGGETTO = in.readString();
+        IMPORTO = in.readString();
+        TIPO_OPPORTUNITA = in.readString();
+        TEMA_SINTETICO = in.readString();
+        TIPOLOGIA_BENEFICIARI = in.readString();
+        LINK = in.readString();
+    }
+
+    public static final Creator<Opportunity> CREATOR = new Creator<Opportunity>()
+    {
+        @Override
+        public Opportunity createFromParcel(Parcel in)
+        {
+            return new Opportunity(in);
+        }
+
+        @Override
+        public Opportunity[] newArray(int size)
+        {
+            return new Opportunity[size];
+        }
+    };
+
     @Override
     public int getType()
     {
@@ -68,6 +102,29 @@ public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolde
     public ViewHolder getViewHolder(@NonNull View itemView)
     {
         return new ViewHolder(itemView);
+    }
+
+    @Override
+    public int describeContents()
+    {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i)
+    {
+        parcel.writeLong(ID_OPPORTUNITA);
+        parcel.writeString(CODICE_PROGRAMMA);
+        parcel.writeString(PROGRAMMA);
+        parcel.writeString(FONDO);
+        parcel.writeLong(DATA_PUBBLICAZIONE);
+        parcel.writeLong(DATA_SCADENZA);
+        parcel.writeString(OGGETTO);
+        parcel.writeString(IMPORTO);
+        parcel.writeString(TIPO_OPPORTUNITA);
+        parcel.writeString(TEMA_SINTETICO);
+        parcel.writeString(TIPOLOGIA_BENEFICIARI);
+        parcel.writeString(LINK);
     }
 
     protected static class ViewHolder extends FastAdapter.ViewHolder<Opportunity>
