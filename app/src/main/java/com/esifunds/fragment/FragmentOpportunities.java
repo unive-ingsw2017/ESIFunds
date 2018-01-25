@@ -65,7 +65,7 @@ public class FragmentOpportunities extends Fragment
             @Override
             public void onLoadMore(int currentPage) {
                 footerAdapter.clear();
-                footerAdapter.add(new ProgressItem().withEnabled(true));
+                footerAdapter.add(new ProgressItem().withEnabled(false));
                 // Load your items here and add it to FastAdapter
 
                 mDatabase.getReference("opportunities").limitToFirst(currentPage + 25).addListenerForSingleValueEvent(new ValueEventListener() {
