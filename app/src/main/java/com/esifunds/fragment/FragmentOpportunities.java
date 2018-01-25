@@ -48,7 +48,8 @@ public class FragmentOpportunities extends Fragment
         final ItemAdapter<Opportunity> itemAdapter = new ItemAdapter<>();
         final ItemAdapter<ProgressItem> footerAdapter = new ItemAdapter<>();
 
-        FastAdapter<Opportunity> fastAdapter = FastAdapter.with(footerAdapter).with(itemAdapter);
+        FastAdapter<Opportunity> fastAdapter = FastAdapter.with(footerAdapter);
+        fastAdapter.addAdapter(0, itemAdapter);
         fastAdapter.withSelectable(true);
         fastAdapter.withOnClickListener(new OnClickListener<Opportunity>()
         {
@@ -65,7 +66,7 @@ public class FragmentOpportunities extends Fragment
             @Override
             public void onLoadMore(int currentPage) {
                 footerAdapter.clear();
-                footerAdapter.add(new ProgressItem().withEnabled(false));
+                footerAdapter.add(new ProgressItem().withEnabled(true));
                 // Load your items here and add it to FastAdapter
 
                 mDatabase.getReference("opportunities").limitToFirst(currentPage + 25).addListenerForSingleValueEvent(new ValueEventListener() {
