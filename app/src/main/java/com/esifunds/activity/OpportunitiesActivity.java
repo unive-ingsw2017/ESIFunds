@@ -56,8 +56,8 @@ public class OpportunitiesActivity extends AppCompatActivity
         final SecondaryDrawerItem drawerItemSearch = new SecondaryDrawerItem().withIdentifier(1).withName(R.string.string_search).withIcon(GoogleMaterial.Icon.gmd_search);
         SecondaryDrawerItem drawerItemFavourites = new SecondaryDrawerItem().withIdentifier(2).withName(R.string.string_favourites).withIcon(GoogleMaterial.Icon.gmd_star);
 
-        SecondaryDrawerItem drawerItemLoginRegister = new SecondaryDrawerItem().withIdentifier(100).withName(R.string.string_login_register).withIcon(FontAwesome.Icon.faw_sign_in);
-        SecondaryDrawerItem drawerItemLogout = new SecondaryDrawerItem().withIdentifier(100).withName(R.string.string_logout).withIcon(FontAwesome.Icon.faw_sign_out);
+        final SecondaryDrawerItem drawerItemLoginRegister = new SecondaryDrawerItem().withIdentifier(100).withName(R.string.string_login_register).withIcon(FontAwesome.Icon.faw_sign_in);
+        final SecondaryDrawerItem drawerItemLogout = new SecondaryDrawerItem().withIdentifier(101).withName(R.string.string_logout).withIcon(FontAwesome.Icon.faw_sign_out);
 
         ProfileDrawerItem profileDrawerItemGuest = new ProfileDrawerItem().withName(R.string.string_guest).withIcon(R.drawable.ic_login_user);
         final ProfileDrawerItem profileDrawerItemUser = new ProfileDrawerItem().withIcon(R.drawable.ic_login_user).withIdentifier(1);
@@ -105,13 +105,24 @@ public class OpportunitiesActivity extends AppCompatActivity
                             fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();
                         }
-
-                        if(drawerItem == drawerItemOpportunitiesList)
+                        else if(drawerItem == drawerItemOpportunitiesList)
                         {
                             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, new FragmentOpportunities());
-                            fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();
+                        }
+                        else if(drawerItem == drawerItemLogout)
+                        {
+                            FirebaseAuth.getInstance().signOut();
+                            Intent intentOpportunities = new Intent(getApplication(), MainActivity.class);
+                            startActivity(intentOpportunities);
+                            finish();
+                        }
+                        else if(drawerItem == drawerItemLoginRegister)
+                        {
+                            Intent intentOpportunities = new Intent(getApplication(), MainActivity.class);
+                            startActivity(intentOpportunities);
+                            finish();
                         }
 
                         return false;
@@ -163,9 +174,5 @@ public class OpportunitiesActivity extends AppCompatActivity
             drawerResult.addItem(drawerItemFavourites);
 
         drawerResult.setSelection(drawerItemOpportunitiesList);
-
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, new FragmentOpportunities());
-        fragmentTransaction.commit();
     }
 }

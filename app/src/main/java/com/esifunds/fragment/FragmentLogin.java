@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.esifunds.R;
+import com.esifunds.activity.MainActivity;
 import com.esifunds.activity.OpportunitiesActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -63,6 +64,11 @@ public class FragmentLogin extends Fragment implements View.OnClickListener
                                 Intent intentOpportunities = new Intent(getActivity(), OpportunitiesActivity.class);
                                 intentOpportunities.putExtra("ACTIVITY_TYPE", "LOGIN");
                                 startActivity(intentOpportunities);
+
+                                if(MainActivity.getInstance() != null)
+                                {
+                                    MainActivity.getInstance().finish();
+                                }
                             }
                             else
                             {
