@@ -14,7 +14,6 @@ import com.esifunds.R;
 import com.esifunds.model.Opportunity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mikepenz.fastadapter.FastAdapter;
@@ -73,20 +72,25 @@ public class FragmentOpportunities extends Fragment
             }
         });
 
-        recyclerViewOpportunities.addOnScrollListener(new EndlessRecyclerOnScrollListener(footerAdapter) {
+        recyclerViewOpportunities.addOnScrollListener(new EndlessRecyclerOnScrollListener(footerAdapter)
+        {
             @Override
-            public void onLoadMore(int currentPage) {
+            public void onLoadMore(int currentPage)
+            {
                 footerAdapter.clear();
                 footerAdapter.add(new ProgressItem().withEnabled(true));
                 // Load your items here and add it to FastAdapter
 
-                mDatabase.getReference("opportunities").limitToFirst(currentPage + 25).addListenerForSingleValueEvent(new ValueEventListener() {
+                mDatabase.getReference("opportunities").limitToFirst(currentPage + 25).addListenerForSingleValueEvent(new ValueEventListener()
+                {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
                         Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
 
                         List<Opportunity> listOpportunities = new ArrayList<Opportunity>();
-                        for (DataSnapshot aSnapshotIterable : snapshotIterable) {
+                        for(DataSnapshot aSnapshotIterable : snapshotIterable)
+                        {
                             listOpportunities.add(aSnapshotIterable.getValue(Opportunity.class));
                         }
 
@@ -94,20 +98,25 @@ public class FragmentOpportunities extends Fragment
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError error) {}
+                    public void onCancelled(DatabaseError error)
+                    {
+                    }
                 });
             }
         });
 
         recyclerViewOpportunities.setAdapter(fastAdapter);
 
-        mDatabase.getReference("opportunities").limitToFirst(25).addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.getReference("opportunities").limitToFirst(25).addListenerForSingleValueEvent(new ValueEventListener()
+        {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
                 Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
 
                 List<Opportunity> listOpportunities = new ArrayList<Opportunity>();
-                for (DataSnapshot aSnapshotIterable : snapshotIterable) {
+                for(DataSnapshot aSnapshotIterable : snapshotIterable)
+                {
                     listOpportunities.add(aSnapshotIterable.getValue(Opportunity.class));
                 }
 
@@ -115,7 +124,9 @@ public class FragmentOpportunities extends Fragment
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {}
+            public void onCancelled(DatabaseError error)
+            {
+            }
         });
 
         return viewRoot;

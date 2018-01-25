@@ -23,4 +23,5 @@
     <string name="string_espiration_date">Expiration Date:</string>
     <string name="string_theme">Theme:</string>
     <string name="string_type">Type:</string>
+    <string name="string_map">Map</string>
 </resources>

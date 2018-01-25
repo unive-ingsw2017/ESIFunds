@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.esifunds.R;
 import com.esifunds.fragment.FragmentOpportunities;
+import com.esifunds.fragment.FragmentSearch;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -31,7 +32,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 public class OpportunitiesActivity extends AppCompatActivity
 {
-    private Toolbar opportunitiesToolbar;
+    public Toolbar opportunitiesToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -43,7 +44,6 @@ public class OpportunitiesActivity extends AppCompatActivity
         Intent intentRoot = getIntent();
         final String activityType = intentRoot.getStringExtra("ACTIVITY_TYPE");
 
-
         String userName = "";
         String email = "";
 
@@ -52,8 +52,8 @@ public class OpportunitiesActivity extends AppCompatActivity
         setSupportActionBar(opportunitiesToolbar);
 
         // Drawer Code
-        PrimaryDrawerItem drawerItemOpportunitiesList = new PrimaryDrawerItem().withIdentifier(0).withName(R.string.string_opportunities_list).withIcon(GoogleMaterial.Icon.gmd_list);
-        SecondaryDrawerItem drawerItemSearch = new SecondaryDrawerItem().withIdentifier(1).withName(R.string.string_search).withIcon(GoogleMaterial.Icon.gmd_search);
+        final PrimaryDrawerItem drawerItemOpportunitiesList = new PrimaryDrawerItem().withIdentifier(0).withName(R.string.string_opportunities_list).withIcon(GoogleMaterial.Icon.gmd_list);
+        final SecondaryDrawerItem drawerItemSearch = new SecondaryDrawerItem().withIdentifier(1).withName(R.string.string_search).withIcon(GoogleMaterial.Icon.gmd_search);
         SecondaryDrawerItem drawerItemFavourites = new SecondaryDrawerItem().withIdentifier(2).withName(R.string.string_favourites).withIcon(GoogleMaterial.Icon.gmd_star);
 
         SecondaryDrawerItem drawerItemLoginRegister = new SecondaryDrawerItem().withIdentifier(100).withName(R.string.string_login_register).withIcon(FontAwesome.Icon.faw_sign_in);
@@ -98,6 +98,22 @@ public class OpportunitiesActivity extends AppCompatActivity
                 {
                     @Override public boolean onItemClick(View view, int position, IDrawerItem drawerItem)
                     {
+                        if(drawerItem == drawerItemSearch)
+                        {
+                            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, new FragmentSearch());
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+                        }
+
+                        if(drawerItem == drawerItemOpportunitiesList)
+                        {
+                            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, new FragmentOpportunities());
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+                        }
+
                         return false;
                     }
                 })
