@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.esifunds.R;
+import com.esifunds.activity.MainActivity;
 import com.esifunds.activity.OpportunitiesActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -81,6 +82,10 @@ public class FragmentRegister extends Fragment implements View.OnClickListener
                                 intentOpportunities.putExtra("USER_MAIL", "email@gmail.com");
 
                                 startActivity(intentOpportunities);
+                                if(MainActivity.getInstance() != null)
+                                {
+                                    MainActivity.getInstance().finish();
+                                }
                             }
                             else
                             {

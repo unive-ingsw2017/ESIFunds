@@ -1,14 +1,20 @@
 package com.esifunds.model;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.esifunds.R;
+import com.esifunds.activity.MainActivity;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
 
@@ -147,6 +153,31 @@ public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolde
             // @TODO: This Icon should be parametric
             opportunityAvatar.setImageResource(R.drawable.common_google_signin_btn_icon_dark);
 
+            if(UserFavourites.get(item.getID_OPPORTUNITA()) != null)
+            {
+                UserFavourites.get(item.getID_OPPORTUNITA()).addValueEventListener(new ValueEventListener()
+                {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+                        if(dataSnapshot.exists())
+                        {
+                            opportunityIcon.setImageResource(R.drawable.ic_star_yellow_24dp);
+                        }
+                        else
+                        {
+                            opportunityIcon.setImageResource(R.drawable.ic_star_border_black_24dp);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError)
+                    {
+
+                    }
+                });
+            }
+
             opportunityName.setText(item.getCODICE_PROGRAMMA());
             opportunityDescription.setText(item.getOGGETTO());
 
@@ -154,7 +185,7 @@ public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolde
             {
                 @Override public void onClick(View v)
                 {
-                    // @TODO: Implement favourite button functionality
+                    UserFavourites.toggleFavourite(item.getID_OPPORTUNITA());
                 }
             });
         }
