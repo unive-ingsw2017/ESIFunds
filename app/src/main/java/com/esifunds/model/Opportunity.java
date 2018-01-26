@@ -1,17 +1,14 @@
 package com.esifunds.model;
 
-import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.esifunds.R;
-import com.esifunds.activity.MainActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -132,6 +129,8 @@ public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolde
         parcel.writeString(TIPOLOGIA_BENEFICIARI);
         parcel.writeString(LINK);
     }
+
+    // TODO: Change the fact that "Favourite" button is only present for logged users
 
     protected static class ViewHolder extends FastAdapter.ViewHolder<Opportunity>
     {
