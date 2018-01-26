@@ -55,9 +55,6 @@ public class FragmentOpportunities extends Fragment
         {
             @Override public boolean onClick(View view, IAdapter<Opportunity> adapter, Opportunity item, int position)
             {
-                /* The "item" is the clicked Item */
-                // @TODO: Implement click listener for clicked item
-
                 Fragment fragmentOpportunity = new FragmentOpportunity();
 
                 Bundle args = new Bundle();

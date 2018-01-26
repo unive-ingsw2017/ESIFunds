@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.esifunds.R;
 import com.esifunds.fragment.FragmentOpportunities;
@@ -33,6 +34,8 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 public class OpportunitiesActivity extends AppCompatActivity
 {
     public Toolbar opportunitiesToolbar;
+    public Toolbar fullSearchToolbar;
+    public ImageButton opportunitiesSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -49,7 +52,26 @@ public class OpportunitiesActivity extends AppCompatActivity
 
         // Toolbar Code
         opportunitiesToolbar = findViewById(R.id.toolbarOpportunitiesActivity);
+        View fullSearchToolbarView = getLayoutInflater().inflate(R.layout.toolbar_search, null);
+        fullSearchToolbar = fullSearchToolbarView.findViewById(R.id.toolbarFullSearch);
+
+        opportunitiesToolbar.setTitle("");
+        fullSearchToolbar.setTitle("");
+
         setSupportActionBar(opportunitiesToolbar);
+
+        opportunitiesSearch = findViewById(R.id.imageButtonOpportunitiesActivitySearch);
+        opportunitiesSearch.setOnClickListener(new View.OnClickListener()
+        {
+            @Override public void onClick(View v)
+            {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, new FragmentSearch());
+                fragmentTransaction.commit();
+
+                // TODO: Update Toolbar with Search one onClick
+            }
+        });
 
         // Drawer Code
         final PrimaryDrawerItem drawerItemOpportunitiesList = new PrimaryDrawerItem().withIdentifier(0).withName(R.string.string_opportunities_list).withIcon(GoogleMaterial.Icon.gmd_list);
@@ -119,6 +141,7 @@ public class OpportunitiesActivity extends AppCompatActivity
                 })
                 .build();
 
+        // FastAdapter Code
         if(!activityType.equals("GUEST"))
         {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

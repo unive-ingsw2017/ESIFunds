@@ -24,7 +24,6 @@ public class FragmentSearch extends Fragment
         View viewRoot = inflater.inflate(R.layout.fragment_search, container, false);
 
         OpportunitiesActivity opportunitiesActivity = (OpportunitiesActivity) getActivity();
-        opportunitiesActivity.opportunitiesToolbar.setTitle(null);
 
         TabLayout tabLayout = viewRoot.findViewById(R.id.tabLayoutFragmentSearch);
 

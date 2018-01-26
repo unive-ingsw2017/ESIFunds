@@ -1,26 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayoutOpportunitiesActivity"
+    android:id="@+id/relativeLayoutOpportunitiesActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.esifunds.activity.OpportunitiesActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbarOpportunitiesActivity"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dimen_64dp"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:titleTextColor="@android:color/white" />
 
+    <ImageButton
+        android:id="@+id/imageButtonOpportunitiesActivitySearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="@dimen/dimen_16dp"
+        android:layout_marginTop="@dimen/dimen_20dp"
+        android:background="@null"
+        app:srcCompat="@drawable/ic_search_white_24dp" />
+
     <FrameLayout
         android:id="@+id/fragmentPlaceholderOpportunitiesActivity"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbarOpportunitiesActivity">
 
     </FrameLayout>
-</LinearLayout>
+</RelativeLayout>
