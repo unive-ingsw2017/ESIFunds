@@ -14,8 +14,7 @@
         android:layout_height="@dimen/dimen_280dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:background="@color/md_teal_500"
-        android:elevation="@dimen/dimen_8dp">
+        android:background="@color/md_teal_500">
 
         <ImageView
             android:id="@+id/imageViewOpportunityAvatarInternal"
@@ -100,8 +99,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_60dp"
         android:layout_below="@+id/relativeLayoutOpportunityMoney"
-        android:background="@color/md_red_700"
-        android:elevation="@dimen/dimen_8dp">
+        android:background="@color/md_red_700">
 
         <TextView
             android:id="@+id/textViewOpportunityExpirationDate"
