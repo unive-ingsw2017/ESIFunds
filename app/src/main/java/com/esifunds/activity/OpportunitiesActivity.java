@@ -180,6 +180,7 @@ public class OpportunitiesActivity extends AppCompatActivity
                     {
                         if(drawerItem == drawerItemSearch)
                         {
+                            showSearchBar();
                             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentSearch = new FragmentSearch();
                             fragmentTransaction.add(R.id.fragmentPlaceholderOpportunitiesActivity, fragmentSearch);
