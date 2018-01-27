@@ -84,6 +84,7 @@ public class FragmentRegister extends Fragment implements View.OnClickListener
                                 startActivity(intentOpportunities);
                                 if(MainActivity.getInstance() != null)
                                 {
+                                    MainActivity.getInstance().setFirstStart(false);
                                     MainActivity.getInstance().finish();
                                 }
                             }

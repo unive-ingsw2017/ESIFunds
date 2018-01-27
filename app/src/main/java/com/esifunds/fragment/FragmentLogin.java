@@ -1,6 +1,8 @@
 package com.esifunds.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
@@ -67,6 +69,8 @@ public class FragmentLogin extends Fragment implements View.OnClickListener
 
                                 if(MainActivity.getInstance() != null)
                                 {
+                                    MainActivity.getInstance().setFirstStart(false);
+
                                     MainActivity.getInstance().finish();
                                 }
                             }

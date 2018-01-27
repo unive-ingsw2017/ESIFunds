@@ -3,6 +3,7 @@ package com.esifunds.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -199,12 +200,16 @@ public class OpportunitiesActivity extends AppCompatActivity
                         else if(drawerItem == drawerItemLogout)
                         {
                             FirebaseAuth.getInstance().signOut();
-                            Intent intentOpportunities = new Intent(getApplication(), MainActivity.class);
-                            startActivity(intentOpportunities);
+                            Intent intentMain = new Intent(getApplication(), MainActivity.class);
+                            intentMain.putExtra("INTERNAL", true);
+                            startActivity(intentMain);
                             finish();
                         }
                         else if(drawerItem == drawerItemLoginRegister)
                         {
+                            Intent intentMain = new Intent(getApplication(), MainActivity.class);
+                            intentMain.putExtra("INTERNAL", true);
+                            startActivity(intentMain);
                             finish();
                         }
 
@@ -276,7 +281,15 @@ public class OpportunitiesActivity extends AppCompatActivity
         }
         else if(!drawerResult.isDrawerOpen()) // If drawer isn't open and we're at top-level, exit
         {
-            finish();
+            Fragment fragment = getSupportFragmentManager().getPrimaryNavigationFragment();
+            if(fragment instanceof FragmentOpportunities)
+            {
+                finish();
+            }
+            else
+            {
+                super.onBackPressed();
+            }
         }
         else if(drawerResult.isDrawerOpen())
         {

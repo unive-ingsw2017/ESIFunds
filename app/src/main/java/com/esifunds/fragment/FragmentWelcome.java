@@ -1,6 +1,8 @@
 package com.esifunds.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -70,8 +72,10 @@ public class FragmentWelcome extends Fragment implements View.OnClickListener
 
                 if(MainActivity.getInstance() != null)
                 {
+                    MainActivity.getInstance().setFirstStart(false);
                     MainActivity.getInstance().finish();
                 }
+
                 break;
             }
         }
