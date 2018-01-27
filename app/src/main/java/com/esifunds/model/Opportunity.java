@@ -102,6 +102,7 @@ public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolde
     }
 
     @Override
+    @NonNull
     public ViewHolder getViewHolder(@NonNull View itemView)
     {
         return new ViewHolder(itemView);

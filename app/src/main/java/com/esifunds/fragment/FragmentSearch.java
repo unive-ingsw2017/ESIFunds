@@ -15,6 +15,8 @@ import com.esifunds.activity.OpportunitiesActivity;
 
 public class FragmentSearch extends Fragment
 {
+    private FragmentOpportunities fragmentOpportunities;
+
     public FragmentSearch()
     {
     }
@@ -55,9 +57,15 @@ public class FragmentSearch extends Fragment
         {
             case 0:
             {
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentPlaceholderFragmentSearch, new FragmentOpportunities());
-                fragmentTransaction.commit();
+
+                fragmentOpportunities = new FragmentOpportunities();
+                Bundle args = new Bundle();
+                args.putBoolean("IS_SEARCH", true);
+                fragmentOpportunities.setArguments(args);
+
+                //FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                //fragmentTransaction.replace(R.id.fragmentPlaceholderFragmentSearch, fragmentOpportunities);
+                //fragmentTransaction.commit();
 
                 Log.i("TAB", "0");
                 break;
@@ -75,5 +83,10 @@ public class FragmentSearch extends Fragment
                 break;
             }
         }
+    }
+
+    public FragmentOpportunities getFragmentOpportunities()
+    {
+        return fragmentOpportunities;
     }
 }

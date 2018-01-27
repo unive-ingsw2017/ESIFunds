@@ -7,6 +7,8 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -38,6 +40,7 @@ public class OpportunitiesActivity extends AppCompatActivity
     private ImageButton opportunitiesSearch;
     private ImageButton imageButtonFullSearch;
     private TextInputEditText textInputEditTextSearch;
+    private FragmentSearch fragmentSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -54,7 +57,6 @@ public class OpportunitiesActivity extends AppCompatActivity
 
         // Toolbar Code
         Toolbar opportunitiesToolbar = findViewById(R.id.toolbarOpportunitiesActivity);
-        View fullSearchToolbarView = getLayoutInflater().inflate(R.layout.toolbar_search, null);
 
         opportunitiesToolbar.setTitle("");
 
@@ -64,12 +66,35 @@ public class OpportunitiesActivity extends AppCompatActivity
         opportunitiesSearch = findViewById(R.id.imageButtonOpportunitiesActivitySearch);
         imageButtonFullSearch = findViewById(R.id.imageButtonFullSearch);
         textInputEditTextSearch = findViewById(R.id.textInputEditTextSearch);
+
+        textInputEditTextSearch.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+                //fragmentSearch.getFragmentOpportunities().searchWithString(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+
+            }
+        });
+
         opportunitiesSearch.setOnClickListener(new View.OnClickListener()
         {
             @Override public void onClick(View v)
             {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, new FragmentSearch());
+                fragmentSearch = new FragmentSearch();
+                fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, fragmentSearch);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
 
@@ -142,7 +167,8 @@ public class OpportunitiesActivity extends AppCompatActivity
                         if(drawerItem == drawerItemSearch)
                         {
                             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, new FragmentSearch());
+                            fragmentSearch = new FragmentSearch();
+                            fragmentTransaction.add(R.id.fragmentPlaceholderOpportunitiesActivity, fragmentSearch);
                             fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();
                         }

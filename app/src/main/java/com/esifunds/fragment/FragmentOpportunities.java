@@ -33,9 +33,46 @@ public class FragmentOpportunities extends Fragment
 {
     RecyclerView recyclerViewOpportunities;
     private FirebaseDatabase mDatabase;
+    private ItemAdapter<Opportunity> itemAdapter = new ItemAdapter<>();
 
     public FragmentOpportunities()
     {
+    }
+
+    public void searchWithString(final String toSearch)
+    {
+        itemAdapter.clear();
+        mDatabase.getReference("opportunities").addListenerForSingleValueEvent(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
+
+                List<Opportunity> listOpportunities = new ArrayList<Opportunity>();
+                for(DataSnapshot aSnapshotIterable : snapshotIterable)
+                {
+                    Opportunity opportunity = aSnapshotIterable.getValue(Opportunity.class);
+                    if(opportunity == null)
+                    {
+                        continue;
+                    }
+
+                    if(opportunity.getOGGETTO().contains(toSearch))
+                    {
+                        listOpportunities.add(aSnapshotIterable.getValue(Opportunity.class));
+                    }
+                }
+
+                itemAdapter.add(listOpportunities);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+
+            }
+        });
     }
 
     @Override
@@ -45,10 +82,16 @@ public class FragmentOpportunities extends Fragment
 
         mDatabase = FirebaseDatabase.getInstance();
 
+        Bundle args = getArguments();
+        boolean isSearch = false;
+        if(args != null)
+        {
+            isSearch = args.getBoolean("IS_SEARCH", false);
+        }
+
         recyclerViewOpportunities = viewRoot.findViewById(R.id.recyclerViewOpportunities);
 
         recyclerViewOpportunities.setLayoutManager(new LinearLayoutManager(getContext()));
-        final ItemAdapter<Opportunity> itemAdapter = new ItemAdapter<>();
         final ItemAdapter<ProgressItem> footerAdapter = new ItemAdapter<>();
 
         FastAdapter<Opportunity> fastAdapter = FastAdapter.with(footerAdapter);
@@ -72,93 +115,65 @@ public class FragmentOpportunities extends Fragment
             }
         });
 
-        recyclerViewOpportunities.addOnScrollListener(new EndlessRecyclerOnScrollListener(footerAdapter)
+        if(!isSearch)
         {
-            @Override
-            public void onLoadMore(int currentPage)
+            recyclerViewOpportunities.addOnScrollListener(new EndlessRecyclerOnScrollListener(footerAdapter)
             {
-                footerAdapter.clear();
-                footerAdapter.add(new ProgressItem().withEnabled(true));
-                // Load your items here and add it to FastAdapter
-
-                mDatabase.getReference("opportunities").limitToFirst(currentPage + 25).addListenerForSingleValueEvent(new ValueEventListener()
+                @Override
+                public void onLoadMore(int currentPage)
                 {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot)
-                    {
-                        Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
+                    footerAdapter.clear();
+                    footerAdapter.add(new ProgressItem().withEnabled(true));
+                    // Load your items here and add it to FastAdapter
 
-                        List<Opportunity> listOpportunities = new ArrayList<Opportunity>();
-                        for(DataSnapshot aSnapshotIterable : snapshotIterable)
+                    mDatabase.getReference("opportunities").limitToFirst(currentPage + 25).addListenerForSingleValueEvent(new ValueEventListener()
+                    {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot)
                         {
-                            listOpportunities.add(aSnapshotIterable.getValue(Opportunity.class));
+                            Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
+
+                            List<Opportunity> listOpportunities = new ArrayList<Opportunity>();
+                            for(DataSnapshot aSnapshotIterable : snapshotIterable)
+                            {
+                                listOpportunities.add(aSnapshotIterable.getValue(Opportunity.class));
+                            }
+
+                            itemAdapter.add(listOpportunities);
                         }
 
-                        itemAdapter.add(listOpportunities);
+                        @Override
+                        public void onCancelled(DatabaseError error)
+                        {
+                        }
+                    });
+                }
+            });
+
+            mDatabase.getReference("opportunities").limitToFirst(25).addListenerForSingleValueEvent(new ValueEventListener()
+            {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot)
+                {
+                    Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
+
+                    List<Opportunity> listOpportunities = new ArrayList<Opportunity>();
+                    for(DataSnapshot aSnapshotIterable : snapshotIterable)
+                    {
+                        listOpportunities.add(aSnapshotIterable.getValue(Opportunity.class));
                     }
 
-                    @Override
-                    public void onCancelled(DatabaseError error)
-                    {
-                    }
-                });
-            }
-        });
+                    itemAdapter.add(listOpportunities);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error)
+                {
+                }
+            });
+        }
 
         recyclerViewOpportunities.setAdapter(fastAdapter);
-
-        mDatabase.getReference("opportunities").addListenerForSingleValueEvent(new ValueEventListener()
-        {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot)
-            {
-                Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
-
-                for(DataSnapshot aSnapshotIterable : snapshotIterable)
-                {
-                    Opportunity opp = aSnapshotIterable.getValue(Opportunity.class);
-                    if(opp == null)
-                    {
-                        continue;
-                    }
-
-                    if(opp.getOGGETTO().contains("lavoro"))
-                    {
-                        Log.i("aaa", "val = " + dataSnapshot.getValue());
-                        break;
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError)
-            {
-
-            }
-        });
-
-        mDatabase.getReference("opportunities").limitToFirst(25).addListenerForSingleValueEvent(new ValueEventListener()
-        {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot)
-            {
-                Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
-
-                List<Opportunity> listOpportunities = new ArrayList<Opportunity>();
-                for(DataSnapshot aSnapshotIterable : snapshotIterable)
-                {
-                    listOpportunities.add(aSnapshotIterable.getValue(Opportunity.class));
-                }
-
-                itemAdapter.add(listOpportunities);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error)
-            {
-            }
-        });
 
         return viewRoot;
     }
