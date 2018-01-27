@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.esifunds.R;
-import com.esifunds.activity.OpportunitiesActivity;
 
 public class FragmentSearch extends Fragment
 {
@@ -57,7 +56,6 @@ public class FragmentSearch extends Fragment
         {
             case 0:
             {
-
                 fragmentOpportunities = new FragmentOpportunities();
                 Bundle args = new Bundle();
                 args.putBoolean("IS_SEARCH", true);
@@ -67,7 +65,6 @@ public class FragmentSearch extends Fragment
                 fragmentTransaction.replace(R.id.fragmentPlaceholderFragmentSearch, fragmentOpportunities);
                 fragmentTransaction.commit();
 
-                Log.i("TAB", "0");
                 break;
             }
 
