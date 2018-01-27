@@ -4,8 +4,9 @@
     android:id="@+id/linearLayoutMainActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.esifunds.activity.MainActivity"
-    android:orientation="vertical">
+    android:background="@color/md_grey_100"
+    android:orientation="vertical"
+    tools:context="com.esifunds.activity.MainActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbarMainActivity"
@@ -29,7 +30,8 @@
     <FrameLayout
         android:id="@+id/fragmentPlaceholderMainActivity"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/md_grey_100">
 
     </FrameLayout>
 </LinearLayout>

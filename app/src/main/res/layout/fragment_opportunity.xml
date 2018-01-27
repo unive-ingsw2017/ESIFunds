@@ -1,12 +1,11 @@
-<RelativeLayout android:id="@+id/relativeLayoutOpportunity"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/background_default"
-                android:backgroundTint="@color/background_default"
-                tools:context="com.esifunds.fragment.FragmentOpportunity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayoutOpportunity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_grey_100"
+    tools:context="com.esifunds.fragment.FragmentOpportunity">
 
 
     <RelativeLayout
@@ -25,7 +24,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
             android:layout_marginTop="@dimen/dimen_16dp"
-            android:src="@drawable/ic_login_user"/>
+            android:src="@drawable/ic_login_user" />
 
         <TextView
             android:id="@+id/textViewProgram"
@@ -46,7 +45,7 @@
             app:autoSizeMaxTextSize="@dimen/dimen_34sp"
             app:autoSizeMinTextSize="@dimen/dimen_12sp"
             app:autoSizeStepGranularity="@dimen/dimen_2sp"
-            app:autoSizeTextType="uniform"/>
+            app:autoSizeTextType="uniform" />
 
         <LinearLayout
             android:id="@+id/linearLayoutOpportunityMoney"
@@ -74,7 +73,7 @@
                 app:autoSizeMaxTextSize="@dimen/dimen_112sp"
                 app:autoSizeMinTextSize="@dimen/dimen_12sp"
                 app:autoSizeStepGranularity="@dimen/dimen_2sp"
-                app:autoSizeTextType="uniform"/>
+                app:autoSizeTextType="uniform" />
 
             <TextView
                 android:id="@+id/textViewOpportunityMoneyValue"
@@ -90,7 +89,7 @@
                 app:autoSizeMaxTextSize="@dimen/dimen_112sp"
                 app:autoSizeMinTextSize="@dimen/dimen_12sp"
                 app:autoSizeStepGranularity="@dimen/dimen_2sp"
-                app:autoSizeTextType="uniform"/>
+                app:autoSizeTextType="uniform" />
 
         </LinearLayout>
 
@@ -119,7 +118,7 @@
             app:autoSizeMaxTextSize="@dimen/dimen_34sp"
             app:autoSizeMinTextSize="@dimen/dimen_12sp"
             app:autoSizeStepGranularity="@dimen/dimen_2sp"
-            app:autoSizeTextType="uniform"/>
+            app:autoSizeTextType="uniform" />
     </RelativeLayout>
 
     <TextView
@@ -138,7 +137,7 @@
         app:autoSizeMaxTextSize="@dimen/dimen_56sp"
         app:autoSizeMinTextSize="@dimen/dimen_12sp"
         app:autoSizeStepGranularity="@dimen/dimen_5sp"
-        app:autoSizeTextType="uniform"/>
+        app:autoSizeTextType="uniform" />
 
     <TextView
         android:id="@+id/textViewOpportunitySummary"
@@ -156,8 +155,10 @@
         android:singleLine="false"
         android:text="Pagamento compensativo per le zone agricole Natura 2000"
         android:textSize="@dimen/dimen_24sp"
-        app:autoSizeMaxTextSize="@dimen/dimen_24sp" app:autoSizeMinTextSize="@dimen/dimen_16sp"
-        app:autoSizeStepGranularity="@dimen/dimen_2sp" app:autoSizeTextType="uniform"/>
+        app:autoSizeMaxTextSize="@dimen/dimen_24sp"
+        app:autoSizeMinTextSize="@dimen/dimen_16sp"
+        app:autoSizeStepGranularity="@dimen/dimen_2sp"
+        app:autoSizeTextType="uniform" />
 
     <View
         android:id="@+id/viewOpportunityDivider"
@@ -166,7 +167,7 @@
         android:layout_below="@+id/textViewOpportunitySummary"
         android:layout_marginBottom="@dimen/dimen_8dp"
         android:layout_marginTop="@dimen/dimen_8dp"
-        android:background="@color/blue_grey_100"/>
+        android:background="@color/blue_grey_100" />
 
     <LinearLayout
         android:id="@+id/linearLayoutOpportunityTheme"
@@ -191,7 +192,7 @@
             app:autoSizeMaxTextSize="@dimen/dimen_34sp"
             app:autoSizeMinTextSize="@dimen/dimen_12sp"
             app:autoSizeStepGranularity="@dimen/dimen_2sp"
-            app:autoSizeTextType="uniform"/>
+            app:autoSizeTextType="uniform" />
 
         <TextView
             android:id="@+id/textViewOpportunityTheme"
@@ -206,7 +207,7 @@
             app:autoSizeMaxTextSize="@dimen/dimen_24sp"
             app:autoSizeMinTextSize="@dimen/dimen_6sp"
             app:autoSizeStepGranularity="@dimen/dimen_2sp"
-            app:autoSizeTextType="uniform"/>
+            app:autoSizeTextType="uniform" />
     </LinearLayout>
 
     <LinearLayout
@@ -233,7 +234,7 @@
             app:autoSizeMaxTextSize="@dimen/dimen_34sp"
             app:autoSizeMinTextSize="@dimen/dimen_12sp"
             app:autoSizeStepGranularity="@dimen/dimen_2sp"
-            app:autoSizeTextType="uniform"/>
+            app:autoSizeTextType="uniform" />
 
         <TextView
             android:id="@+id/textViewOpportunityType"
@@ -248,7 +249,7 @@
             app:autoSizeMaxTextSize="@dimen/dimen_24sp"
             app:autoSizeMinTextSize="@dimen/dimen_6sp"
             app:autoSizeStepGranularity="@dimen/dimen_2sp"
-            app:autoSizeTextType="uniform"/>
+            app:autoSizeTextType="uniform" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -3,6 +3,7 @@
     android:id="@+id/relativeLayoutFragmentSearch"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/md_grey_100"
     tools:context="com.esifunds.fragment.FragmentSearch">
 
     <android.support.design.widget.TabLayout
@@ -35,7 +36,8 @@
         android:id="@+id/fragmentPlaceholderFragmentSearch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tabLayoutFragmentSearch">
+        android:layout_below="@+id/tabLayoutFragmentSearch"
+        android:background="@color/md_grey_100">
 
     </FrameLayout>
 </RelativeLayout>

@@ -24,4 +24,6 @@
     <string name="string_theme">Tema:</string>
     <string name="string_type">Type:</string>
     <string name="string_map">Mappa</string>
+    <string name="string_old_password">Vecchia Password</string>
+    <string name="string_new_password">Nuova Password</string>
 </resources>

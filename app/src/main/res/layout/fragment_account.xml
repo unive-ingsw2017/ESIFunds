@@ -1,0 +1,124 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_grey_100"
+    tools:context="com.esifunds.fragment.FragmentAccount">
+
+    <ImageView
+        android:id="@+id/imageViewAccountManagementProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:src="@drawable/ic_login_user" />
+
+    <TextView
+        android:id="@+id/textViewAccountManagementProfileFName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageViewAccountManagementProfile"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        app:autoSizeMaxTextSize="@dimen/dimen_34sp"
+        app:autoSizeMinTextSize="@dimen/dimen_12sp"
+        app:autoSizeStepGranularity="@dimen/dimen_2sp"
+        app:autoSizeTextType="uniform"
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="center"
+        android:maxHeight="@dimen/dimen_45sp"
+        android:minHeight="@dimen/dimen_12sp"
+        android:text="FirstName LastName"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/dimen_34sp" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayoutAccountManagementFirstName"
+        android:layout_width="@dimen/dimen_256dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewAccountManagementProfileFName"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/dimen_32dp"
+        android:textColorHint="@color/colorAccent">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/textInputAccountManagementFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:hint="@string/string_firstname"
+            android:textColor="@color/colorAccent"
+            android:textColorHighlight="@color/colorAccent"
+            android:textColorHint="@color/colorAccent" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayoutAccountManagementLastName"
+        android:layout_width="@dimen/dimen_256dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textInputLayoutAccountManagementFirstName"
+        android:layout_centerInParent="true"
+        android:textColorHint="@color/colorAccent">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/textInputAccountManagementLastName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:hint="@string/string_lastname"
+            android:textColor="@color/colorAccent"
+            android:textColorHighlight="@color/colorAccent"
+            android:textColorHint="@color/colorAccent" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayoutAccountManagementOldPassword"
+        android:layout_width="@dimen/dimen_256dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textInputLayoutAccountManagementLastName"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/dimen_32dp"
+        android:textColorHint="@color/colorAccent">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/textInputAccountManagementOldPassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:hint="@string/string_old_password"
+            android:textColor="@color/colorAccent"
+            android:textColorHighlight="@color/colorAccent"
+            android:textColorHint="@color/colorAccent" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayoutAccountManagementNewPassword"
+        android:layout_width="@dimen/dimen_256dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textInputLayoutAccountManagementOldPassword"
+        android:layout_centerInParent="true"
+        android:textColorHint="@color/colorAccent">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/textInputAccountManagementNewPassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:hint="@string/string_new_password"
+            android:textColor="@color/colorAccent"
+            android:textColorHighlight="@color/colorAccent"
+            android:textColorHint="@color/colorAccent" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButtonAccountManagementConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textInputLayoutAccountManagementNewPassword"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/dimen_32dp"
+        android:clickable="true"
+        android:src="@drawable/ic_check_white_24dp" />
+</RelativeLayout>
