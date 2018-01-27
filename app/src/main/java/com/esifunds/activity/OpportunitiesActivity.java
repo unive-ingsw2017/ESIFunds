@@ -3,7 +3,6 @@ package com.esifunds.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +12,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.esifunds.R;
+import com.esifunds.fragment.FragmentAccount;
 import com.esifunds.fragment.FragmentOpportunities;
 import com.esifunds.fragment.FragmentSearch;
 import com.google.firebase.auth.FirebaseAuth;
@@ -142,6 +142,14 @@ public class OpportunitiesActivity extends AppCompatActivity
                 {
                     @Override public boolean onProfileImageClick(View view, IProfile profile, boolean current)
                     {
+                        if(!activityType.equals("GUEST"))
+                        {
+                            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, new FragmentAccount());
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+                        }
+
                         return false;
                     }
 
