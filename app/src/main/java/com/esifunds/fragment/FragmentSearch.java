@@ -4,6 +4,7 @@ package com.esifunds.fragment;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +22,7 @@ public class FragmentSearch extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View viewRoot = inflater.inflate(R.layout.fragment_search, container, false);
-
-        OpportunitiesActivity opportunitiesActivity = (OpportunitiesActivity) getActivity();
+        final View viewRoot = inflater.inflate(R.layout.fragment_search, container, false);
 
         TabLayout tabLayout = viewRoot.findViewById(R.id.tabLayoutFragmentSearch);
 
@@ -31,26 +30,7 @@ public class FragmentSearch extends Fragment
         {
             @Override public void onTabSelected(TabLayout.Tab tab)
             {
-                switch(tab.getPosition())
-                {
-                    case 0:
-                    {
-                        Log.i("TAB", "0");
-                        break;
-                    }
-
-                    case 1:
-                    {
-                        Log.i("TAB", "1");
-                        break;
-                    }
-
-                    case 2:
-                    {
-                        Log.i("TAB", "2");
-                        break;
-                    }
-                }
+                loadFragmentForTab(tab.getPosition());
             }
 
             @Override public void onTabUnselected(TabLayout.Tab tab)
@@ -64,6 +44,36 @@ public class FragmentSearch extends Fragment
             }
         });
 
+        loadFragmentForTab(tabLayout.getSelectedTabPosition());
+
         return viewRoot;
+    }
+
+    private void loadFragmentForTab(int position)
+    {
+        switch(position)
+        {
+            case 0:
+            {
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragmentPlaceholderFragmentSearch, new FragmentOpportunities());
+                fragmentTransaction.commit();
+
+                Log.i("TAB", "0");
+                break;
+            }
+
+            case 1:
+            {
+                Log.i("TAB", "1");
+                break;
+            }
+
+            case 2:
+            {
+                Log.i("TAB", "2");
+                break;
+            }
+        }
     }
 }

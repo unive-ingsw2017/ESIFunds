@@ -2,6 +2,8 @@ package com.esifunds.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -33,9 +35,9 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 public class OpportunitiesActivity extends AppCompatActivity
 {
-    public Toolbar opportunitiesToolbar;
-    public Toolbar fullSearchToolbar;
-    public ImageButton opportunitiesSearch;
+    private ImageButton opportunitiesSearch;
+    private ImageButton imageButtonFullSearch;
+    private TextInputEditText textInputEditTextSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -51,25 +53,42 @@ public class OpportunitiesActivity extends AppCompatActivity
         String email = "";
 
         // Toolbar Code
-        opportunitiesToolbar = findViewById(R.id.toolbarOpportunitiesActivity);
+        Toolbar opportunitiesToolbar = findViewById(R.id.toolbarOpportunitiesActivity);
         View fullSearchToolbarView = getLayoutInflater().inflate(R.layout.toolbar_search, null);
-        fullSearchToolbar = fullSearchToolbarView.findViewById(R.id.toolbarFullSearch);
 
         opportunitiesToolbar.setTitle("");
-        fullSearchToolbar.setTitle("");
 
         setSupportActionBar(opportunitiesToolbar);
 
+
         opportunitiesSearch = findViewById(R.id.imageButtonOpportunitiesActivitySearch);
+        imageButtonFullSearch = findViewById(R.id.imageButtonFullSearch);
+        textInputEditTextSearch = findViewById(R.id.textInputEditTextSearch);
         opportunitiesSearch.setOnClickListener(new View.OnClickListener()
         {
             @Override public void onClick(View v)
             {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, new FragmentSearch());
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
 
-                // TODO: Update Toolbar with Search one onClick
+                textInputEditTextSearch.setVisibility(View.VISIBLE);
+
+                opportunitiesSearch.setVisibility(View.GONE);
+                imageButtonFullSearch.setVisibility(View.VISIBLE);
+            }
+        });
+
+        imageButtonFullSearch.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                textInputEditTextSearch.setVisibility(View.GONE);
+
+                opportunitiesSearch.setVisibility(View.VISIBLE);
+                imageButtonFullSearch.setVisibility(View.GONE);
             }
         });
 
@@ -197,5 +216,18 @@ public class OpportunitiesActivity extends AppCompatActivity
             drawerResult.addItem(drawerItemFavourites);
 
         drawerResult.setSelection(drawerItemOpportunitiesList);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        if(textInputEditTextSearch.getVisibility() == View.VISIBLE)
+        {
+            textInputEditTextSearch.setVisibility(View.GONE);
+
+            opportunitiesSearch.setVisibility(View.VISIBLE);
+            imageButtonFullSearch.setVisibility(View.GONE);
+        }
     }
 }

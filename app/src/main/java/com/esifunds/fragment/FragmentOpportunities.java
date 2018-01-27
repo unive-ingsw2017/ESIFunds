@@ -6,12 +6,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.esifunds.R;
 import com.esifunds.model.Opportunity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -103,6 +106,37 @@ public class FragmentOpportunities extends Fragment
         });
 
         recyclerViewOpportunities.setAdapter(fastAdapter);
+
+        mDatabase.getReference("opportunities").addListenerForSingleValueEvent(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
+
+                for(DataSnapshot aSnapshotIterable : snapshotIterable)
+                {
+                    Opportunity opp = aSnapshotIterable.getValue(Opportunity.class);
+                    if(opp == null)
+                    {
+                        continue;
+                    }
+
+                    if(opp.getOGGETTO().contains("lavoro"))
+                    {
+                        Log.i("aaa", "val = " + dataSnapshot.getValue());
+                        break;
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+
+            }
+        });
 
         mDatabase.getReference("opportunities").limitToFirst(25).addListenerForSingleValueEvent(new ValueEventListener()
         {
