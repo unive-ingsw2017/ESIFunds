@@ -23,8 +23,8 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.android.support:support-v4:26.1.0'
-    implementation 'com.google.firebase:firebase-database:11.0.4'
-    implementation 'com.google.firebase:firebase-auth:11.0.4'
+    implementation 'com.google.firebase:firebase-database:11.8.0'
+    implementation 'com.google.firebase:firebase-auth:11.8.0'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -45,6 +45,7 @@ dependencies {
     implementation 'com.mikepenz:fastadapter-extensions:3.1.2@aar'
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.google.android.gms:play-services-maps:11.8.0'
 }
 
 

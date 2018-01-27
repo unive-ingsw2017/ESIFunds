@@ -76,7 +76,10 @@ public class FragmentSearch extends Fragment
 
             case 2:
             {
-                Log.i("TAB", "2");
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragmentPlaceholderFragmentSearch, new FragmentMap());
+                fragmentTransaction.commit();
+
                 break;
             }
         }
