@@ -88,9 +88,9 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:hint="@string/string_old_password"
+            android:inputType="textPassword"
             android:textColor="@color/colorAccent"
-            android:textColorHighlight="@color/colorAccent"
-            android:textColorHint="@color/colorAccent" />
+            android:textColorHighlight="@color/colorAccent" android:textColorHint="@color/colorAccent"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -107,9 +107,9 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:hint="@string/string_new_password"
+            android:inputType="textPassword"
             android:textColor="@color/colorAccent"
-            android:textColorHighlight="@color/colorAccent"
-            android:textColorHint="@color/colorAccent" />
+            android:textColorHighlight="@color/colorAccent" android:textColorHint="@color/colorAccent"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.FloatingActionButton

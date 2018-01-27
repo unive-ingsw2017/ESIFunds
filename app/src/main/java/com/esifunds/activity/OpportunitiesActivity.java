@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.esifunds.R;
 import com.esifunds.fragment.FragmentAccount;
 import com.esifunds.fragment.FragmentOpportunities;
+import com.esifunds.fragment.FragmentOpportunity;
 import com.esifunds.fragment.FragmentSearch;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -101,10 +102,7 @@ public class OpportunitiesActivity extends AppCompatActivity
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
 
-                textInputEditTextSearch.setVisibility(View.VISIBLE);
-
-                opportunitiesSearch.setVisibility(View.GONE);
-                imageButtonFullSearch.setVisibility(View.VISIBLE);
+                showSearchBar();
             }
         });
 
@@ -113,10 +111,7 @@ public class OpportunitiesActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                textInputEditTextSearch.setVisibility(View.GONE);
-
-                opportunitiesSearch.setVisibility(View.VISIBLE);
-                imageButtonFullSearch.setVisibility(View.GONE);
+                hideSearchBar();
 
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, new FragmentOpportunities());
@@ -193,9 +188,7 @@ public class OpportunitiesActivity extends AppCompatActivity
                         }
                         else if(drawerItem == drawerItemOpportunitiesList)
                         {
-                            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, new FragmentOpportunities());
-                            fragmentTransaction.commit();
+                            showFragmentOpportunities();
                         }
                         else if(drawerItem == drawerItemLogout)
                         {
@@ -228,14 +221,14 @@ public class OpportunitiesActivity extends AppCompatActivity
                 profileDrawerItemUser.withEmail(userEmail);
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 final DatabaseReference userRef = database.getReference("users/" + user.getUid());
-                userRef.child("firstname").addListenerForSingleValueEvent(new ValueEventListener()
+                userRef.child("firstname").addValueEventListener(new ValueEventListener()
                 {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot)
                     {
                         final String userFirstName = dataSnapshot.getValue(String.class);
 
-                        userRef.child("lastname").addListenerForSingleValueEvent(new ValueEventListener()
+                        userRef.child("lastname").addValueEventListener(new ValueEventListener()
                         {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot)
@@ -268,23 +261,21 @@ public class OpportunitiesActivity extends AppCompatActivity
     @Override
     public void onBackPressed()
     {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragmentPlaceholderOpportunitiesActivity);
         if(textInputEditTextSearch.getVisibility() == View.VISIBLE) // If search bar is open, close
         {
-            textInputEditTextSearch.setVisibility(View.GONE);
-
-            opportunitiesSearch.setVisibility(View.VISIBLE);
-            imageButtonFullSearch.setVisibility(View.GONE);
-
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, new FragmentOpportunities());
-            fragmentTransaction.commit();
+            hideSearchBar();
+            showFragmentOpportunities();
         }
         else if(!drawerResult.isDrawerOpen()) // If drawer isn't open and we're at top-level, exit
         {
-            Fragment fragment = getSupportFragmentManager().getPrimaryNavigationFragment();
             if(fragment instanceof FragmentOpportunities)
             {
                 finish();
+            }
+            else if(fragment instanceof FragmentAccount)
+            {
+                showFragmentOpportunities();
             }
             else
             {
@@ -299,5 +290,39 @@ public class OpportunitiesActivity extends AppCompatActivity
         {
             super.onBackPressed();
         }
+    }
+
+    public void showSearchBar()
+    {
+        textInputEditTextSearch.setVisibility(View.VISIBLE);
+
+        opportunitiesSearch.setVisibility(View.GONE);
+        imageButtonFullSearch.setVisibility(View.VISIBLE);
+    }
+
+    public void hideSearchBar()
+    {
+        textInputEditTextSearch.setVisibility(View.GONE);
+
+        opportunitiesSearch.setVisibility(View.VISIBLE);
+        imageButtonFullSearch.setVisibility(View.GONE);
+    }
+
+    public void hideSearchButton()
+    {
+        opportunitiesSearch.setVisibility(View.GONE);
+    }
+
+    public void showSearchButton()
+    {
+        opportunitiesSearch.setVisibility(View.VISIBLE);
+    }
+
+    public void showFragmentOpportunities()
+    {
+        showSearchButton();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, new FragmentOpportunities());
+        fragmentTransaction.commit();
     }
 }
