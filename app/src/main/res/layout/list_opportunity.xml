@@ -53,7 +53,8 @@
         android:layout_centerInParent="true"
         android:layout_marginRight="@dimen/dimen_16dp"
         android:background="@null"
-        android:src="@drawable/ic_star_border_black_24dp"/>
+        android:src="@drawable/ic_star_border_black_24dp"
+        android:visibility="invisible" />
 
     <View
         android:id="@+id/viewOpportunityDivider"

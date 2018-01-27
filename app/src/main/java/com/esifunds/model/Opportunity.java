@@ -163,10 +163,12 @@ public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolde
                         if(dataSnapshot.exists())
                         {
                             opportunityIcon.setImageResource(R.drawable.ic_star_yellow_24dp);
+                            opportunityIcon.setVisibility(View.VISIBLE);
                         }
                         else
                         {
                             opportunityIcon.setImageResource(R.drawable.ic_star_border_black_24dp);
+                            opportunityIcon.setVisibility(View.VISIBLE);
                         }
                     }
 
