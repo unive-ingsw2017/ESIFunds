@@ -41,6 +41,7 @@ public class OpportunitiesActivity extends AppCompatActivity
     private ImageButton imageButtonFullSearch;
     private TextInputEditText textInputEditTextSearch;
     private FragmentSearch fragmentSearch;
+    private Drawer drawerResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -78,7 +79,7 @@ public class OpportunitiesActivity extends AppCompatActivity
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
             {
-                //fragmentSearch.getFragmentOpportunities().searchWithString(charSequence.toString());
+                fragmentSearch.getFragmentOpportunities().searchWithString(charSequence.toString());
             }
 
             @Override
@@ -114,6 +115,10 @@ public class OpportunitiesActivity extends AppCompatActivity
 
                 opportunitiesSearch.setVisibility(View.VISIBLE);
                 imageButtonFullSearch.setVisibility(View.GONE);
+
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, new FragmentOpportunities());
+                fragmentTransaction.commit();
             }
         });
 
@@ -148,7 +153,7 @@ public class OpportunitiesActivity extends AppCompatActivity
                 .withSelectionListEnabledForSingleProfile(false)
                 .build();
 
-        final Drawer drawerResult = new DrawerBuilder().withActivity(this).withToolbar(opportunitiesToolbar)
+        drawerResult = new DrawerBuilder().withActivity(this).withToolbar(opportunitiesToolbar)
                 .withAccountHeader(drawerHeaderResult)
                 .addDrawerItems
                         (
@@ -187,8 +192,6 @@ public class OpportunitiesActivity extends AppCompatActivity
                         }
                         else if(drawerItem == drawerItemLoginRegister)
                         {
-                            Intent intentOpportunities = new Intent(getApplication(), MainActivity.class);
-                            startActivity(intentOpportunities);
                             finish();
                         }
 
@@ -247,13 +250,28 @@ public class OpportunitiesActivity extends AppCompatActivity
     @Override
     public void onBackPressed()
     {
-        super.onBackPressed();
-        if(textInputEditTextSearch.getVisibility() == View.VISIBLE)
+        if(textInputEditTextSearch.getVisibility() == View.VISIBLE) // If search bar is open, close
         {
             textInputEditTextSearch.setVisibility(View.GONE);
 
             opportunitiesSearch.setVisibility(View.VISIBLE);
             imageButtonFullSearch.setVisibility(View.GONE);
+
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, new FragmentOpportunities());
+            fragmentTransaction.commit();
+        }
+        else if(!drawerResult.isDrawerOpen()) // If drawer isn't open and we're at top-level, exit
+        {
+            finish();
+        }
+        else if(drawerResult.isDrawerOpen())
+        {
+            drawerResult.closeDrawer();
+        }
+        else // let android handle it
+        {
+            super.onBackPressed();
         }
     }
 }

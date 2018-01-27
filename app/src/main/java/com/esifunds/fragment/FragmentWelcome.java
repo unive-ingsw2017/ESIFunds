@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.esifunds.R;
+import com.esifunds.activity.MainActivity;
 import com.esifunds.activity.OpportunitiesActivity;
 
 public class FragmentWelcome extends Fragment implements View.OnClickListener
@@ -66,6 +67,11 @@ public class FragmentWelcome extends Fragment implements View.OnClickListener
                 intentOpportunities.putExtra("ACTIVITY_TYPE", "GUEST");
 
                 startActivity(intentOpportunities);
+
+                if(MainActivity.getInstance() != null)
+                {
+                    MainActivity.getInstance().finish();
+                }
                 break;
             }
         }

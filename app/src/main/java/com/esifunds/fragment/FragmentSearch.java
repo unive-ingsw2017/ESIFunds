@@ -63,9 +63,9 @@ public class FragmentSearch extends Fragment
                 args.putBoolean("IS_SEARCH", true);
                 fragmentOpportunities.setArguments(args);
 
-                //FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                //fragmentTransaction.replace(R.id.fragmentPlaceholderFragmentSearch, fragmentOpportunities);
-                //fragmentTransaction.commit();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragmentPlaceholderFragmentSearch, fragmentOpportunities);
+                fragmentTransaction.commit();
 
                 Log.i("TAB", "0");
                 break;
