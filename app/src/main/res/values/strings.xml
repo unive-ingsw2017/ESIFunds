@@ -26,4 +26,5 @@
     <string name="string_map">Map</string>
     <string name="string_old_password">Old Password</string>
     <string name="string_new_password">New Password</string>
+    <string name="string_login_register_action">Login or Register</string>
 </resources>

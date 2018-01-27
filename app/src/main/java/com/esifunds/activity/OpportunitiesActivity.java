@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.esifunds.R;
 import com.esifunds.fragment.FragmentAccount;
@@ -148,6 +149,10 @@ public class OpportunitiesActivity extends AppCompatActivity
                             fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, new FragmentAccount());
                             fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();
+                        }
+                        else
+                        {
+                            Toast.makeText(getApplicationContext(), R.string.string_login_register_action, Toast.LENGTH_SHORT).show();
                         }
 
                         return false;
