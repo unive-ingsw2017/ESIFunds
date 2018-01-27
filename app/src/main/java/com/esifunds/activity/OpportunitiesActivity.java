@@ -82,7 +82,7 @@ public class OpportunitiesActivity extends AppCompatActivity
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
             {
-                fragmentSearch.getFragmentOpportunities().searchWithString(charSequence.toString());
+                fragmentSearch.getSearchFragment().searchWithString(charSequence.toString());
             }
 
             @Override
@@ -98,6 +98,9 @@ public class OpportunitiesActivity extends AppCompatActivity
             {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentSearch = new FragmentSearch();
+                Bundle args = new Bundle();
+                args.putString("TO_SEARCH", textInputEditTextSearch.getText().toString());
+                fragmentSearch.setArguments(args);
                 fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, fragmentSearch);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
@@ -122,7 +125,7 @@ public class OpportunitiesActivity extends AppCompatActivity
         // Drawer Code
         final PrimaryDrawerItem drawerItemOpportunitiesList = new PrimaryDrawerItem().withIdentifier(0).withName(R.string.string_opportunities_list).withIcon(GoogleMaterial.Icon.gmd_list);
         final SecondaryDrawerItem drawerItemSearch = new SecondaryDrawerItem().withIdentifier(1).withName(R.string.string_search).withIcon(GoogleMaterial.Icon.gmd_search);
-        SecondaryDrawerItem drawerItemFavourites = new SecondaryDrawerItem().withIdentifier(2).withName(R.string.string_favourites).withIcon(GoogleMaterial.Icon.gmd_star);
+        final SecondaryDrawerItem drawerItemFavourites = new SecondaryDrawerItem().withIdentifier(2).withName(R.string.string_favourites).withIcon(GoogleMaterial.Icon.gmd_star);
 
         final SecondaryDrawerItem drawerItemLoginRegister = new SecondaryDrawerItem().withIdentifier(100).withName(R.string.string_login_register).withIcon(FontAwesome.Icon.faw_sign_in);
         final SecondaryDrawerItem drawerItemLogout = new SecondaryDrawerItem().withIdentifier(101).withName(R.string.string_logout).withIcon(FontAwesome.Icon.faw_sign_out);
@@ -183,6 +186,21 @@ public class OpportunitiesActivity extends AppCompatActivity
                             showSearchBar();
                             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentSearch = new FragmentSearch();
+                            Bundle args = new Bundle();
+                            args.putString("TO_SEARCH", textInputEditTextSearch.getText().toString());
+                            fragmentSearch.setArguments(args);
+                            fragmentTransaction.add(R.id.fragmentPlaceholderOpportunitiesActivity, fragmentSearch);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+                        }
+                        else if(drawerItem == drawerItemFavourites)
+                        {
+                            fragmentSearch = new FragmentSearch();
+                            Bundle args = new Bundle();
+                            args.putInt("POSITION", 1);
+                            fragmentSearch.setArguments(args);
+
+                            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.add(R.id.fragmentPlaceholderOpportunitiesActivity, fragmentSearch);
                             fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();
@@ -263,12 +281,7 @@ public class OpportunitiesActivity extends AppCompatActivity
     public void onBackPressed()
     {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragmentPlaceholderOpportunitiesActivity);
-        if(textInputEditTextSearch.getVisibility() == View.VISIBLE) // If search bar is open, close
-        {
-            hideSearchBar();
-            showFragmentOpportunities();
-        }
-        else if(!drawerResult.isDrawerOpen()) // If drawer isn't open and we're at top-level, exit
+        if(!drawerResult.isDrawerOpen()) // If drawer isn't open and we're at top-level, exit
         {
             if(fragment instanceof FragmentOpportunities)
             {
@@ -276,6 +289,11 @@ public class OpportunitiesActivity extends AppCompatActivity
             }
             else if(fragment instanceof FragmentAccount)
             {
+                showFragmentOpportunities();
+            }
+            else if(fragment instanceof FragmentSearch)
+            {
+                hideSearchBar();
                 showFragmentOpportunities();
             }
             else
