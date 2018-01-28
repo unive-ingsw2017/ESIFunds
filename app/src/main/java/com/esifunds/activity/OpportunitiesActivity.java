@@ -286,20 +286,15 @@ public class OpportunitiesActivity extends AppCompatActivity
             if(fragment instanceof FragmentOpportunities)
             {
                 finish();
+                return;
             }
-            else if(fragment instanceof FragmentAccount)
-            {
-                showFragmentOpportunities();
-            }
-            else if(fragment instanceof FragmentSearch)
+
+            if(fragment instanceof FragmentSearch)
             {
                 hideSearchBar();
-                showFragmentOpportunities();
             }
-            else
-            {
-                super.onBackPressed();
-            }
+
+            super.onBackPressed();
         }
         else if(drawerResult.isDrawerOpen())
         {

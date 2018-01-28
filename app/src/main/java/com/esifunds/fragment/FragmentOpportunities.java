@@ -25,6 +25,7 @@ import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
 import com.mikepenz.fastadapter.listeners.OnClickListener;
+import com.mikepenz.fastadapter.utils.DefaultTypeInstanceCache;
 import com.mikepenz.fastadapter_extensions.items.ProgressItem;
 import com.mikepenz.fastadapter_extensions.scroll.EndlessRecyclerOnScrollListener;
 
@@ -104,9 +105,10 @@ public class FragmentOpportunities extends Fragment
 
         recyclerViewOpportunities.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        FastAdapter<Opportunity> fastAdapter = FastAdapter.with(footerAdapter);
+        final FastAdapter<Opportunity> fastAdapter = FastAdapter.with(footerAdapter);
         fastAdapter.addAdapter(0, itemAdapter);
         fastAdapter.withSelectable(true);
+        fastAdapter.registerTypeInstance(new Opportunity());
         fastAdapter.withOnClickListener(new OnClickListener<Opportunity>()
         {
             @Override public boolean onClick(View view, IAdapter<Opportunity> adapter, Opportunity item, int position)
@@ -118,12 +120,14 @@ public class FragmentOpportunities extends Fragment
                 fragmentOpportunity.setArguments(args);
 
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.add(R.id.fragmentPlaceholderOpportunitiesActivity, fragmentOpportunity);
-                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.add(R.id.fragmentPlaceholderOpportunitiesActivity, fragmentOpportunity, "OPPORTUNITY_VIEW");
+                fragmentTransaction.addToBackStack("OPPORTUNITY_VIEW");
                 fragmentTransaction.commit();
                 return true;
             }
         });
+
+        recyclerViewOpportunities.setAdapter(fastAdapter);
 
         if(loadFavourites && UserFavourites.getAll() != null)
         {
@@ -238,8 +242,6 @@ public class FragmentOpportunities extends Fragment
                 }
             });
         }
-
-        recyclerViewOpportunities.setAdapter(fastAdapter);
 
         return viewRoot;
     }
