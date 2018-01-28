@@ -2,6 +2,7 @@ package com.esifunds.fragment;
 
 
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.esifunds.R;
 import com.esifunds.model.Opportunity;
+import com.esifunds.model.UserFavourites;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +36,8 @@ public class FragmentOpportunities extends Fragment
     RecyclerView recyclerViewOpportunities;
     private FirebaseDatabase mDatabase;
     private ItemAdapter<Opportunity> itemAdapter = new ItemAdapter<>();
+    final ItemAdapter<ProgressItem> footerAdapter = new ItemAdapter<>();
+    private String lastValue = "0";
 
     public FragmentOpportunities()
     {
@@ -42,6 +46,8 @@ public class FragmentOpportunities extends Fragment
     public void searchWithString(final String toSearch)
     {
         itemAdapter.clear();
+        footerAdapter.clear();
+        footerAdapter.add(new ProgressItem().withEnabled(true));
         mDatabase.getReference("opportunities").addListenerForSingleValueEvent(new ValueEventListener()
         {
             @Override
@@ -58,12 +64,13 @@ public class FragmentOpportunities extends Fragment
                         continue;
                     }
 
-                    if(opportunity.getOGGETTO().contains(toSearch))
+                    if(opportunity.getOGGETTO().toLowerCase().contains(toSearch.toLowerCase()))
                     {
                         listOpportunities.add(aSnapshotIterable.getValue(Opportunity.class));
                     }
                 }
 
+                footerAdapter.clear();
                 itemAdapter.add(listOpportunities);
             }
 
@@ -84,15 +91,18 @@ public class FragmentOpportunities extends Fragment
 
         Bundle args = getArguments();
         boolean isSearch = false;
+        boolean loadFavourites = false;
+        String toSearch = "";
         if(args != null)
         {
             isSearch = args.getBoolean("IS_SEARCH", false);
+            loadFavourites = args.getBoolean("LOAD_FAVOURITES", false);
+            toSearch = args.getString("TO_SEARCH", "");
         }
 
         recyclerViewOpportunities = viewRoot.findViewById(R.id.recyclerViewOpportunities);
 
         recyclerViewOpportunities.setLayoutManager(new LinearLayoutManager(getContext()));
-        final ItemAdapter<ProgressItem> footerAdapter = new ItemAdapter<>();
 
         FastAdapter<Opportunity> fastAdapter = FastAdapter.with(footerAdapter);
         fastAdapter.addAdapter(0, itemAdapter);
@@ -115,7 +125,57 @@ public class FragmentOpportunities extends Fragment
             }
         });
 
-        if(!isSearch)
+        if(loadFavourites && UserFavourites.getAll() != null)
+        {
+            footerAdapter.clear();
+            footerAdapter.add(new ProgressItem().withEnabled(true));
+            UserFavourites.getAll().addValueEventListener(new ValueEventListener()
+            {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot)
+                {
+                    if(dataSnapshot.exists())
+                    {
+                        Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
+
+                        for(DataSnapshot aSnapshotIterable : snapshotIterable)
+                        {
+                            long opID = Long.parseLong(aSnapshotIterable.getKey());
+                            mDatabase.getReference("opportunities/" + opID).addListenerForSingleValueEvent(new ValueEventListener()
+                            {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot)
+                                {
+                                    itemAdapter.add(dataSnapshot.getValue(Opportunity.class));
+                                    footerAdapter.clear();
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError)
+                                {
+
+                                }
+                            });
+
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError)
+                {
+
+                }
+            });
+        }
+        else if(isSearch)
+        {
+            if(!toSearch.isEmpty())
+            {
+                searchWithString(toSearch);
+            }
+        }
+        else
         {
             recyclerViewOpportunities.addOnScrollListener(new EndlessRecyclerOnScrollListener(footerAdapter)
             {
@@ -124,22 +184,25 @@ public class FragmentOpportunities extends Fragment
                 {
                     footerAdapter.clear();
                     footerAdapter.add(new ProgressItem().withEnabled(true));
-                    // Load your items here and add it to FastAdapter
 
-                    mDatabase.getReference("opportunities").limitToFirst(currentPage + 25).addListenerForSingleValueEvent(new ValueEventListener()
+                    mDatabase.getReference("opportunities").startAt(null, lastValue).limitToFirst(25 + 1).addListenerForSingleValueEvent(new ValueEventListener()
                     {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot)
                         {
                             Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
 
-                            List<Opportunity> listOpportunities = new ArrayList<Opportunity>();
+                            List<Opportunity> listOpportunities = new ArrayList<>();
+                            String lastKey = "";
                             for(DataSnapshot aSnapshotIterable : snapshotIterable)
                             {
+                                lastKey = aSnapshotIterable.getKey();
                                 listOpportunities.add(aSnapshotIterable.getValue(Opportunity.class));
                             }
 
+                            lastValue = lastKey;
                             itemAdapter.add(listOpportunities);
+                            footerAdapter.clear();
                         }
 
                         @Override
@@ -157,12 +220,15 @@ public class FragmentOpportunities extends Fragment
                 {
                     Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
 
-                    List<Opportunity> listOpportunities = new ArrayList<Opportunity>();
+                    List<Opportunity> listOpportunities = new ArrayList<>();
+                    String lastKey = "";
                     for(DataSnapshot aSnapshotIterable : snapshotIterable)
                     {
+                        lastKey = aSnapshotIterable.getKey();
                         listOpportunities.add(aSnapshotIterable.getValue(Opportunity.class));
                     }
 
+                    lastValue = lastKey;
                     itemAdapter.add(listOpportunities);
                 }
 

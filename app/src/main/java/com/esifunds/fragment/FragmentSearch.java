@@ -14,7 +14,7 @@ import com.esifunds.R;
 
 public class FragmentSearch extends Fragment
 {
-    private FragmentOpportunities fragmentOpportunities;
+    private FragmentOpportunities searchFragment;
 
     public FragmentSearch()
     {
@@ -45,7 +45,18 @@ public class FragmentSearch extends Fragment
             }
         });
 
-        loadFragmentForTab(tabLayout.getSelectedTabPosition());
+        Bundle myArgs = getArguments();
+        if(myArgs != null && myArgs.getInt("POSITION", -1) != -1)
+        {
+            int position = myArgs.getInt("POSITION");
+            TabLayout.Tab tab = tabLayout.getTabAt(position);
+            tab.select();
+            loadFragmentForTab(myArgs.getInt("POSITION"));
+        }
+        else
+        {
+            loadFragmentForTab(tabLayout.getSelectedTabPosition());
+        }
 
         return viewRoot;
     }
@@ -56,13 +67,20 @@ public class FragmentSearch extends Fragment
         {
             case 0:
             {
-                fragmentOpportunities = new FragmentOpportunities();
+                searchFragment = new FragmentOpportunities();
                 Bundle args = new Bundle();
                 args.putBoolean("IS_SEARCH", true);
-                fragmentOpportunities.setArguments(args);
+
+                Bundle myArgs = getArguments();
+                if(myArgs != null)
+                {
+                    args.putString("TO_SEARCH", myArgs.getString("TO_SEARCH", ""));
+                }
+
+                searchFragment.setArguments(args);
 
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentPlaceholderFragmentSearch, fragmentOpportunities);
+                fragmentTransaction.replace(R.id.fragmentPlaceholderFragmentSearch, searchFragment);
                 fragmentTransaction.commit();
 
                 break;
@@ -70,7 +88,14 @@ public class FragmentSearch extends Fragment
 
             case 1:
             {
-                Log.i("TAB", "1");
+                FragmentOpportunities fragmentFavourites = new FragmentOpportunities();
+                Bundle args = new Bundle();
+                args.putBoolean("LOAD_FAVOURITES", true);
+                fragmentFavourites.setArguments(args);
+
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragmentPlaceholderFragmentSearch, fragmentFavourites);
+                fragmentTransaction.commit();
                 break;
             }
 
@@ -85,8 +110,8 @@ public class FragmentSearch extends Fragment
         }
     }
 
-    public FragmentOpportunities getFragmentOpportunities()
+    public FragmentOpportunities getSearchFragment()
     {
-        return fragmentOpportunities;
+        return searchFragment;
     }
 }
