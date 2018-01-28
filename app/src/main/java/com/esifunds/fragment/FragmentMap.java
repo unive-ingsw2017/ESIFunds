@@ -17,6 +17,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,22 +26,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.maps.android.heatmaps.HeatmapTileProvider;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 public class FragmentMap extends Fragment implements OnMapReadyCallback
 {
     private GoogleMap fragmentGoogleMap;
     private FirebaseDatabase mDatabase;
+
     private final LatLngBounds latLngBoundsItaly = new LatLngBounds(new LatLng(34.76, 5.93), new LatLng(47.1, 18.99));
+    //private List<LatLng> latLngList;
     //private final LatLng latLngCenterItaly = new LatLng(40.93, 12.46);
 
     public FragmentMap()
@@ -64,6 +62,11 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback
 
         fragmentGoogleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getContext(), R.raw.map_style));
 
+        // LatLng Bounds Code
+        fragmentGoogleMap.setLatLngBoundsForCameraTarget(latLngBoundsItaly);
+        fragmentGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBoundsItaly, 0));
+
+        // HeatMap Data
         mDatabase.getReference("region_coordinates").addListenerForSingleValueEvent(new ValueEventListener()
         {
             @Override
@@ -120,7 +123,38 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback
                             }
                         }
 
-                        heatMapLocations.containsKey("Veneto");
+                        List<LatLng> latLngList = new ArrayList<>();
+
+                        for(Map.Entry<String, HeatMapLocation> heatMapLocationEntry : heatMapLocations.entrySet())
+                        {
+                            for(int i = 0; i < heatMapLocationEntry.getValue().getNumHits(); i++)
+                            {
+                                latLngList.add(heatMapLocationEntry.getValue().getLatLng());
+                            }
+
+                            fragmentGoogleMap.addMarker
+                            (
+                                new MarkerOptions()
+                                    .position(heatMapLocationEntry.getValue().getLatLng())
+                                    .title(heatMapLocationEntry.getKey())
+                                    .snippet(getResources().getString(R.string.string_marker_snippet) + " " + heatMapLocationEntry.getValue().getNumHits())
+                            ).setTag(heatMapLocationEntry.getKey());
+                        }
+
+                        HeatmapTileProvider heatmapTileProvider = new HeatmapTileProvider.Builder().data(latLngList).radius(50).build();
+                        TileOverlayOptions tileOverlayOptions = new TileOverlayOptions().tileProvider(heatmapTileProvider);
+                        fragmentGoogleMap.addTileOverlay(tileOverlayOptions);
+
+                        fragmentGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
+                        {
+                            @Override public boolean onMarkerClick(Marker marker)
+                            {
+                                // TODO: Search for tag
+                                //marker.getTag()
+
+                                return false;
+                            }
+                        });
                     }
 
                     @Override
@@ -137,44 +171,5 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback
 
             }
         });
-
-        // HeatMap Code
-        List<LatLng> latLngList = null;
-        try
-        {
-            latLngList = buildLatLngList(R.raw.map_heat);
-        }
-        catch(JSONException jsonException)
-        {
-            jsonException.printStackTrace();
-        }
-
-        HeatmapTileProvider heatmapTileProvider = new HeatmapTileProvider.Builder().data(latLngList).radius(50).build();
-        TileOverlayOptions tileOverlayOptions = new TileOverlayOptions().tileProvider(heatmapTileProvider);
-        fragmentGoogleMap.addTileOverlay(tileOverlayOptions);
-
-        fragmentGoogleMap.setLatLngBoundsForCameraTarget(latLngBoundsItaly);
-        fragmentGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBoundsItaly, 0));
-    }
-
-    private ArrayList<LatLng> buildLatLngList(int resIdentifier) throws JSONException
-    {
-        ArrayList<LatLng> latLngArrayList = new ArrayList<LatLng>();
-        InputStream inputStream = getResources().openRawResource(resIdentifier);
-
-        String jsonString = new Scanner(inputStream).useDelimiter("\\A").next();
-        JSONArray jsonArray = new JSONArray(jsonString);
-
-        for(int i = 0; i < jsonArray.length(); i++)
-        {
-            JSONObject jsonObject =  jsonArray.getJSONObject(i);
-
-            double lat = jsonObject.getDouble("lat");
-            double lng = jsonObject.getDouble("lng");
-
-            latLngArrayList.add(new LatLng(lat, lng));
-        }
-
-        return latLngArrayList;
     }
 }
