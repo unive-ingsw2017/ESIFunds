@@ -9,7 +9,7 @@
     <Button
         android:id="@+id/buttonToggleAdvancedSearch"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="match_parent" android:layout_height="24dp"
+        android:layout_width="match_parent" android:layout_height="32dp"
         android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
         android:background="@color/md_deep_purple_700"
         android:text="Advanced search"
