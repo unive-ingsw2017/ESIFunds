@@ -37,6 +37,7 @@ public class FragmentOpportunities extends Fragment
     private FirebaseDatabase mDatabase;
     private ItemAdapter<Opportunity> itemAdapter = new ItemAdapter<>();
     final ItemAdapter<ProgressItem> footerAdapter = new ItemAdapter<>();
+    private String lastValue = "0";
 
     public FragmentOpportunities()
     {
@@ -63,7 +64,7 @@ public class FragmentOpportunities extends Fragment
                         continue;
                     }
 
-                    if(opportunity.getOGGETTO().contains(toSearch))
+                    if(opportunity.getOGGETTO().toLowerCase().contains(toSearch.toLowerCase()))
                     {
                         listOpportunities.add(aSnapshotIterable.getValue(Opportunity.class));
                     }
@@ -183,9 +184,8 @@ public class FragmentOpportunities extends Fragment
                 {
                     footerAdapter.clear();
                     footerAdapter.add(new ProgressItem().withEnabled(true));
-                    // Load your items here and add it to FastAdapter
 
-                    mDatabase.getReference("opportunities").limitToFirst(currentPage + 25).addListenerForSingleValueEvent(new ValueEventListener()
+                    mDatabase.getReference("opportunities").startAt(null, lastValue).limitToFirst(25 + 1).addListenerForSingleValueEvent(new ValueEventListener()
                     {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot)
@@ -193,12 +193,16 @@ public class FragmentOpportunities extends Fragment
                             Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
 
                             List<Opportunity> listOpportunities = new ArrayList<>();
+                            String lastKey = "";
                             for(DataSnapshot aSnapshotIterable : snapshotIterable)
                             {
+                                lastKey = aSnapshotIterable.getKey();
                                 listOpportunities.add(aSnapshotIterable.getValue(Opportunity.class));
                             }
 
+                            lastValue = lastKey;
                             itemAdapter.add(listOpportunities);
+                            footerAdapter.clear();
                         }
 
                         @Override
@@ -217,11 +221,14 @@ public class FragmentOpportunities extends Fragment
                     Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
 
                     List<Opportunity> listOpportunities = new ArrayList<>();
+                    String lastKey = "";
                     for(DataSnapshot aSnapshotIterable : snapshotIterable)
                     {
+                        lastKey = aSnapshotIterable.getKey();
                         listOpportunities.add(aSnapshotIterable.getValue(Opportunity.class));
                     }
 
+                    lastValue = lastKey;
                     itemAdapter.add(listOpportunities);
                 }
 
