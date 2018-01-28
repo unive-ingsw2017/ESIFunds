@@ -1,0 +1,82 @@
+{
+	"Lombardia": {
+		"lat": 45.585556,
+		"lng": 9.930278
+	},
+	"Lazio": {
+		"lat": 41.893056,
+		"lng": 12.482778
+	},
+	"Campania": {
+		"lat": 40.826111,
+		"lng": 14.256389
+	},
+	"Sicilia": {
+		"lat": 37.5,
+		"lng": 14
+	},
+	"Veneto": {
+		"lat": 45.439722,
+		"lng": 12.331944
+	},
+	"Emilia-Romagna": {
+		"lat": 44.510556,
+		"lng": 10.956944
+	},
+	"Piemonte": {
+		"lat": 45.066667,
+		"lng": 7.7
+	},
+	"Puglia": {
+		"lat": 41.062778,
+		"lng": 16.380556
+	},
+	"Toscana": {
+		"lat": 43.771389,
+		"lng": 11.254167
+	},
+	"Calabria": {
+		"lat": 38.8918,
+		"lng": 16.5995
+	},
+	"Sardegna": {
+		"lat": 40.05,
+		"lng": 9.083333
+	},
+	"Liguria": {
+		"lat": 44.407194,
+		"lng": 8.934
+	},
+	"Marche": {
+		"lat": 43.616667,
+		"lng": 13.516667
+	},
+	"Abruzzo": {
+		"lat": 42.366111,
+		"lng": 13.394444
+	},
+	"Friuli-Venezia Giulia": {
+		"lat": 45.636111,
+		"lng": 13.804167
+	},
+	"Trentino-Alto Adige": {
+		"lat": 46.066667,
+		"lng": 11.116667
+	},
+	"Umbria": {
+		"lat": 43.1121,
+		"lng": 12.3888
+	},
+	"Basilicata": {
+		"lat": 40.639167,
+		"lng": 15.805278
+	},
+	"Molise": {
+		"lat": 41.566667,
+		"lng": 14.666667
+	},
+	"Valle d'Aosta": {
+		"lat": 45.737222,
+		"lng": 7.320556
+	}
+}
