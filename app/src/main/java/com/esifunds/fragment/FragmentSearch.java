@@ -9,6 +9,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.esifunds.R;
 
@@ -26,6 +29,27 @@ public class FragmentSearch extends Fragment
         final View viewRoot = inflater.inflate(R.layout.fragment_search, container, false);
 
         TabLayout tabLayout = viewRoot.findViewById(R.id.tabLayoutFragmentSearch);
+
+        final RelativeLayout relativeLayoutAdvancedSearch = viewRoot.findViewById(R.id.relativeLayoutAdvancedSearch);
+        final ImageView imageViewArrowAdvancedSearch = viewRoot.findViewById(R.id.imageViewArrowAdvancedSearch);
+        Button buttonToggleAdvancedSearch = viewRoot.findViewById(R.id.buttonToggleAdvancedSearch);
+        buttonToggleAdvancedSearch.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                if(relativeLayoutAdvancedSearch.getVisibility() == View.VISIBLE)
+                {
+                    relativeLayoutAdvancedSearch.setVisibility(View.GONE);
+                    imageViewArrowAdvancedSearch.setImageResource(android.R.drawable.arrow_down_float);
+                }
+                else
+                {
+                    relativeLayoutAdvancedSearch.setVisibility(View.VISIBLE);
+                    imageViewArrowAdvancedSearch.setImageResource(android.R.drawable.arrow_up_float);
+                }
+            }
+        });
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
         {
