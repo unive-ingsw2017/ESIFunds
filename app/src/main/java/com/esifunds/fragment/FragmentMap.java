@@ -14,12 +14,13 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MapStyleOptions;
 
 public class FragmentMap extends Fragment implements OnMapReadyCallback
 {
     private GoogleMap fragmentGoogleMap;
-    private final LatLngBounds latLngBoundsItaly = new LatLngBounds(new LatLng(5.93, 34.76), new LatLng(18.99, 47.1));
-    private final LatLng latLngCenterItaly = new LatLng(12.460000, 40.930000);
+    private final LatLngBounds latLngBoundsItaly = new LatLngBounds(new LatLng(34.76, 5.93), new LatLng(47.1, 18.99));
+    //private final LatLng latLngCenterItaly = new LatLng(40.93, 12.46);
 
     public FragmentMap()
     {
@@ -40,35 +41,9 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback
     {
         fragmentGoogleMap = googleMap;
 
-        /*
-        KmlLayer kmlLayerItaly = null;
-        try
-        {
-            kmlLayerItaly = new KmlLayer(fragmentGoogleMap, R.raw.ita_adm3, getContext());
-            kmlLayerItaly.addLayerToMap();
-        }
-        catch(Exception exceptionError)
-        {
-            Log.i("EXCEPTION", "EXCEPTION ERROR");
-        }
-        */
+        fragmentGoogleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getContext(), R.raw.map_style));
 
-        //fragmentGoogleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getContext(), R.raw.map_style));
-
-        //googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-
-        /*
-        // Adding Marker for Sydney
-        LatLng australiaSydney = new LatLng(-34, 151);
-        fragmentGoogleMap.addMarker(new MarkerOptions().position(australiaSydney).title("Australia Sydney"));
-        fragmentGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(australiaSydney));
-        */
-
-        // < Check this Better >
         fragmentGoogleMap.setLatLngBoundsForCameraTarget(latLngBoundsItaly);
         fragmentGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBoundsItaly, 0));
-        //fragmentGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(latLngCenterItaly));
-
-        //googleMap.setMinZoomPreference(6.0f);
     }
 }
