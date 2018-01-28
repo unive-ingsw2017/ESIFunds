@@ -1,8 +1,11 @@
 package com.esifunds.fragment;
 
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
+
+import java.io.IOException;
+import java.util.List;
 
 public class FragmentMap extends Fragment implements OnMapReadyCallback
 {
@@ -34,6 +40,15 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback
         SupportMapFragment supportMapFragmentClass = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.supportMapFragmentView);
         supportMapFragmentClass.getMapAsync(this);
 
+        try
+        {
+            List<Address> addr = new Geocoder(getActivity().getApplicationContext()).getFromLocationName("Lazio", 1);
+            Log.i("aa", addr.get(0).toString());
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
         return viewRoot;
     }
 

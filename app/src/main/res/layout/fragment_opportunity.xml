@@ -19,20 +19,21 @@
             android:layout_alignParentTop="true"
             android:background="@color/md_teal_500">
 
-            <ImageView
-                android:id="@+id/imageViewOpportunityAvatarInternal"
+            <ImageButton
+                android:id="@+id/imageButtonOpportunityAvatarInternal"
+                style="@style/Widget.Design.FloatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="@dimen/dimen_16dp"
+                android:layout_centerInParent="true" android:layout_marginTop="@dimen/dimen_16dp"
+                android:elevation="24dp"
                 android:src="@drawable/ic_login_user"/>
 
             <TextView
                 android:id="@+id/textViewProgram"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/imageViewOpportunityAvatarInternal"
+                android:layout_below="@+id/imageButtonOpportunityAvatarInternal"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="@dimen/dimen_16dp"
                 android:layout_marginRight="@dimen/dimen_16dp"

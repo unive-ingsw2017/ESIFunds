@@ -30,7 +30,8 @@ public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolde
     private long DATA_SCADENZA;
     private String PROROGA_SCADENZA;
     private String OGGETTO;
-    private String IMPORTO;
+    private double IMPORTO;
+    private String LUOGO;
     private String TIPO_OPPORTUNITA;
     private String TEMA_SINTETICO;
     private String TIPOLOGIA_BENEFICIARI;
@@ -40,7 +41,7 @@ public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolde
     {
     }
 
-    public Opportunity(int ID_OPPORTUNITA, String CODICE_PROGRAMMA, String PROGRAMMA, String FONDO, long DATA_PUBBLICAZIONE, long DATA_SCADENZA, String PROROGA_SCADENZA, String OGGETTO, String IMPORTO, String TIPO_OPPORTUNITA, String TEMA_SINTETICO, String TIPOLOGIA_BENEFICIARI, String LINK)
+    public Opportunity(int ID_OPPORTUNITA, String CODICE_PROGRAMMA, String PROGRAMMA, String FONDO, long DATA_PUBBLICAZIONE, long DATA_SCADENZA, String PROROGA_SCADENZA, String OGGETTO, double IMPORTO, String LUOGO, String TIPO_OPPORTUNITA, String TEMA_SINTETICO, String TIPOLOGIA_BENEFICIARI, String LINK)
     {
         this.ID_OPPORTUNITA = ID_OPPORTUNITA;
         this.CODICE_PROGRAMMA = CODICE_PROGRAMMA;
@@ -51,6 +52,7 @@ public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolde
         this.PROROGA_SCADENZA = PROROGA_SCADENZA;
         this.OGGETTO = OGGETTO;
         this.IMPORTO = IMPORTO;
+        this.LUOGO = LUOGO;
         this.TIPO_OPPORTUNITA = TIPO_OPPORTUNITA;
         this.TEMA_SINTETICO = TEMA_SINTETICO;
         this.TIPOLOGIA_BENEFICIARI = TIPOLOGIA_BENEFICIARI;
@@ -67,7 +69,8 @@ public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolde
         DATA_SCADENZA = in.readLong();
         PROROGA_SCADENZA = in.readString();
         OGGETTO = in.readString();
-        IMPORTO = in.readString();
+        IMPORTO = in.readDouble();
+        LUOGO = in.readString();
         TIPO_OPPORTUNITA = in.readString();
         TEMA_SINTETICO = in.readString();
         TIPOLOGIA_BENEFICIARI = in.readString();
@@ -124,7 +127,8 @@ public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolde
         parcel.writeLong(DATA_PUBBLICAZIONE);
         parcel.writeLong(DATA_SCADENZA);
         parcel.writeString(OGGETTO);
-        parcel.writeString(IMPORTO);
+        parcel.writeDouble(IMPORTO);
+        parcel.writeString(LUOGO);
         parcel.writeString(TIPO_OPPORTUNITA);
         parcel.writeString(TEMA_SINTETICO);
         parcel.writeString(TIPOLOGIA_BENEFICIARI);
@@ -240,10 +244,12 @@ public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolde
         return OGGETTO;
     }
 
-    public String getIMPORTO()
+    public double getIMPORTO()
     {
         return IMPORTO;
     }
+
+    public String getLUOGO() { return LUOGO; }
 
     public String getTIPO_OPPORTUNITA()
     {
