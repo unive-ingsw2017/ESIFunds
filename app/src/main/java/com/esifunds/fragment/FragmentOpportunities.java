@@ -8,18 +8,23 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.LongSparseArray;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.esifunds.R;
+import com.esifunds.activity.OpportunitiesActivity;
 import com.esifunds.model.Opportunity;
 import com.esifunds.model.UserFavourites;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
@@ -30,6 +35,7 @@ import com.mikepenz.fastadapter_extensions.items.ProgressItem;
 import com.mikepenz.fastadapter_extensions.scroll.EndlessRecyclerOnScrollListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class FragmentOpportunities extends Fragment
@@ -39,48 +45,16 @@ public class FragmentOpportunities extends Fragment
     private ItemAdapter<Opportunity> itemAdapter = new ItemAdapter<>();
     final ItemAdapter<ProgressItem> footerAdapter = new ItemAdapter<>();
     private String lastValue = "0";
+    private boolean bIsFavourites = false;
 
     public FragmentOpportunities()
     {
     }
 
-    public void searchWithString(final String toSearch)
+    public void searchWithString(final String oggetto, final String tema, final String beneficiario, final String regione)
     {
         itemAdapter.clear();
-        footerAdapter.clear();
-        footerAdapter.add(new ProgressItem().withEnabled(true));
-        mDatabase.getReference("opportunities").addListenerForSingleValueEvent(new ValueEventListener()
-        {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot)
-            {
-                Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
-
-                List<Opportunity> listOpportunities = new ArrayList<Opportunity>();
-                for(DataSnapshot aSnapshotIterable : snapshotIterable)
-                {
-                    Opportunity opportunity = aSnapshotIterable.getValue(Opportunity.class);
-                    if(opportunity == null)
-                    {
-                        continue;
-                    }
-
-                    if(opportunity.getOGGETTO().toLowerCase().contains(toSearch.toLowerCase()))
-                    {
-                        listOpportunities.add(aSnapshotIterable.getValue(Opportunity.class));
-                    }
-                }
-
-                footerAdapter.clear();
-                itemAdapter.add(listOpportunities);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError)
-            {
-
-            }
-        });
+        filterFor(oggetto, tema, beneficiario, regione, bIsFavourites, true, false);
     }
 
     @Override
@@ -91,15 +65,31 @@ public class FragmentOpportunities extends Fragment
         mDatabase = FirebaseDatabase.getInstance();
 
         Bundle args = getArguments();
+        String oggetto = "";
+        String tema = "";
+        String beneficiario = "";
+        String regione = "";
+        boolean isFavourites = false;
         boolean isSearch = false;
-        boolean loadFavourites = false;
-        String toSearch = "";
+
         if(args != null)
         {
+            oggetto = args.getString("SEARCH_OGGETTO", "");
+            tema = args.getString("SEARCH_TEMA", "");
+            beneficiario = args.getString("SEARCH_BENEFICIARIO", "");
+            regione = args.getString("SEARCH_REGIONE", "");
+            isFavourites = args.getBoolean("IS_FAVOURITES", false);
             isSearch = args.getBoolean("IS_SEARCH", false);
-            loadFavourites = args.getBoolean("LOAD_FAVOURITES", false);
-            toSearch = args.getString("TO_SEARCH", "");
         }
+
+        bIsFavourites = isFavourites;
+
+        final String fOggetto = oggetto;
+        final String fTema = tema;
+        final String fBeneficiario = beneficiario;
+        final String fRegione = regione;
+        final boolean fIsFavourites = isFavourites;
+        final boolean fIsSearch = isSearch;
 
         recyclerViewOpportunities = viewRoot.findViewById(R.id.recyclerViewOpportunities);
 
@@ -129,120 +119,182 @@ public class FragmentOpportunities extends Fragment
 
         recyclerViewOpportunities.setAdapter(fastAdapter);
 
-        if(loadFavourites && UserFavourites.getAll() != null)
-        {
-            footerAdapter.clear();
-            footerAdapter.add(new ProgressItem().withEnabled(true));
-            UserFavourites.getAll().addValueEventListener(new ValueEventListener()
-            {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot)
-                {
-                    if(dataSnapshot.exists())
-                    {
-                        Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
+        filterFor(oggetto, tema, beneficiario, regione, isFavourites, isSearch, false);
 
-                        for(DataSnapshot aSnapshotIterable : snapshotIterable)
-                        {
-                            long opID = Long.parseLong(aSnapshotIterable.getKey());
-                            mDatabase.getReference("opportunities/" + opID).addListenerForSingleValueEvent(new ValueEventListener()
-                            {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot)
-                                {
-                                    itemAdapter.add(dataSnapshot.getValue(Opportunity.class));
-                                    footerAdapter.clear();
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError)
-                                {
-
-                                }
-                            });
-
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError)
-                {
-
-                }
-            });
-        }
-        else if(isSearch)
-        {
-            if(!toSearch.isEmpty())
-            {
-                searchWithString(toSearch);
-            }
-        }
-        else
+        if(!isFavourites && !isSearch)
         {
             recyclerViewOpportunities.addOnScrollListener(new EndlessRecyclerOnScrollListener(footerAdapter)
             {
                 @Override
                 public void onLoadMore(int currentPage)
                 {
-                    footerAdapter.clear();
-                    footerAdapter.add(new ProgressItem().withEnabled(true));
-
-                    mDatabase.getReference("opportunities").startAt(null, lastValue).limitToFirst(25 + 1).addListenerForSingleValueEvent(new ValueEventListener()
-                    {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot)
-                        {
-                            Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
-
-                            List<Opportunity> listOpportunities = new ArrayList<>();
-                            String lastKey = "";
-                            for(DataSnapshot aSnapshotIterable : snapshotIterable)
-                            {
-                                lastKey = aSnapshotIterable.getKey();
-                                listOpportunities.add(aSnapshotIterable.getValue(Opportunity.class));
-                            }
-
-                            lastValue = lastKey;
-                            itemAdapter.add(listOpportunities);
-                            footerAdapter.clear();
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError error)
-                        {
-                        }
-                    });
-                }
-            });
-
-            mDatabase.getReference("opportunities").limitToFirst(25).addListenerForSingleValueEvent(new ValueEventListener()
-            {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot)
-                {
-                    Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
-
-                    List<Opportunity> listOpportunities = new ArrayList<>();
-                    String lastKey = "";
-                    for(DataSnapshot aSnapshotIterable : snapshotIterable)
-                    {
-                        lastKey = aSnapshotIterable.getKey();
-                        listOpportunities.add(aSnapshotIterable.getValue(Opportunity.class));
-                    }
-
-                    lastValue = lastKey;
-                    itemAdapter.add(listOpportunities);
-                }
-
-                @Override
-                public void onCancelled(DatabaseError error)
-                {
+                    filterFor(fOggetto, fTema, fBeneficiario, fRegione, fIsFavourites, fIsSearch, true);
                 }
             });
         }
 
         return viewRoot;
+    }
+
+    private void filterFor(final String oggetto,
+                           final String tema,
+                           final String beneficiario,
+                           final String regione,
+                           final boolean isFavourites,
+                           final boolean isSearch,
+                           final boolean onScroll)
+    {
+        if(isSearch && oggetto.isEmpty() && tema.isEmpty() && beneficiario.isEmpty() && regione.isEmpty())
+        {
+            return;
+        }
+
+        Query query =  mDatabase.getReference("opportunities");
+
+        if(!isSearch)
+        {
+            if(onScroll)
+            {
+                query = query.startAt(null, lastValue).limitToFirst(25 + 1);
+            }
+            else
+            {
+                query = query.limitToFirst(25);
+            }
+        }
+
+        final Query fQuery = query;
+        if(isSearch || isFavourites)
+        {
+            itemAdapter.clear();
+            footerAdapter.clear();
+            footerAdapter.add(new ProgressItem().withEnabled(true));
+        }
+
+        final LongSparseArray mFavourites = new LongSparseArray<>();
+        if(isFavourites)
+        {
+            if(UserFavourites.getAll() != null)
+            {
+                UserFavourites.getAll().addValueEventListener(new ValueEventListener()
+                {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+                        if(dataSnapshot.exists())
+                        {
+                            Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
+
+                            for(DataSnapshot aSnapshotIterable : snapshotIterable)
+                            {
+                                long opID = Long.parseLong(aSnapshotIterable.getKey());
+                                mFavourites.put(opID, true);
+                            }
+
+                            queryDatabase(oggetto, tema, beneficiario, regione, true, isSearch, fQuery, mFavourites);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError)
+                    {
+
+                    }
+                });
+            }
+        }
+        else
+        {
+            queryDatabase(oggetto, tema, beneficiario, regione, false, isSearch, query, mFavourites);
+        }
+    }
+
+    private void queryDatabase(final String oggetto,
+                               final String tema,
+                               final String beneficiario,
+                               final String regione,
+                               final boolean isFavourites,
+                               final boolean isSearch,
+                               Query query,
+                               final LongSparseArray favourites)
+    {
+        query.addListenerForSingleValueEvent(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
+                List<Opportunity> listOpportunities = new ArrayList<Opportunity>();
+                String lastKey = "";
+                for(DataSnapshot aSnapshotIterable : snapshotIterable)
+                {
+                    if(isFavourites && favourites.get(Long.parseLong(aSnapshotIterable.getKey())) == null)
+                    {
+                        continue;
+                    }
+
+                    Opportunity opportunity = aSnapshotIterable.getValue(Opportunity.class);
+                    if(opportunity == null)
+                    {
+                        continue;
+                    }
+
+                    boolean isValid = true;
+                    if(isSearch)
+                    {
+                        if(!oggetto.isEmpty())
+                        {
+                            isValid = opportunity.getOGGETTO().toLowerCase().contains(oggetto.toLowerCase());
+                        }
+
+                        if(!tema.isEmpty())
+                        {
+                            isValid = isValid && opportunity.getTEMA_SINTETICO().toLowerCase().contains(tema.toLowerCase());
+                        }
+
+                        if(!beneficiario.isEmpty())
+                        {
+                            isValid = isValid && opportunity.getTIPOLOGIA_BENEFICIARI().toLowerCase().contains(beneficiario.toLowerCase());
+                        }
+
+                        if(!regione.isEmpty())
+                        {
+                            isValid = isValid && opportunity.getLUOGO().toLowerCase().contains(regione.toLowerCase());
+                        }
+                    }
+                    else if(isFavourites)
+                    {
+                        if(!oggetto.isEmpty())
+                        {
+                            isValid = opportunity.getOGGETTO().toLowerCase().contains(oggetto.toLowerCase());
+                        }
+                    }
+
+                    if(isValid)
+                    {
+                        opportunity.setContext(getContext());
+                        listOpportunities.add(opportunity);
+                    }
+
+                    lastKey = aSnapshotIterable.getKey();
+                }
+
+                lastValue = lastKey;
+                footerAdapter.clear();
+
+                if(isSearch || isFavourites)
+                {
+                    itemAdapter.clear();
+                }
+
+                itemAdapter.add(listOpportunities);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+
+            }
+        });
     }
 }

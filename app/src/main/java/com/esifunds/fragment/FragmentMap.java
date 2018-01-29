@@ -3,6 +3,7 @@ package com.esifunds.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,11 +38,17 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback
     private FirebaseDatabase mDatabase;
 
     private final LatLngBounds latLngBoundsItaly = new LatLngBounds(new LatLng(34.76, 5.93), new LatLng(47.1, 18.99));
+    private FragmentSearch fragmentSearch;
     //private List<LatLng> latLngList;
     //private final LatLng latLngCenterItaly = new LatLng(40.93, 12.46);
 
     public FragmentMap()
     {
+    }
+
+    public void setFragmentSearch(FragmentSearch fragmentSearch)
+    {
+        this.fragmentSearch = fragmentSearch;
     }
 
     @Override
@@ -103,6 +110,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback
                             {
                                 continue;
                             }
+                            opportunity.setContext(getContext());
 
                             String region = opportunity.getLUOGO();
                             if(heatMapLocations.containsKey(region))
@@ -149,9 +157,16 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback
                         {
                             @Override public boolean onMarkerClick(Marker marker)
                             {
-                                // TODO: Search for tag
-                                //marker.getTag()
+                                FragmentSearch fragmentSearch = new FragmentSearch();
+                                Bundle args = new Bundle();
+                                args.putInt("POSITION", 0);
+                                args.putBoolean("IS_SEARCH", true);
+                                args.putString("SEARCH_REGIONE", (String)marker.getTag());
+                                fragmentSearch.setArguments(args);
 
+                                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                                fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, fragmentSearch);
+                                fragmentTransaction.commit();
                                 return false;
                             }
                         });

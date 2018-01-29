@@ -21,6 +21,9 @@
     <string name="string_lastname">Last Name</string>
     <string name="string_money_symbol">$</string>
     <string name="string_espiration_date">Expiration Date:</string>
+    <string name="string_from">From:</string>
+    <string name="string_to">To:</string>
+    <string name="string_no_expiration">No expiration</string>
     <string name="string_theme">Theme:</string>
     <string name="string_type">Type:</string>
     <string name="string_map">Map</string>

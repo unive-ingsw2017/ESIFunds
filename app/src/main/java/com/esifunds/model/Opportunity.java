@@ -1,5 +1,7 @@
 package com.esifunds.model;
 
+import android.content.Context;
+import android.graphics.drawable.Icon;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -9,12 +11,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.esifunds.R;
+import com.esifunds.activity.OpportunitiesActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
 
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -37,6 +41,8 @@ public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolde
     private String TIPOLOGIA_BENEFICIARI;
     private String LINK;
 
+    private Context context;
+
     public Opportunity()
     {
     }
@@ -57,6 +63,11 @@ public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolde
         this.TEMA_SINTETICO = TEMA_SINTETICO;
         this.TIPOLOGIA_BENEFICIARI = TIPOLOGIA_BENEFICIARI;
         this.LINK = LINK;
+    }
+
+    public void setContext(Context context)
+    {
+        this.context = context;
     }
 
     protected Opportunity(Parcel in)
@@ -154,8 +165,7 @@ public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolde
         @Override
         public void bindView(final Opportunity item, List<Object> payloads)
         {
-            // @TODO: This Icon should be parametric
-            opportunityAvatar.setImageResource(R.drawable.ic_work_icon);
+            opportunityAvatar.setImageResource(IconTags.getInstance().getIconForTheme(item.getContext(), item.getTEMA_SINTETICO(), true));
 
             if(UserFavourites.get(item.getID_OPPORTUNITA()) != null)
             {
@@ -269,5 +279,10 @@ public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolde
     public String getLINK()
     {
         return LINK;
+    }
+
+    public Context getContext()
+    {
+        return context;
     }
 }

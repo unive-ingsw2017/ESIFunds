@@ -14,10 +14,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.esifunds.R;
+import com.esifunds.activity.OpportunitiesActivity;
 
 public class FragmentSearch extends Fragment
 {
     private FragmentOpportunities searchFragment;
+    private TabLayout tabLayout;
 
     public FragmentSearch()
     {
@@ -28,7 +30,7 @@ public class FragmentSearch extends Fragment
     {
         final View viewRoot = inflater.inflate(R.layout.fragment_search, container, false);
 
-        TabLayout tabLayout = viewRoot.findViewById(R.id.tabLayoutFragmentSearch);
+        tabLayout = viewRoot.findViewById(R.id.tabLayoutFragmentSearch);
 
         final RelativeLayout relativeLayoutAdvancedSearch = viewRoot.findViewById(R.id.relativeLayoutAdvancedSearch);
         final ImageView imageViewArrowAdvancedSearch = viewRoot.findViewById(R.id.imageViewArrowAdvancedSearch);
@@ -42,11 +44,13 @@ public class FragmentSearch extends Fragment
                 {
                     relativeLayoutAdvancedSearch.setVisibility(View.GONE);
                     imageViewArrowAdvancedSearch.setImageResource(android.R.drawable.arrow_down_float);
+                    ((OpportunitiesActivity)getActivity()).unRegisterAdvancedSearchInputs();
                 }
                 else
                 {
                     relativeLayoutAdvancedSearch.setVisibility(View.VISIBLE);
                     imageViewArrowAdvancedSearch.setImageResource(android.R.drawable.arrow_up_float);
+                    ((OpportunitiesActivity)getActivity()).registerAdvancedSearchInputs();
                 }
             }
         });
@@ -72,9 +76,6 @@ public class FragmentSearch extends Fragment
         Bundle myArgs = getArguments();
         if(myArgs != null && myArgs.getInt("POSITION", -1) != -1)
         {
-            int position = myArgs.getInt("POSITION");
-            TabLayout.Tab tab = tabLayout.getTabAt(position);
-            tab.select();
             loadFragmentForTab(myArgs.getInt("POSITION"));
         }
         else
@@ -87,6 +88,9 @@ public class FragmentSearch extends Fragment
 
     private void loadFragmentForTab(int position)
     {
+        TabLayout.Tab tab = tabLayout.getTabAt(position);
+        tab.select();
+
         switch(position)
         {
             case 0:
@@ -98,7 +102,10 @@ public class FragmentSearch extends Fragment
                 Bundle myArgs = getArguments();
                 if(myArgs != null)
                 {
-                    args.putString("TO_SEARCH", myArgs.getString("TO_SEARCH", ""));
+                    args.putString("SEARCH_OGGETTO", myArgs.getString("SEARCH_OGGETTO", ""));
+                    args.putString("SEARCH_TEMA", myArgs.getString("SEARCH_TEMA", ""));
+                    args.putString("SEARCH_BENEFICIARIO", myArgs.getString("SEARCH_BENEFICIARIO", ""));
+                    args.putString("SEARCH_REGIONE", myArgs.getString("SEARCH_REGIONE", ""));
                 }
 
                 searchFragment.setArguments(args);
@@ -112,13 +119,13 @@ public class FragmentSearch extends Fragment
 
             case 1:
             {
-                FragmentOpportunities fragmentFavourites = new FragmentOpportunities();
+                searchFragment = new FragmentOpportunities();
                 Bundle args = new Bundle();
-                args.putBoolean("LOAD_FAVOURITES", true);
-                fragmentFavourites.setArguments(args);
+                args.putBoolean("IS_FAVOURITES", true);
+                searchFragment.setArguments(args);
 
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentPlaceholderFragmentSearch, fragmentFavourites);
+                fragmentTransaction.replace(R.id.fragmentPlaceholderFragmentSearch, searchFragment);
                 fragmentTransaction.commit();
                 break;
             }
@@ -126,7 +133,9 @@ public class FragmentSearch extends Fragment
             case 2:
             {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentPlaceholderFragmentSearch, new FragmentMap());
+                FragmentMap map = new FragmentMap();
+                map.setFragmentSearch(this);
+                fragmentTransaction.replace(R.id.fragmentPlaceholderFragmentSearch, map);
                 fragmentTransaction.commit();
 
                 break;
