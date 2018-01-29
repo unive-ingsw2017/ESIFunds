@@ -155,7 +155,7 @@ public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolde
         public void bindView(final Opportunity item, List<Object> payloads)
         {
             // @TODO: This Icon should be parametric
-            opportunityAvatar.setImageResource(R.drawable.common_google_signin_btn_icon_dark);
+            opportunityAvatar.setImageResource(R.drawable.ic_work_icon);
 
             if(UserFavourites.get(item.getID_OPPORTUNITA()) != null)
             {
