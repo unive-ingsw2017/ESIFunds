@@ -20,6 +20,8 @@ public class FragmentSearch extends Fragment
 {
     private FragmentOpportunities searchFragment;
     private TabLayout tabLayout;
+    private RelativeLayout relativeLayoutAdvancedSearch;
+    private RelativeLayout relativeLayoutAdvancedSearchToggle;
 
     public FragmentSearch()
     {
@@ -32,7 +34,9 @@ public class FragmentSearch extends Fragment
 
         tabLayout = viewRoot.findViewById(R.id.tabLayoutFragmentSearch);
 
-        final RelativeLayout relativeLayoutAdvancedSearch = viewRoot.findViewById(R.id.relativeLayoutAdvancedSearch);
+        relativeLayoutAdvancedSearch = viewRoot.findViewById(R.id.relativeLayoutAdvancedSearch);
+        relativeLayoutAdvancedSearchToggle = viewRoot.findViewById(R.id.relativeLayoutAdvancedSearchToggle);
+
         final ImageView imageViewArrowAdvancedSearch = viewRoot.findViewById(R.id.imageViewArrowAdvancedSearch);
         Button buttonToggleAdvancedSearch = viewRoot.findViewById(R.id.buttonToggleAdvancedSearch);
         buttonToggleAdvancedSearch.setOnClickListener(new View.OnClickListener()
@@ -83,6 +87,51 @@ public class FragmentSearch extends Fragment
             loadFragmentForTab(tabLayout.getSelectedTabPosition());
         }
 
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
+        {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab)
+            {
+                if(tab.getPosition() == 2)
+                {
+                    ((OpportunitiesActivity)getActivity()).hideSearchBar();
+                    ((OpportunitiesActivity)getActivity()).hideSearchButton();
+                    relativeLayoutAdvancedSearch.setVisibility(View.GONE);
+                    relativeLayoutAdvancedSearchToggle.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab)
+            {
+                switch(tab.getPosition())
+                {
+                    case 0:
+                    {
+                        setSearchResultCount(0);
+                        break;
+                    }
+                    case 1:
+                    {
+                        setFavouritesCount(0);
+                        break;
+                    }
+                    case 2:
+                    {
+                        ((OpportunitiesActivity)getActivity()).showSearchButton();
+                        relativeLayoutAdvancedSearchToggle.setVisibility(View.VISIBLE);
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab)
+            {
+
+            }
+        });
+
         return viewRoot;
     }
 
@@ -90,6 +139,14 @@ public class FragmentSearch extends Fragment
     {
         TabLayout.Tab tab = tabLayout.getTabAt(position);
         tab.select();
+
+        if(position == 2)
+        {
+            ((OpportunitiesActivity)getActivity()).hideSearchBar();
+            ((OpportunitiesActivity)getActivity()).hideSearchButton();
+            relativeLayoutAdvancedSearch.setVisibility(View.GONE);
+            relativeLayoutAdvancedSearchToggle.setVisibility(View.GONE);
+        }
 
         switch(position)
         {

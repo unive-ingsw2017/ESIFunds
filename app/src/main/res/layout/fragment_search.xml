@@ -6,26 +6,32 @@
     android:background="@color/md_grey_100"
     tools:context="com.esifunds.fragment.FragmentSearch">
 
-    <Button
-        android:id="@+id/buttonToggleAdvancedSearch"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="match_parent" android:layout_height="32dp"
-        android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
-        android:background="@color/md_deep_purple_700"
-        android:text="Advanced search"
-        android:textColor="@color/md_deep_purple_50"/>
-    <ImageView
-        android:id="@+id/imageViewArrowAdvancedSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_alignParentEnd="true" android:layout_alignParentTop="true"
-        android:layout_marginEnd="104dp" android:src="@android:drawable/arrow_down_float"/>
+    <RelativeLayout
+        android:id="@+id/relativeLayoutAdvancedSearchToggle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true">
+        <Button
+            android:id="@+id/buttonToggleAdvancedSearch"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="match_parent" android:layout_height="32dp"
+            android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
+            android:background="@color/md_deep_purple_700"
+            android:text="Advanced search"
+            android:textColor="@color/md_deep_purple_50"/>
+        <ImageView
+            android:id="@+id/imageViewArrowAdvancedSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true" android:layout_alignParentTop="true"
+            android:layout_marginEnd="104dp" android:src="@android:drawable/arrow_down_float"/>
+    </RelativeLayout>
     <RelativeLayout
         android:id="@+id/relativeLayoutAdvancedSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/buttonToggleAdvancedSearch" android:visibility="gone">
+        android:layout_below="@+id/relativeLayoutAdvancedSearchToggle" android:visibility="gone">
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/advancedSearchThemeLayout"
