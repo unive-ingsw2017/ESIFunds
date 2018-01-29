@@ -7,22 +7,21 @@
     tools:context="com.esifunds.fragment.FragmentWelcome">
 
     <ImageView
-        android:id="@+id/imageViewWelcomeLogo"
+        android:id="@+id/imageViewExternalLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
         android:layout_marginTop="@dimen/dimen_32dp"
         android:contentDescription="@string/logo_welcome"
-        android:src="@drawable/ic_aws_mobilehub" />
+        android:background="@drawable/ic_logo" />
 
     <Button
         android:id="@+id/buttonLogin"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="@dimen/dimen_256dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageViewWelcomeLogo"
+        android:layout_below="@+id/imageViewExternalLogo"
         android:layout_centerHorizontal="false"
         android:layout_centerInParent="true"
         android:layout_marginTop="@dimen/dimen_32dp"
@@ -49,4 +48,5 @@
         android:layout_centerInParent="true"
         android:layout_marginTop="@dimen/dimen_16dp"
         android:text="@string/string_guest" />
+
 </RelativeLayout>
