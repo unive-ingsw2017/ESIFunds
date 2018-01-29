@@ -2,7 +2,6 @@ package com.esifunds.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
@@ -218,7 +217,7 @@ public class OpportunitiesActivity extends AppCompatActivity
         ProfileDrawerItem profileDrawerItemGuest = new ProfileDrawerItem().withName(R.string.string_guest).withIcon(R.drawable.ic_login_user);
         final ProfileDrawerItem profileDrawerItemUser = new ProfileDrawerItem().withIcon(R.drawable.ic_login_user).withIdentifier(1);
 
-        final AccountHeader drawerHeaderResult = new AccountHeaderBuilder().withActivity(this).withHeaderBackground(R.drawable.material_drawer_badge)
+        final AccountHeader drawerHeaderResult = new AccountHeaderBuilder().withActivity(this).withHeaderBackground(R.drawable.drawer_header_background)
                 .addProfiles
                         (
                                 activityType.equals("GUEST") ? profileDrawerItemGuest : profileDrawerItemUser
