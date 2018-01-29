@@ -407,6 +407,11 @@ public class OpportunitiesActivity extends AppCompatActivity
                 hideSearchBar();
             }
 
+            if(fragment instanceof  FragmentAccount)
+            {
+                showSearchButton();
+            }
+
             super.onBackPressed();
         }
         else if(drawerResult.isDrawerOpen())
@@ -436,7 +441,12 @@ public class OpportunitiesActivity extends AppCompatActivity
     {
         textInputEditTextSearch.setText("");
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
+        if(imm != null && getCurrentFocus() != null)
+        {
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+
         textInputEditTextSearch.setVisibility(View.GONE);
 
         opportunitiesSearch.setVisibility(View.VISIBLE);

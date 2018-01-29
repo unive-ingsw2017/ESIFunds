@@ -152,7 +152,7 @@ public class FragmentOpportunities extends Fragment
     {
         if(isSearch && oggetto.isEmpty() && tema.isEmpty() && beneficiario.isEmpty() && regione.isEmpty())
         {
-            if(fragmentSearch != null)
+            if(fragmentSearch != null  && isAdded())
             {
                 fragmentSearch.setSearchResultCount(0);
             }
@@ -238,7 +238,7 @@ public class FragmentOpportunities extends Fragment
 
     private void clearFavourites()
     {
-        if(fragmentSearch != null)
+        if(fragmentSearch != null  && isAdded())
         {
             fragmentSearch.setFavouritesCount(0);
         }
@@ -327,7 +327,7 @@ public class FragmentOpportunities extends Fragment
 
                 itemAdapter.add(listOpportunities);
 
-                if(fragmentSearch != null)
+                if(fragmentSearch != null && isAdded())
                 {
                     if(isSearch)
                     {

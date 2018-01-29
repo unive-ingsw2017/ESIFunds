@@ -148,6 +148,11 @@ public class FragmentSearch extends Fragment
 
     public void setSearchResultCount(int count)
     {
+        if(!isAdded())
+        {
+            return;
+        }
+
         TabLayout.Tab tab = tabLayout.getTabAt(0);
         if(count == 0)
         {
@@ -161,6 +166,11 @@ public class FragmentSearch extends Fragment
 
     public void setFavouritesCount(int count)
     {
+        if(!isAdded())
+        {
+            return;
+        }
+
         TabLayout.Tab tab = tabLayout.getTabAt(1);
         if(count == 0)
         {

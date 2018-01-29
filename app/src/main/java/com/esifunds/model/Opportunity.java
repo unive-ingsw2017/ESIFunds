@@ -211,6 +211,7 @@ public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolde
         {
             opportunityName.setText(null);
             opportunityDescription.setText(null);
+            opportunityIcon.setOnClickListener(null);
         }
     }
 
