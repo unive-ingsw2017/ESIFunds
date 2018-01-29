@@ -185,22 +185,38 @@ public class FragmentOpportunities extends Fragment
                         {
                             Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
 
+                            mFavourites.clear();
                             for(DataSnapshot aSnapshotIterable : snapshotIterable)
                             {
                                 long opID = Long.parseLong(aSnapshotIterable.getKey());
                                 mFavourites.put(opID, true);
                             }
 
-                            queryDatabase(oggetto, tema, beneficiario, regione, true, isSearch, fQuery, mFavourites);
+                            if(mFavourites.size() == 0)
+                            {
+                                footerAdapter.clear();
+                            }
+                            else
+                            {
+                                queryDatabase(oggetto, tema, beneficiario, regione, true, isSearch, fQuery, mFavourites);
+                            }
+                        }
+                        else
+                        {
+                            footerAdapter.clear();
                         }
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError)
                     {
-
+                        footerAdapter.clear();
                     }
                 });
+            }
+            else
+            {
+                footerAdapter.clear();
             }
         }
         else
@@ -218,7 +234,7 @@ public class FragmentOpportunities extends Fragment
                                Query query,
                                final LongSparseArray favourites)
     {
-        query.addListenerForSingleValueEvent(new ValueEventListener()
+        query.addValueEventListener(new ValueEventListener()
         {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)

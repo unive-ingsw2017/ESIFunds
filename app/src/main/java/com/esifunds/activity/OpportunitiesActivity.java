@@ -1,6 +1,7 @@
 package com.esifunds.activity;
 
 import android.content.Intent;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
@@ -292,10 +293,20 @@ public class OpportunitiesActivity extends AppCompatActivity
                         }
                         else if(drawerItem == drawerItemOpportunitiesList)
                         {
+                            if(isSearchBarVisible())
+                            {
+                                hideSearchBar();
+                            }
+
                             showFragmentOpportunities();
                         }
                         else if(drawerItem == drawerItemLogout)
                         {
+                            if(isSearchBarVisible())
+                            {
+                                hideSearchBar();
+                            }
+
                             FirebaseAuth.getInstance().signOut();
                             Intent intentMain = new Intent(getApplication(), MainActivity.class);
                             intentMain.putExtra("INTERNAL", true);
@@ -304,6 +315,11 @@ public class OpportunitiesActivity extends AppCompatActivity
                         }
                         else if(drawerItem == drawerItemLoginRegister)
                         {
+                            if(isSearchBarVisible())
+                            {
+                                hideSearchBar();
+                            }
+
                             Intent intentMain = new Intent(getApplication(), MainActivity.class);
                             intentMain.putExtra("INTERNAL", true);
                             startActivity(intentMain);
@@ -401,6 +417,11 @@ public class OpportunitiesActivity extends AppCompatActivity
         {
             super.onBackPressed();
         }
+    }
+
+    public boolean isSearchBarVisible()
+    {
+        return textInputEditTextSearch.getVisibility() == View.VISIBLE;
     }
 
     public void showSearchBar()

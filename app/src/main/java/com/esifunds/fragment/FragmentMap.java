@@ -137,6 +137,11 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback
 
                         List<LatLng> latLngList = new ArrayList<>();
 
+                        if(!isAdded())
+                        {
+                            return;
+                        }
+
                         for(Map.Entry<String, HeatMapLocation> heatMapLocationEntry : heatMapLocations.entrySet())
                         {
                             for(int i = 0; i < heatMapLocationEntry.getValue().getNumHits(); i++)
