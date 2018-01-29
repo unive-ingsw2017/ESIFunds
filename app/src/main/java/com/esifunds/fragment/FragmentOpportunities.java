@@ -47,6 +47,7 @@ public class FragmentOpportunities extends Fragment
     private String lastValue = "0";
     private boolean bIsFavourites = false;
     private FragmentSearch fragmentSearch;
+    private FastAdapter<Opportunity> fastAdapter;
 
     public FragmentOpportunities()
     {
@@ -62,6 +63,8 @@ public class FragmentOpportunities extends Fragment
         itemAdapter.clear();
         filterFor(oggetto, tema, beneficiario, regione, bIsFavourites, true, false);
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -101,7 +104,7 @@ public class FragmentOpportunities extends Fragment
 
         recyclerViewOpportunities.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        final FastAdapter<Opportunity> fastAdapter = FastAdapter.with(footerAdapter);
+        fastAdapter = FastAdapter.with(footerAdapter);
         fastAdapter.addAdapter(0, itemAdapter);
         fastAdapter.withSelectable(true);
         fastAdapter.registerTypeInstance(new Opportunity());
@@ -122,6 +125,7 @@ public class FragmentOpportunities extends Fragment
                 return true;
             }
         });
+
 
         recyclerViewOpportunities.setAdapter(fastAdapter);
 
@@ -168,7 +172,7 @@ public class FragmentOpportunities extends Fragment
             {
                 query = query.startAt(null, lastValue).limitToFirst(25 + 1);
             }
-            else
+            else if(!isFavourites)
             {
                 query = query.limitToFirst(25);
             }
@@ -182,7 +186,7 @@ public class FragmentOpportunities extends Fragment
             footerAdapter.add(new ProgressItem().withEnabled(true));
         }
 
-        final LongSparseArray mFavourites = new LongSparseArray<>();
+        final LongSparseArray<Boolean> mFavourites = new LongSparseArray<>();
         if(isFavourites)
         {
             if(UserFavourites.getAll() != null)
@@ -209,7 +213,7 @@ public class FragmentOpportunities extends Fragment
                             }
                             else
                             {
-                                queryDatabase(oggetto, tema, beneficiario, regione, true, isSearch, fQuery, mFavourites);
+                                queryDatabase(oggetto, tema, beneficiario, regione, true, isSearch, onScroll, fQuery, mFavourites);
                             }
                         }
                         else
@@ -232,7 +236,7 @@ public class FragmentOpportunities extends Fragment
         }
         else
         {
-            queryDatabase(oggetto, tema, beneficiario, regione, false, isSearch, query, mFavourites);
+            queryDatabase(oggetto, tema, beneficiario, regione, false, isSearch, onScroll, query, mFavourites);
         }
     }
 
@@ -253,8 +257,9 @@ public class FragmentOpportunities extends Fragment
                                final String regione,
                                final boolean isFavourites,
                                final boolean isSearch,
+                               final boolean onScroll,
                                Query query,
-                               final LongSparseArray favourites)
+                               final LongSparseArray<Boolean> favourites)
     {
         query.addValueEventListener(new ValueEventListener()
         {
@@ -264,8 +269,16 @@ public class FragmentOpportunities extends Fragment
                 Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
                 List<Opportunity> listOpportunities = new ArrayList<Opportunity>();
                 String lastKey = "";
+
+                boolean bFirstSkipped = false;
                 for(DataSnapshot aSnapshotIterable : snapshotIterable)
                 {
+                    if(onScroll && !bFirstSkipped)
+                    {
+                        bFirstSkipped = true;
+                        continue;
+                    }
+
                     if(isFavourites && favourites.get(Long.parseLong(aSnapshotIterable.getKey())) == null)
                     {
                         continue;

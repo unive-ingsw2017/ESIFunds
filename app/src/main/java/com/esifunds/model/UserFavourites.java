@@ -1,5 +1,7 @@
 package com.esifunds.model;
 
+import android.util.LongSparseArray;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -9,6 +11,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by napalm on 25/01/18.
@@ -16,6 +19,50 @@ import java.util.ArrayList;
 
 public class UserFavourites
 {
+    private static UserFavourites instance = null;
+    LongSparseArray<Boolean> mFavourites = new LongSparseArray<>();
+
+    private UserFavourites() {
+        if(UserFavourites.getAll() == null)
+        {
+            return;
+        }
+
+        UserFavourites.getAll().addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
+
+                mFavourites.clear();
+                for(DataSnapshot aSnapshotIterable : snapshotIterable)
+                {
+                    mFavourites.put(Long.parseLong(aSnapshotIterable.getKey()), true);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+
+            }
+        });
+    }
+
+    public LongSparseArray<Boolean> getmFavourites()
+    {
+        return mFavourites;
+    }
+
+    public static UserFavourites getInstance() {
+        if(instance == null) {
+            instance = new UserFavourites();
+        }
+
+        return instance;
+    }
+
     public static DatabaseReference getAll()
     {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -50,6 +97,15 @@ public class UserFavourites
         if(firebaseDatabase == null || firebaseUser == null)
         {
             return;
+        }
+
+        if(UserFavourites.getInstance().getmFavourites().get(id) != null)
+        {
+            UserFavourites.getInstance().getmFavourites().remove(id);
+        }
+        else
+        {
+            UserFavourites.getInstance().getmFavourites().put(id, true);
         }
 
         firebaseDatabase.getReference(String.format("users/%s/favourites", firebaseUser.getUid(), id)).addListenerForSingleValueEvent(new ValueEventListener()

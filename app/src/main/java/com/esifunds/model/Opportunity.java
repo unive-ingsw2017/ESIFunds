@@ -16,6 +16,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.mikepenz.fastadapter.FastAdapter;
+import com.mikepenz.fastadapter.adapters.ItemAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
 
 import java.util.HashMap;
@@ -166,44 +167,21 @@ public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolde
         public void bindView(final Opportunity item, List<Object> payloads)
         {
             opportunityAvatar.setImageResource(IconTags.getInstance().getIconForTheme(item.getContext(), item.getTEMA_SINTETICO(), true));
-
-            if(UserFavourites.get(item.getID_OPPORTUNITA()) != null)
-            {
-                UserFavourites.get(item.getID_OPPORTUNITA()).addValueEventListener(new ValueEventListener()
-                {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot)
-                    {
-                        if(dataSnapshot.exists())
-                        {
-                            opportunityIcon.setImageResource(R.drawable.ic_star_yellow_24dp);
-                            opportunityIcon.setVisibility(View.VISIBLE);
-                        }
-                        else
-                        {
-                            opportunityIcon.setImageResource(R.drawable.ic_star_border_black_24dp);
-                            opportunityIcon.setVisibility(View.VISIBLE);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError)
-                    {
-
-                    }
-                });
-            }
-
             opportunityName.setText(item.getCODICE_PROGRAMMA());
             opportunityDescription.setText(item.getOGGETTO());
 
-            opportunityIcon.setOnClickListener(new View.OnClickListener()
+            opportunityIcon.setOnClickListener(new FavouriteOnClickListener(item, getAdapterPosition()));
+
+            if(UserFavourites.getInstance().getmFavourites().get(item.getID_OPPORTUNITA()) != null)
             {
-                @Override public void onClick(View v)
-                {
-                    UserFavourites.toggleFavourite(item.getID_OPPORTUNITA());
-                }
-            });
+                opportunityIcon.setImageResource(R.drawable.ic_star_yellow_24dp);
+                opportunityIcon.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                opportunityIcon.setImageResource(R.drawable.ic_star_border_black_24dp);
+                opportunityIcon.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
@@ -213,7 +191,34 @@ public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolde
             opportunityDescription.setText(null);
             opportunityIcon.setOnClickListener(null);
         }
+
+        public class FavouriteOnClickListener implements View.OnClickListener
+        {
+            Opportunity opp;
+            int position;
+            public FavouriteOnClickListener(Opportunity opp, int position) {
+                this.opp = opp;
+                this.position = position;
+            }
+
+            @Override
+            public void onClick(View v)
+            {
+                if(UserFavourites.getInstance().getmFavourites().get(opp.getID_OPPORTUNITA()) != null)
+                {
+                    ((ImageButton)v).setImageResource(R.drawable.ic_star_border_black_24dp);
+                }
+                else
+                {
+                    ((ImageButton)v).setImageResource(R.drawable.ic_star_yellow_24dp);
+                }
+
+                UserFavourites.toggleFavourite(opp.getID_OPPORTUNITA());
+            }
+
+        }
     }
+
 
     public long getID_OPPORTUNITA()
     {
