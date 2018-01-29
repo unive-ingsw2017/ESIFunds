@@ -46,9 +46,15 @@ public class FragmentOpportunities extends Fragment
     final ItemAdapter<ProgressItem> footerAdapter = new ItemAdapter<>();
     private String lastValue = "0";
     private boolean bIsFavourites = false;
+    private FragmentSearch fragmentSearch;
 
     public FragmentOpportunities()
     {
+    }
+
+    public void setFragmentSearch(FragmentSearch fragmentSearch)
+    {
+        this.fragmentSearch = fragmentSearch;
     }
 
     public void searchWithString(final String oggetto, final String tema, final String beneficiario, final String regione)
@@ -146,6 +152,11 @@ public class FragmentOpportunities extends Fragment
     {
         if(isSearch && oggetto.isEmpty() && tema.isEmpty() && beneficiario.isEmpty() && regione.isEmpty())
         {
+            if(fragmentSearch != null)
+            {
+                fragmentSearch.setSearchResultCount(0);
+            }
+
             return;
         }
 
@@ -194,7 +205,7 @@ public class FragmentOpportunities extends Fragment
 
                             if(mFavourites.size() == 0)
                             {
-                                footerAdapter.clear();
+                                clearFavourites();
                             }
                             else
                             {
@@ -203,14 +214,14 @@ public class FragmentOpportunities extends Fragment
                         }
                         else
                         {
-                            footerAdapter.clear();
+                            clearFavourites();
                         }
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError)
                     {
-                        footerAdapter.clear();
+                        clearFavourites();
                     }
                 });
             }
@@ -223,6 +234,17 @@ public class FragmentOpportunities extends Fragment
         {
             queryDatabase(oggetto, tema, beneficiario, regione, false, isSearch, query, mFavourites);
         }
+    }
+
+    private void clearFavourites()
+    {
+        if(fragmentSearch != null)
+        {
+            fragmentSearch.setFavouritesCount(0);
+        }
+
+        itemAdapter.clear();
+        footerAdapter.clear();
     }
 
     private void queryDatabase(final String oggetto,
@@ -304,6 +326,18 @@ public class FragmentOpportunities extends Fragment
                 }
 
                 itemAdapter.add(listOpportunities);
+
+                if(fragmentSearch != null)
+                {
+                    if(isSearch)
+                    {
+                        fragmentSearch.setSearchResultCount(listOpportunities.size());
+                    }
+                    else if(isFavourites)
+                    {
+                        fragmentSearch.setFavouritesCount(listOpportunities.size());
+                    }
+                }
             }
 
             @Override

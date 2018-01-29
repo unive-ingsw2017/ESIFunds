@@ -96,6 +96,7 @@ public class FragmentSearch extends Fragment
             case 0:
             {
                 searchFragment = new FragmentOpportunities();
+                searchFragment.setFragmentSearch(this);
                 Bundle args = new Bundle();
                 args.putBoolean("IS_SEARCH", true);
 
@@ -120,6 +121,8 @@ public class FragmentSearch extends Fragment
             case 1:
             {
                 searchFragment = new FragmentOpportunities();
+                searchFragment.setFragmentSearch(this);
+
                 Bundle args = new Bundle();
                 args.putBoolean("IS_FAVOURITES", true);
                 searchFragment.setArguments(args);
@@ -140,6 +143,32 @@ public class FragmentSearch extends Fragment
 
                 break;
             }
+        }
+    }
+
+    public void setSearchResultCount(int count)
+    {
+        TabLayout.Tab tab = tabLayout.getTabAt(0);
+        if(count == 0)
+        {
+            tab.setText(R.string.string_search);
+        }
+        else
+        {
+            tab.setText(getResources().getString(R.string.string_search) + " ( " + count + " )");
+        }
+    }
+
+    public void setFavouritesCount(int count)
+    {
+        TabLayout.Tab tab = tabLayout.getTabAt(1);
+        if(count == 0)
+        {
+            tab.setText(R.string.string_favourites);
+        }
+        else
+        {
+            tab.setText(getResources().getString(R.string.string_favourites) + " ( " + count + " )");
         }
     }
 

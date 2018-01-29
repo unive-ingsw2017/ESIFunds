@@ -1,5 +1,6 @@
 package com.esifunds.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.opengl.Visibility;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -135,8 +137,6 @@ public class OpportunitiesActivity extends AppCompatActivity
         opportunitiesSearch = findViewById(R.id.imageButtonOpportunitiesActivitySearch);
         imageButtonFullSearch = findViewById(R.id.imageButtonFullSearch);
         textInputEditTextSearch = findViewById(R.id.textInputEditTextSearch);
-
-
 
         textInputEditTextSearch.addTextChangedListener(new TextWatcher()
         {
@@ -434,6 +434,9 @@ public class OpportunitiesActivity extends AppCompatActivity
 
     public void hideSearchBar()
     {
+        textInputEditTextSearch.setText("");
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         textInputEditTextSearch.setVisibility(View.GONE);
 
         opportunitiesSearch.setVisibility(View.VISIBLE);
