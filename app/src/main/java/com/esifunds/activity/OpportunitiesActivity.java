@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.esifunds.R;
 import com.esifunds.fragment.FragmentAccount;
 import com.esifunds.fragment.FragmentOpportunities;
-import com.esifunds.fragment.FragmentOpportunity;
 import com.esifunds.fragment.FragmentSearch;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -126,6 +125,7 @@ public class OpportunitiesActivity extends AppCompatActivity
         final PrimaryDrawerItem drawerItemOpportunitiesList = new PrimaryDrawerItem().withIdentifier(0).withName(R.string.string_opportunities_list).withIcon(GoogleMaterial.Icon.gmd_list);
         final SecondaryDrawerItem drawerItemSearch = new SecondaryDrawerItem().withIdentifier(1).withName(R.string.string_search).withIcon(GoogleMaterial.Icon.gmd_search);
         final SecondaryDrawerItem drawerItemFavourites = new SecondaryDrawerItem().withIdentifier(2).withName(R.string.string_favourites).withIcon(GoogleMaterial.Icon.gmd_star);
+        final SecondaryDrawerItem drawerItemMap = new SecondaryDrawerItem().withIdentifier(3).withName(R.string.string_map).withIcon(GoogleMaterial.Icon.gmd_terrain);
 
         final SecondaryDrawerItem drawerItemLoginRegister = new SecondaryDrawerItem().withIdentifier(100).withName(R.string.string_login_register).withIcon(FontAwesome.Icon.faw_sign_in);
         final SecondaryDrawerItem drawerItemLogout = new SecondaryDrawerItem().withIdentifier(101).withName(R.string.string_logout).withIcon(FontAwesome.Icon.faw_sign_out);
@@ -171,7 +171,8 @@ public class OpportunitiesActivity extends AppCompatActivity
                         (
                                 drawerItemOpportunitiesList,
                                 new DividerDrawerItem(),
-                                drawerItemSearch
+                                drawerItemSearch,
+                                drawerItemMap
                         )
                 .addStickyDrawerItems
                         (
@@ -223,6 +224,18 @@ public class OpportunitiesActivity extends AppCompatActivity
                             intentMain.putExtra("INTERNAL", true);
                             startActivity(intentMain);
                             finish();
+                        }
+                        else if(drawerItem == drawerItemMap)
+                        {
+                            fragmentSearch = new FragmentSearch();
+                            Bundle args = new Bundle();
+                            args.putInt("POSITION", 2);
+                            fragmentSearch.setArguments(args);
+
+                            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.add(R.id.fragmentPlaceholderOpportunitiesActivity, fragmentSearch);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
                         }
 
                         return false;
