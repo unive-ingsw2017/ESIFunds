@@ -69,6 +69,10 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback
 
         fragmentGoogleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getContext(), R.raw.map_style));
 
+        // Zoom options Code
+        fragmentGoogleMap.setMinZoomPreference(5.0f);
+        fragmentGoogleMap.setMaxZoomPreference(7.0f);
+
         // LatLng Bounds Code
         fragmentGoogleMap.setLatLngBoundsForCameraTarget(latLngBoundsItaly);
         fragmentGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBoundsItaly, 0));
