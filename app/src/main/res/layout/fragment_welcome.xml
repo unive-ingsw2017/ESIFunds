@@ -15,7 +15,7 @@
         android:layout_centerInParent="true"
         android:layout_marginTop="@dimen/dimen_32dp"
         android:contentDescription="@string/logo_welcome"
-        android:src="@drawable/ic_aws_mobilehub" />
+        android:src="@drawable/ic_logo"/>
 
     <Button
         android:id="@+id/buttonLogin"
