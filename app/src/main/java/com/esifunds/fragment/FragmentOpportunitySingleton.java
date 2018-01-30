@@ -79,9 +79,9 @@ public class FragmentOpportunitySingleton extends Fragment
 
             TextView textViewSingletonMoney = viewRoot.findViewById(R.id.textViewSingletonMoney);
             if(mainOpportunity.getIMPORTO() == 0)
-                textViewSingletonMoney.setText("0,00");
+                textViewSingletonMoney.setText("€ 0,00");
             else
-                textViewSingletonMoney.setText(decimalFormat.format(mainOpportunity.getIMPORTO()));
+                textViewSingletonMoney.setText("€ " + decimalFormat.format(mainOpportunity.getIMPORTO()));
 
             TextView textViewSingletonDateStart = viewRoot.findViewById(R.id.textViewDateStart);
             TextView textViewSingletonDateEnd = viewRoot.findViewById(R.id.textViewDateEnd);
@@ -122,10 +122,31 @@ public class FragmentOpportunitySingleton extends Fragment
             textViewSingletonSummary.setText(mainOpportunity.getOGGETTO());
 
             TextView textViewSingletonTheme = viewRoot.findViewById(R.id.textViewSingletonTheme);
+            if(mainOpportunity.getTEMA_SINTETICO().isEmpty())
+            {
+                TextView textViewSingletonThemeString = viewRoot.findViewById(R.id.textViewSingletonThemeString);
+                textViewSingletonThemeString.setVisibility(View.GONE);
+                textViewSingletonTheme.setVisibility(View.GONE);
+            }
             textViewSingletonTheme.setText(mainOpportunity.getTEMA_SINTETICO());
+
             TextView textViewSingletonType = viewRoot.findViewById(R.id.textViewSingletonType);
+            if(mainOpportunity.getTIPO_OPPORTUNITA().isEmpty())
+            {
+                TextView textViewSingletonTypeString = viewRoot.findViewById(R.id.textViewSingletonTypeString);
+                textViewSingletonTypeString.setVisibility(View.GONE);
+                textViewSingletonType.setVisibility(View.GONE);
+            }
             textViewSingletonType.setText(mainOpportunity.getTIPO_OPPORTUNITA());
+
+
             TextView textViewSingletonPayee = viewRoot.findViewById(R.id.textViewSingletonPayee);
+            if(mainOpportunity.getTIPOLOGIA_BENEFICIARI().isEmpty())
+            {
+                TextView textViewSingletonPayeeString = viewRoot.findViewById(R.id.textViewSingletonPayeeString);
+                textViewSingletonPayeeString.setVisibility(View.GONE);
+                textViewSingletonPayee.setVisibility(View.GONE);
+            }
             textViewSingletonPayee.setText(mainOpportunity.getTIPOLOGIA_BENEFICIARI());
         }
 
