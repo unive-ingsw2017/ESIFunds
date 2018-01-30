@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.esifunds.R;
 import com.esifunds.activity.OpportunitiesActivity;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -172,15 +173,22 @@ public class Opportunity extends AbstractItem<Opportunity, Opportunity.ViewHolde
 
             opportunityIcon.setOnClickListener(new FavouriteOnClickListener(item, getAdapterPosition()));
 
-            if(UserFavourites.getInstance().getmFavourites().get(item.getID_OPPORTUNITA()) != null)
+            if(FirebaseAuth.getInstance().getCurrentUser() != null)
             {
-                opportunityIcon.setImageResource(R.drawable.ic_star_yellow_24dp);
-                opportunityIcon.setVisibility(View.VISIBLE);
+                if(UserFavourites.getInstance().getmFavourites().get(item.getID_OPPORTUNITA()) != null)
+                {
+                    opportunityIcon.setImageResource(R.drawable.ic_star_yellow_24dp);
+                    opportunityIcon.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    opportunityIcon.setImageResource(R.drawable.ic_star_border_black_24dp);
+                    opportunityIcon.setVisibility(View.VISIBLE);
+                }
             }
             else
             {
-                opportunityIcon.setImageResource(R.drawable.ic_star_border_black_24dp);
-                opportunityIcon.setVisibility(View.VISIBLE);
+                opportunityIcon.setVisibility(View.GONE);
             }
         }
 

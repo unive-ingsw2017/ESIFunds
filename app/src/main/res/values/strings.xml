@@ -38,4 +38,8 @@
     <string name="placeholder_two_paragraph" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam venenatis pharetra dui ac sollicitudin. Mauris velit ipsum, sodales non justo et, fringilla dapibus ligula. Duis nec lorem in lorem facilisis suscipit sed quis nibh. Nulla viverra odio quis convallis placerat. Aliquam placerat mi eget tellus tincidunt aliquam. Vestibulum tincidunt turpis eget orci lacinia, ac cursus mi facilisis. Suspendisse hendrerit lacinia turpis, eu mollis nibh dapibus eget. Quisque suscipit finibus magna, et viverra leo ultrices ac. Curabitur lacinia nec turpis id mattis. Ut tellus metus, hendrerit quis rutrum non, mollis vel turpis.  Cras tempus arcu turpis. Nullam tristique ultrices erat, in viverra erat tristique sed. Morbi viverra orci scelerisque porttitor mollis. Fusce interdum gravida sem vel dignissim. Praesent congue nisi id magna porttitor pharetra. Etiam sit amet ante at arcu ullamcorper lobortis at a ligula. Aliquam erat volutpat. Proin suscipit finibus lobortis.</string>
     <string name="string_no_location">No Location Specified</string>
     <string name="string_advanced_search">ADVANCED SEARCH</string>
+    <string name="string_successfully_updated">Successfully updated</string>
+    <string name="string_invalid_password">Invalid password</string>
+    <string name="string_please_enter_your_current_password">Please enter your current password</string>
+    <string name="string_authentication_failed">Authentication failed</string>
 </resources>

@@ -77,7 +77,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener
                             else
                             {
                                 // If sign in fails, display a message to the user.
-                                Toast.makeText(getContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), R.string.string_authentication_failed, Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

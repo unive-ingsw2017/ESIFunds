@@ -99,22 +99,26 @@ public class FragmentAccount extends Fragment
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task)
                                         {
-                                            Toast.makeText(getContext(), "Successfully updated", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(getContext(), R.string.string_successfully_updated, Toast.LENGTH_LONG).show();
                                         }
                                     });
                                 }
 
                                 if(!bWaitForPassword && !bAllEmpty)
                                 {
-                                    Toast.makeText(getContext(), "Successfully updated", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getContext(), R.string.string_successfully_updated, Toast.LENGTH_LONG).show();
                                 }
                             }
                             else
                             {
-                                Toast.makeText(getContext(), "Invalid password", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), R.string.string_invalid_password, Toast.LENGTH_LONG).show();
                             }
                         }
                     });
+                }
+                else
+                {
+                    Toast.makeText(getContext(), R.string.string_please_enter_your_current_password, Toast.LENGTH_LONG).show();
                 }
             }
         });

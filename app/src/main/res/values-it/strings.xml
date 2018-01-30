@@ -36,4 +36,8 @@
     <string name="string_payee">BENEFICIARIO</string>
     <string name="string_no_location">Nessun Luogo Specificato</string>
     <string name="string_advanced_search">RICERCA AVANZATA</string>
+    <string name="string_successfully_updated">Modifiche salvate</string>
+    <string name="string_invalid_password">Password non valida</string>
+    <string name="string_please_enter_your_current_password">Inserisci la tua password attuale per continuare</string>
+    <string name="string_authentication_failed">Login fallito</string>
 </resources>
