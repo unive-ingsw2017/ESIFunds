@@ -1,52 +1,58 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/relativeLayoutFragmentWelcome"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/md_grey_100"
-    tools:context="com.esifunds.fragment.FragmentWelcome">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageViewExternalLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="@dimen/dimen_32dp"
-        android:contentDescription="@string/logo_welcome"
-        android:background="@drawable/ic_logo" />
+    <RelativeLayout
+        android:id="@+id/relativeLayoutFragmentWelcome"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/md_grey_100"
+        tools:context="com.esifunds.fragment.FragmentWelcome">
 
-    <Button
-        android:id="@+id/buttonLogin"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="@dimen/dimen_256dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageViewExternalLogo"
-        android:layout_centerHorizontal="false"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="@dimen/dimen_32dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="@string/string_login" />
+        <ImageView
+            android:id="@+id/imageViewExternalLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/dimen_32dp"
+            android:contentDescription="@string/logo_welcome"
+            android:background="@drawable/ic_logo" />
 
-    <Button
-        android:id="@+id/buttonRegister"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="@dimen/dimen_256dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonLogin"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="@dimen/dimen_16dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="@string/string_register" />
+        <Button
+            android:id="@+id/buttonLogin"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="@dimen/dimen_256dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageViewExternalLogo"
+            android:layout_centerHorizontal="false"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/dimen_32dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/string_login" />
 
-    <Button
-        android:id="@+id/buttonGuest"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="@dimen/dimen_256dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonRegister"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="@dimen/dimen_16dp"
-        android:text="@string/string_guest" />
+        <Button
+            android:id="@+id/buttonRegister"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="@dimen/dimen_256dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buttonLogin"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/string_register" />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/buttonGuest"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="@dimen/dimen_256dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buttonRegister"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:text="@string/string_guest" />
+
+    </RelativeLayout>
+</ScrollView>
+
