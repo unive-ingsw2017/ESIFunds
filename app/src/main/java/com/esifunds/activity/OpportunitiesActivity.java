@@ -2,6 +2,7 @@ package com.esifunds.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
@@ -10,8 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -230,6 +233,11 @@ public class OpportunitiesActivity extends AppCompatActivity
                     {
                         if(!activityType.equals("GUEST"))
                         {
+                            if(isSearchBarVisible())
+                            {
+                                hideSearchBar();
+                            }
+
                             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, new FragmentAccount());
                             fragmentTransaction.addToBackStack(null);
@@ -470,5 +478,29 @@ public class OpportunitiesActivity extends AppCompatActivity
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, new FragmentOpportunities());
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent motionEvent)
+    {
+        if(motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+        {
+            View view = getCurrentFocus();
+
+            if(view instanceof EditText)
+            {
+                Rect outRect = new Rect();
+
+                view.getGlobalVisibleRect(outRect);
+                if(!outRect.contains((int)motionEvent.getRawX(), (int)motionEvent.getRawY()))
+                {
+                    view.clearFocus();
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            }
+        }
+
+        return super.dispatchTouchEvent(motionEvent);
     }
 }
