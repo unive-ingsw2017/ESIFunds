@@ -1,0 +1,239 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollViewSingleton"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_grey_100"
+    tools:context="com.esifunds.fragment.FragmentOpportunitySingleton">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutSingleton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutSingletonPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_256dp"
+            android:layout_alignParentStart="true"
+            android:background="@color/md_deep_purple_600">
+
+            <ImageButton
+                android:id="@+id/imageButtonSingletonIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="false"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:background="@null"
+                android:clickable="true"
+                android:elevation="@dimen/dimen_32dp"
+                android:focusable="true"
+                android:src="@drawable/ic_school" />
+
+            <TextView
+                android:id="@+id/textViewSingletonProgram"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_32dp"
+                android:layout_below="@+id/imageButtonSingletonIcon"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
+                android:text="POR FSE Friuli Venezia Giulia"
+                android:textColor="@color/md_white_1000"
+                app:autoSizeTextType="uniform" />
+
+            <TextView
+                android:id="@+id/textViewSingletonMoney"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_64dp"
+                android:layout_below="@+id/textViewSingletonProgram"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
+                android:text="$ 3,000,000"
+                android:textColor="@color/md_white_1000"
+                app:autoSizeTextType="uniform" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutSingletonSecondary"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_64dp"
+            android:layout_below="@+id/relativeLayoutSingletonPrimary"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/relativeLayoutDateStart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/md_teal_500">
+
+                <TextView
+                    android:id="@+id/textViewDateStart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="@dimen/dimen_8dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center"
+                    android:text="01/01/2018"
+                    android:textColor="@color/md_white_1000"
+                    app:autoSizeTextType="uniform" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="@dimen/dimen_3dp"
+                android:layout_height="match_parent"
+                android:background="@color/md_grey_500"
+                android:elevation="@dimen/dimen_3dp" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayoutDateEnd"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/md_teal_500">
+
+                <TextView
+                    android:id="@+id/textViewDateEnd"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="@dimen/dimen_8dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center"
+                    android:text="01/01/2020"
+                    android:textColor="@color/md_white_1000"
+                    app:autoSizeTextType="uniform" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutSingletonInfo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/linearLayoutSingletonTertiary"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewSingletonThemeString"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_24dp"
+                android:background="@color/md_deep_purple_600"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/string_theme"
+                android:textColor="@color/md_white_1000"
+                app:autoSizeTextType="uniform" />
+
+            <TextView
+                android:id="@+id/textViewSingletonTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="start"
+                android:justificationMode="inter_word"
+                android:padding="@dimen/dimen_8dp"
+                android:singleLine="false"
+                android:text="@string/placeholder_one_paragraph"
+                app:autoSizeMaxTextSize="@dimen/dimen_20sp"
+                app:autoSizeMinTextSize="@dimen/dimen_12sp"
+                app:autoSizeTextType="uniform" />
+
+            <TextView
+                android:id="@+id/textViewSingletonTypeString"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_24dp"
+                android:background="@color/md_deep_purple_600"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/string_type"
+                android:textColor="@color/md_white_1000"
+                app:autoSizeTextType="uniform" />
+
+            <TextView
+                android:id="@+id/textViewSingletonType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="start"
+                android:justificationMode="inter_word"
+                android:padding="@dimen/dimen_8dp"
+                android:singleLine="false"
+                android:text="@string/placeholder_two_paragraph"
+                app:autoSizeMaxTextSize="@dimen/dimen_20sp"
+                app:autoSizeMinTextSize="@dimen/dimen_12sp"
+                app:autoSizeTextType="uniform" />
+
+            <TextView
+                android:id="@+id/textViewSingletonPayeeString"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_24dp"
+                android:background="@color/md_deep_purple_600"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/string_payee"
+                android:textColor="@color/md_white_1000"
+                app:autoSizeTextType="uniform" />
+
+            <TextView
+                android:id="@+id/textViewSingletonPayee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="start"
+                android:justificationMode="inter_word"
+                android:padding="@dimen/dimen_8dp"
+                android:singleLine="false"
+                android:text="@string/placeholder_one_paragraph"
+                app:autoSizeMaxTextSize="@dimen/dimen_20sp"
+                app:autoSizeMinTextSize="@dimen/dimen_12sp"
+                app:autoSizeTextType="uniform" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutSingletonTertiary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayoutSingletonSecondary"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewSingletonLocation"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_64dp"
+                app:autoSizeTextType="uniform"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:padding="@dimen/dimen_8dp"
+                android:text="Friuli Venezia Giulia" />
+
+            <TextView
+                android:id="@+id/textViewSingletonSummary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:autoSizeMaxTextSize="@dimen/dimen_20sp"
+                app:autoSizeMinTextSize="@dimen/dimen_12sp"
+                app:autoSizeTextType="uniform"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="start"
+                android:justificationMode="inter_word"
+                android:padding="@dimen/dimen_8dp"
+                android:singleLine="false"
+                android:text="@string/placeholder_one_paragraph" />
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>
+

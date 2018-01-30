@@ -24,8 +24,8 @@
     <string name="string_from">From:</string>
     <string name="string_to">To:</string>
     <string name="string_no_expiration">No expiration</string>
-    <string name="string_theme">Theme:</string>
-    <string name="string_type">Type:</string>
+    <string name="string_theme">THEME</string>
+    <string name="string_type">TYPE</string>
     <string name="string_map">Map</string>
     <string name="string_old_password">Old Password</string>
     <string name="string_new_password">New Password</string>
@@ -33,5 +33,8 @@
     <string name="string_advanced_search_theme">Theme</string>
     <string name="string_advanced_search_payee">Payee</string>
     <string name="string_marker_snippet">Opportunities:</string>
-    <string name="string_payee">Payee:</string>
+    <string name="string_payee">PAYEE</string>
+    <string name="placeholder_one_paragraph" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque luctus eros justo, sit amet fringilla ligula euismod et. Sed ultricies tempus erat, quis placerat ante faucibus nec. Praesent ultrices risus tortor, sit amet volutpat tortor imperdiet vehicula. Duis auctor molestie justo, ut vestibulum eros blandit nec. In vel sem justo. Morbi et diam aliquet, vulputate nisi a, porttitor nisi. Sed luctus nulla at maximus ultricies. Nam cursus at enim nec luctus. Nulla vehicula quam mollis eros viverra, a ultrices libero mollis. Proin suscipit ornare tristique. Aliquam ornare dui vitae dolor fringilla pretium.</string>
+    <string name="placeholder_two_paragraph" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam venenatis pharetra dui ac sollicitudin. Mauris velit ipsum, sodales non justo et, fringilla dapibus ligula. Duis nec lorem in lorem facilisis suscipit sed quis nibh. Nulla viverra odio quis convallis placerat. Aliquam placerat mi eget tellus tincidunt aliquam. Vestibulum tincidunt turpis eget orci lacinia, ac cursus mi facilisis. Suspendisse hendrerit lacinia turpis, eu mollis nibh dapibus eget. Quisque suscipit finibus magna, et viverra leo ultrices ac. Curabitur lacinia nec turpis id mattis. Ut tellus metus, hendrerit quis rutrum non, mollis vel turpis.  Cras tempus arcu turpis. Nullam tristique ultrices erat, in viverra erat tristique sed. Morbi viverra orci scelerisque porttitor mollis. Fusce interdum gravida sem vel dignissim. Praesent congue nisi id magna porttitor pharetra. Etiam sit amet ante at arcu ullamcorper lobortis at a ligula. Aliquam erat volutpat. Proin suscipit finibus lobortis.</string>
+    <string name="string_no_location">No Location Specified</string>
 </resources>

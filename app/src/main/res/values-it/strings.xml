@@ -24,8 +24,8 @@
     <string name="string_from">Da:</string>
     <string name="string_to">A:</string>
     <string name="string_no_expiration">Nessuna scadenza</string>
-    <string name="string_theme">Tema:</string>
-    <string name="string_type">Type:</string>
+    <string name="string_theme">TEMA</string>
+    <string name="string_type">TIPOLOGIA</string>
     <string name="string_map">Mappa</string>
     <string name="string_old_password">Vecchia Password</string>
     <string name="string_new_password">Nuova Password</string>
@@ -33,5 +33,6 @@
     <string name="string_advanced_search_theme">Tema</string>
     <string name="string_advanced_search_payee">Beneficiario</string>
     <string name="string_marker_snippet">Opportunità:</string>
-    <string name="string_payee">Beneficiario:</string>
+    <string name="string_payee">BENEFICIARIO</string>
+    <string name="string_no_location">Nessun Luogo Specificato</string>
 </resources>

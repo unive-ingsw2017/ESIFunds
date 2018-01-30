@@ -2,27 +2,20 @@ package com.esifunds.fragment;
 
 
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.LongSparseArray;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.esifunds.R;
-import com.esifunds.activity.OpportunitiesActivity;
 import com.esifunds.model.Opportunity;
 import com.esifunds.model.UserFavourites;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -30,12 +23,10 @@ import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
 import com.mikepenz.fastadapter.listeners.OnClickListener;
-import com.mikepenz.fastadapter.utils.DefaultTypeInstanceCache;
 import com.mikepenz.fastadapter_extensions.items.ProgressItem;
 import com.mikepenz.fastadapter_extensions.scroll.EndlessRecyclerOnScrollListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class FragmentOpportunities extends Fragment
@@ -112,7 +103,7 @@ public class FragmentOpportunities extends Fragment
         {
             @Override public boolean onClick(View view, IAdapter<Opportunity> adapter, Opportunity item, int position)
             {
-                Fragment fragmentOpportunity = new FragmentOpportunity();
+                Fragment fragmentOpportunity = new FragmentOpportunitySingleton();
 
                 Bundle args = new Bundle();
                 args.putParcelable("opportunity", item);
@@ -122,6 +113,7 @@ public class FragmentOpportunities extends Fragment
                 fragmentTransaction.add(R.id.fragmentPlaceholderOpportunitiesActivity, fragmentOpportunity, "OPPORTUNITY_VIEW");
                 fragmentTransaction.addToBackStack("OPPORTUNITY_VIEW");
                 fragmentTransaction.commit();
+
                 return true;
             }
         });
