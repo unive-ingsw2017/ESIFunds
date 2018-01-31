@@ -32,6 +32,7 @@
     <string name="string_login_register_action">Esegui il Login o Registrati</string>
     <string name="string_advanced_search_theme">Tema</string>
     <string name="string_advanced_search_payee">Beneficiario</string>
+    <string name="string_advanced_search_location">Luogo</string>
     <string name="string_marker_snippet">Opportunità:</string>
     <string name="string_payee">BENEFICIARIO</string>
     <string name="string_no_location">Nessun Luogo Specificato</string>

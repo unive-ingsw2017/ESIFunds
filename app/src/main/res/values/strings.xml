@@ -32,6 +32,7 @@
     <string name="string_login_register_action">Login or Register</string>
     <string name="string_advanced_search_theme">Theme</string>
     <string name="string_advanced_search_payee">Payee</string>
+    <string name="string_advanced_search_location">Location</string>
     <string name="string_marker_snippet">Opportunities:</string>
     <string name="string_payee">PAYEE</string>
     <string name="placeholder_one_paragraph" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque luctus eros justo, sit amet fringilla ligula euismod et. Sed ultricies tempus erat, quis placerat ante faucibus nec. Praesent ultrices risus tortor, sit amet volutpat tortor imperdiet vehicula. Duis auctor molestie justo, ut vestibulum eros blandit nec. In vel sem justo. Morbi et diam aliquet, vulputate nisi a, porttitor nisi. Sed luctus nulla at maximus ultricies. Nam cursus at enim nec luctus. Nulla vehicula quam mollis eros viverra, a ultrices libero mollis. Proin suscipit ornare tristique. Aliquam ornare dui vitae dolor fringilla pretium.</string>

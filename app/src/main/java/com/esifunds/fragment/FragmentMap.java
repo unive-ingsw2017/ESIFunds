@@ -2,6 +2,7 @@ package com.esifunds.fragment;
 
 
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.esifunds.R;
+import com.esifunds.activity.OpportunitiesActivity;
 import com.esifunds.model.HeatMapLocation;
 import com.esifunds.model.Opportunity;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -26,6 +28,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.maps.android.heatmaps.HeatmapTileProvider;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -166,16 +170,11 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback
                         {
                             @Override public boolean onMarkerClick(Marker marker)
                             {
-                                FragmentSearch fragmentSearch = new FragmentSearch();
-                                Bundle args = new Bundle();
-                                args.putInt("POSITION", 0);
-                                args.putBoolean("IS_SEARCH", true);
-                                args.putString("SEARCH_REGIONE", (String)marker.getTag());
-                                fragmentSearch.setArguments(args);
 
-                                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, fragmentSearch);
-                                fragmentTransaction.commit();
+                                TextInputEditText advancedSearchLocationInput = ((OpportunitiesActivity)getActivity()).findViewById(R.id.advancedSearchLocationInput);
+                                advancedSearchLocationInput.setText((String)marker.getTag());
+                                ((OpportunitiesActivity)getActivity()).getFragmentSearch().setCurrentTab(0, true);
+                                ((OpportunitiesActivity)getActivity()).getFragmentSearch().getSearchFragment().searchWithString("", "", "", (String)marker.getTag());
                                 return false;
                             }
                         });

@@ -51,6 +51,7 @@ public class OpportunitiesActivity extends AppCompatActivity
     private TextInputEditText textInputEditTextSearch;
     private TextInputEditText advancedSearchThemeInput;
     private TextInputEditText advancedSearchPayeeInput;
+    private TextInputEditText advancedSearchLocationInput;
     private FragmentSearch fragmentSearch;
     private Drawer drawerResult;
 
@@ -58,6 +59,7 @@ public class OpportunitiesActivity extends AppCompatActivity
     {
         advancedSearchThemeInput = findViewById(R.id.advancedSearchThemeInput);
         advancedSearchPayeeInput = findViewById(R.id.advancedSearchPayeeInput);
+        advancedSearchLocationInput = findViewById(R.id.advancedSearchLocationInput);
 
         advancedSearchThemeInput.addTextChangedListener(new TextWatcher()
         {
@@ -72,7 +74,10 @@ public class OpportunitiesActivity extends AppCompatActivity
             {
                 if(fragmentSearch.getSearchFragment() != null)
                 {
-                    fragmentSearch.getSearchFragment().searchWithString(textInputEditTextSearch.getText().toString(), charSequence.toString(), advancedSearchPayeeInput.getText().toString(), "");
+                    fragmentSearch.getSearchFragment().searchWithString(textInputEditTextSearch.getText().toString(),
+                            charSequence.toString(),
+                            advancedSearchPayeeInput.getText().toString(),
+                            advancedSearchLocationInput.getText().toString());
                 }
             }
 
@@ -96,7 +101,37 @@ public class OpportunitiesActivity extends AppCompatActivity
             {
                 if(fragmentSearch.getSearchFragment() != null)
                 {
-                    fragmentSearch.getSearchFragment().searchWithString(textInputEditTextSearch.getText().toString(), advancedSearchThemeInput.getText().toString(), charSequence.toString(), "");
+                    fragmentSearch.getSearchFragment().searchWithString(textInputEditTextSearch.getText().toString(),
+                            advancedSearchThemeInput.getText().toString(),
+                            charSequence.toString(),
+                            advancedSearchLocationInput.getText().toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+
+            }
+        });
+
+        advancedSearchLocationInput.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+                if(fragmentSearch.getSearchFragment() != null)
+                {
+                    fragmentSearch.getSearchFragment().searchWithString(textInputEditTextSearch.getText().toString(),
+                            advancedSearchThemeInput.getText().toString(),
+                            advancedSearchPayeeInput.getText().toString(),
+                            charSequence.toString());
                 }
             }
 
@@ -112,6 +147,7 @@ public class OpportunitiesActivity extends AppCompatActivity
     {
         advancedSearchThemeInput = null;
         advancedSearchPayeeInput = null;
+        advancedSearchLocationInput = null;
     }
 
     @Override
@@ -155,9 +191,12 @@ public class OpportunitiesActivity extends AppCompatActivity
             {
                 if(fragmentSearch.getSearchFragment() != null)
                 {
-                    if(advancedSearchThemeInput != null && advancedSearchPayeeInput != null)
+                    if(advancedSearchThemeInput != null && advancedSearchPayeeInput != null && advancedSearchLocationInput != null)
                     {
-                        fragmentSearch.getSearchFragment().searchWithString(charSequence.toString(), advancedSearchThemeInput.getText().toString(), advancedSearchPayeeInput.getText().toString(), "");
+                        fragmentSearch.getSearchFragment().searchWithString(charSequence.toString(),
+                                advancedSearchThemeInput.getText().toString(),
+                                advancedSearchPayeeInput.getText().toString(),
+                                advancedSearchLocationInput.getText().toString());
                     }
                     else
                     {
@@ -177,21 +216,27 @@ public class OpportunitiesActivity extends AppCompatActivity
         {
             @Override public void onClick(View v)
             {
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentSearch = new FragmentSearch();
-                Bundle args = new Bundle();
-                args.putString("SEARCH_OGGETTO", textInputEditTextSearch.getText().toString());
+                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragmentPlaceholderOpportunitiesActivity);
 
-                if(advancedSearchThemeInput != null && advancedSearchPayeeInput != null)
+                if(!(fragment instanceof FragmentSearch))
                 {
-                    args.putString("SEARCH_TEMA", advancedSearchThemeInput.getText().toString());
-                    args.putString("SEARCH_BENEFICIARIO", advancedSearchPayeeInput.getText().toString());
-                }
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-                fragmentSearch.setArguments(args);
-                fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, fragmentSearch);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                    fragmentSearch = new FragmentSearch();
+                    Bundle args = new Bundle();
+                    args.putString("SEARCH_OGGETTO", textInputEditTextSearch.getText().toString());
+
+                    if(advancedSearchThemeInput != null && advancedSearchPayeeInput != null)
+                    {
+                        args.putString("SEARCH_TEMA", advancedSearchThemeInput.getText().toString());
+                        args.putString("SEARCH_BENEFICIARIO", advancedSearchPayeeInput.getText().toString());
+                    }
+
+                    fragmentSearch.setArguments(args);
+                    fragmentTransaction.replace(R.id.fragmentPlaceholderOpportunitiesActivity, fragmentSearch);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
 
                 showSearchBar();
             }
@@ -448,7 +493,6 @@ public class OpportunitiesActivity extends AppCompatActivity
 
     public void hideSearchBar()
     {
-        textInputEditTextSearch.setText("");
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 
         if(imm != null && getCurrentFocus() != null)
@@ -502,5 +546,10 @@ public class OpportunitiesActivity extends AppCompatActivity
         }
 
         return super.dispatchTouchEvent(motionEvent);
+    }
+
+    public FragmentSearch getFragmentSearch()
+    {
+        return fragmentSearch;
     }
 }

@@ -36,9 +36,15 @@ public class FragmentOpportunities extends Fragment
     private ItemAdapter<Opportunity> itemAdapter = new ItemAdapter<>();
     final ItemAdapter<ProgressItem> footerAdapter = new ItemAdapter<>();
     private String lastValue = "0";
-    private boolean bIsFavourites = false;
     private FragmentSearch fragmentSearch;
     private FastAdapter<Opportunity> fastAdapter;
+    private boolean initialized = false;
+    private String oggetto = "";
+    private String tema = "";
+    private String beneficiario = "";
+    private String regione = "";
+    private boolean isFavourites = false;
+    private boolean isSearch = false;
 
     public FragmentOpportunities()
     {
@@ -52,10 +58,30 @@ public class FragmentOpportunities extends Fragment
     public void searchWithString(final String oggetto, final String tema, final String beneficiario, final String regione)
     {
         itemAdapter.clear();
-        filterFor(oggetto, tema, beneficiario, regione, bIsFavourites, true, false);
+
+        this.oggetto = oggetto;
+        this.tema = tema;
+        this.beneficiario = beneficiario;
+        this.regione = regione;
+        filterFor(oggetto, tema, beneficiario, regione, isFavourites, isSearch, false);
     }
 
+    @Override
+    public void onCreate(Bundle state) {
+        super.onCreate(state);
 
+        final Bundle args = getArguments();
+
+        if(args != null)
+        {
+            oggetto = args.getString("SEARCH_OGGETTO", oggetto);
+            tema = args.getString("SEARCH_TEMA", tema);
+            beneficiario = args.getString("SEARCH_BENEFICIARIO", beneficiario);
+            regione = args.getString("SEARCH_REGIONE", regione);
+            isFavourites = args.getBoolean("IS_FAVOURITES", isFavourites);
+            isSearch = args.getBoolean("IS_SEARCH", isSearch);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -63,33 +89,6 @@ public class FragmentOpportunities extends Fragment
         View viewRoot = inflater.inflate(R.layout.fragment_opportunities, container, false);
 
         mDatabase = FirebaseDatabase.getInstance();
-
-        Bundle args = getArguments();
-        String oggetto = "";
-        String tema = "";
-        String beneficiario = "";
-        String regione = "";
-        boolean isFavourites = false;
-        boolean isSearch = false;
-
-        if(args != null)
-        {
-            oggetto = args.getString("SEARCH_OGGETTO", "");
-            tema = args.getString("SEARCH_TEMA", "");
-            beneficiario = args.getString("SEARCH_BENEFICIARIO", "");
-            regione = args.getString("SEARCH_REGIONE", "");
-            isFavourites = args.getBoolean("IS_FAVOURITES", false);
-            isSearch = args.getBoolean("IS_SEARCH", false);
-        }
-
-        bIsFavourites = isFavourites;
-
-        final String fOggetto = oggetto;
-        final String fTema = tema;
-        final String fBeneficiario = beneficiario;
-        final String fRegione = regione;
-        final boolean fIsFavourites = isFavourites;
-        final boolean fIsSearch = isSearch;
 
         recyclerViewOpportunities = viewRoot.findViewById(R.id.recyclerViewOpportunities);
 
@@ -109,7 +108,7 @@ public class FragmentOpportunities extends Fragment
                 args.putParcelable("opportunity", item);
                 fragmentOpportunity.setArguments(args);
 
-                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                FragmentTransaction fragmentTransaction = fragmentSearch.getFragmentManager().beginTransaction();
                 fragmentTransaction.add(R.id.fragmentPlaceholderOpportunitiesActivity, fragmentOpportunity, "OPPORTUNITY_VIEW");
                 fragmentTransaction.addToBackStack("OPPORTUNITY_VIEW");
                 fragmentTransaction.commit();
@@ -130,7 +129,7 @@ public class FragmentOpportunities extends Fragment
                 @Override
                 public void onLoadMore(int currentPage)
                 {
-                    filterFor(fOggetto, fTema, fBeneficiario, fRegione, fIsFavourites, fIsSearch, true);
+                    filterFor(oggetto, tema, beneficiario, regione, isFavourites, isSearch, true);
                 }
             });
         }
@@ -153,6 +152,7 @@ public class FragmentOpportunities extends Fragment
                 fragmentSearch.setSearchResultCount(0);
             }
 
+            itemAdapter.clear();
             return;
         }
 
@@ -243,10 +243,10 @@ public class FragmentOpportunities extends Fragment
         footerAdapter.clear();
     }
 
-    private void queryDatabase(final String oggetto,
-                               final String tema,
-                               final String beneficiario,
-                               final String regione,
+    private void queryDatabase(final String lOggetto,
+                               final String lTema,
+                               final String lBeneficiario,
+                               final String lRegione,
                                final boolean isFavourites,
                                final boolean isSearch,
                                final boolean onScroll,
@@ -283,33 +283,26 @@ public class FragmentOpportunities extends Fragment
                     }
 
                     boolean isValid = true;
-                    if(isSearch)
+                    if(isSearch || isFavourites)
                     {
-                        if(!oggetto.isEmpty())
+                        if(!lOggetto.isEmpty())
                         {
-                            isValid = opportunity.getOGGETTO().toLowerCase().contains(oggetto.toLowerCase());
+                            isValid = opportunity.getOGGETTO().toLowerCase().contains(lOggetto.toLowerCase());
                         }
 
-                        if(!tema.isEmpty())
+                        if(!lTema.isEmpty())
                         {
-                            isValid = isValid && opportunity.getTEMA_SINTETICO().toLowerCase().contains(tema.toLowerCase());
+                            isValid = isValid && opportunity.getTEMA_SINTETICO().toLowerCase().contains(lTema.toLowerCase());
                         }
 
-                        if(!beneficiario.isEmpty())
+                        if(!lBeneficiario.isEmpty())
                         {
-                            isValid = isValid && opportunity.getTIPOLOGIA_BENEFICIARI().toLowerCase().contains(beneficiario.toLowerCase());
+                            isValid = isValid && opportunity.getTIPOLOGIA_BENEFICIARI().toLowerCase().contains(lBeneficiario.toLowerCase());
                         }
 
-                        if(!regione.isEmpty())
+                        if(!lRegione.isEmpty())
                         {
-                            isValid = isValid && opportunity.getLUOGO().toLowerCase().contains(regione.toLowerCase());
-                        }
-                    }
-                    else if(isFavourites)
-                    {
-                        if(!oggetto.isEmpty())
-                        {
-                            isValid = opportunity.getOGGETTO().toLowerCase().contains(oggetto.toLowerCase());
+                            isValid = isValid && opportunity.getLUOGO().toLowerCase().contains(lRegione.toLowerCase());
                         }
                     }
 
@@ -330,17 +323,20 @@ public class FragmentOpportunities extends Fragment
                     itemAdapter.clear();
                 }
 
-                itemAdapter.add(listOpportunities);
-
-                if(fragmentSearch != null && isAdded())
+                if(oggetto.equals(lOggetto) && tema.equals(lTema) && beneficiario.equals(lBeneficiario) && regione.equals(lRegione))
                 {
-                    if(isSearch)
+                    itemAdapter.add(listOpportunities);
+
+                    if(fragmentSearch != null && isAdded())
                     {
-                        fragmentSearch.setSearchResultCount(listOpportunities.size());
-                    }
-                    else if(isFavourites)
-                    {
-                        fragmentSearch.setFavouritesCount(listOpportunities.size());
+                        if(isSearch)
+                        {
+                            fragmentSearch.setSearchResultCount(listOpportunities.size());
+                        }
+                        else if(isFavourites)
+                        {
+                            fragmentSearch.setFavouritesCount(listOpportunities.size());
+                        }
                     }
                 }
             }
