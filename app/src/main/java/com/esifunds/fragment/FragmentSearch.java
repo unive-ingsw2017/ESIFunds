@@ -3,9 +3,9 @@ package com.esifunds.fragment;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +22,7 @@ public class FragmentSearch extends Fragment
     private TabLayout tabLayout;
     private RelativeLayout relativeLayoutAdvancedSearch;
     private RelativeLayout relativeLayoutAdvancedSearchToggle;
+    private TextInputEditText textInputEditText;
 
     public FragmentSearch()
     {
@@ -31,6 +32,9 @@ public class FragmentSearch extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         final View viewRoot = inflater.inflate(R.layout.fragment_search, container, false);
+
+        // TextInputEditText textInputEditText
+        textInputEditText = getActivity().findViewById(R.id.textInputEditTextSearch);
 
         tabLayout = viewRoot.findViewById(R.id.tabLayoutFragmentSearch);
 
@@ -92,12 +96,33 @@ public class FragmentSearch extends Fragment
             @Override
             public void onTabSelected(TabLayout.Tab tab)
             {
-                if(tab.getPosition() == 2)
+                switch(tab.getPosition())
                 {
-                    ((OpportunitiesActivity)getActivity()).hideSearchBar();
-                    ((OpportunitiesActivity)getActivity()).hideSearchButton();
-                    relativeLayoutAdvancedSearch.setVisibility(View.GONE);
-                    relativeLayoutAdvancedSearchToggle.setVisibility(View.GONE);
+                    case 0:
+                    {
+                        textInputEditText.setText("");
+
+                        break;
+                    }
+
+                    case 1:
+                    {
+                        textInputEditText.setText("");
+
+                        break;
+                    }
+
+                    case 2:
+                    {
+                        textInputEditText.setText("");
+
+                        ((OpportunitiesActivity)getActivity()).hideSearchBar();
+                        ((OpportunitiesActivity)getActivity()).hideSearchButton();
+                        relativeLayoutAdvancedSearch.setVisibility(View.GONE);
+                        relativeLayoutAdvancedSearchToggle.setVisibility(View.GONE);
+
+                        break;
+                    }
                 }
             }
 
@@ -187,6 +212,7 @@ public class FragmentSearch extends Fragment
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.fragmentPlaceholderFragmentSearch, searchFragment);
                 fragmentTransaction.commit();
+
                 break;
             }
 
