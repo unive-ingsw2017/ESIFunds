@@ -108,7 +108,7 @@ public class FragmentOpportunities extends Fragment
                 args.putParcelable("opportunity", item);
                 fragmentOpportunity.setArguments(args);
 
-                FragmentTransaction fragmentTransaction = fragmentSearch.getFragmentManager().beginTransaction();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.add(R.id.fragmentPlaceholderOpportunitiesActivity, fragmentOpportunity, "OPPORTUNITY_VIEW");
                 fragmentTransaction.addToBackStack("OPPORTUNITY_VIEW");
                 fragmentTransaction.commit();
