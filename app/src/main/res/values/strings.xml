@@ -42,4 +42,6 @@
     <string name="string_invalid_password">Invalid password</string>
     <string name="string_please_enter_your_current_password">Please enter your current password</string>
     <string name="string_authentication_failed">Authentication failed</string>
+    <string name="string_authentication_data">Insert E-Mail and Password</string>
+    <string name="string_register_data">Missing data for registration process</string>
 </resources>

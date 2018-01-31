@@ -40,4 +40,6 @@
     <string name="string_invalid_password">Password non valida</string>
     <string name="string_please_enter_your_current_password">Inserisci la tua password attuale per continuare</string>
     <string name="string_authentication_failed">Login fallito</string>
+    <string name="string_authentication_data">Inserisci E-Mail e Password</string>
+    <string name="string_register_data">Informazioni mancanti per il processo di registrazione</string>
 </resources>

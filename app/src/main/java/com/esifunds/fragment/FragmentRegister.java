@@ -96,6 +96,10 @@ public class FragmentRegister extends Fragment implements View.OnClickListener
                         }
                     });
                 }
+                else
+                {
+                    Toast.makeText(getContext(), R.string.string_register_data, Toast.LENGTH_SHORT).show();
+                }
 
                 break;
             }

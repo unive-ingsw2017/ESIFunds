@@ -1,8 +1,6 @@
 package com.esifunds.fragment;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
@@ -81,7 +79,10 @@ public class FragmentLogin extends Fragment implements View.OnClickListener
                             }
                         }
                     });
-
+                }
+                else
+                {
+                    Toast.makeText(getContext(), R.string.string_authentication_data, Toast.LENGTH_SHORT).show();
                 }
 
                 break;
