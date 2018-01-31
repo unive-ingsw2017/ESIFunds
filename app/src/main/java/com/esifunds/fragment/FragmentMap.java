@@ -173,6 +173,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback
 
                                 TextInputEditText advancedSearchLocationInput = ((OpportunitiesActivity)getActivity()).findViewById(R.id.advancedSearchLocationInput);
                                 advancedSearchLocationInput.setText((String)marker.getTag());
+                                ((OpportunitiesActivity)getActivity()).getFragmentSearch().setSearchInputSearchLocation((String)marker.getTag());
                                 ((OpportunitiesActivity)getActivity()).getFragmentSearch().setCurrentTab(0, true);
                                 ((OpportunitiesActivity)getActivity()).getFragmentSearch().getSearchFragment().searchWithString("", "", "", (String)marker.getTag());
                                 return false;

@@ -317,4 +317,44 @@ public class FragmentSearch extends Fragment
         imageViewArrowAdvancedSearch.setImageResource(android.R.drawable.arrow_down_float);
         ((OpportunitiesActivity)getActivity()).unRegisterAdvancedSearchInputs();
     }
+
+    public void setSearchInputSearchObject(String searchInputSearchObject)
+    {
+        this.searchInputSearchObject = searchInputSearchObject;
+    }
+
+    public void setSearchInputSearchTheme(String searchInputSearchTheme)
+    {
+        this.searchInputSearchTheme = searchInputSearchTheme;
+    }
+
+    public void setSearchInputSearchPayee(String searchInputSearchPayee)
+    {
+        this.searchInputSearchPayee = searchInputSearchPayee;
+    }
+
+    public void setSearchInputSearchLocation(String searchInputSearchLocation)
+    {
+        this.searchInputSearchLocation = searchInputSearchLocation;
+    }
+
+    public void setSearchInputFavouritesObject(String searchInputFavouritesObject)
+    {
+        this.searchInputFavouritesObject = searchInputFavouritesObject;
+    }
+
+    public void setSearchInputFavouritesTheme(String searchInputFavouritesTheme)
+    {
+        this.searchInputFavouritesTheme = searchInputFavouritesTheme;
+    }
+
+    public void setSearchInputFavouritesPayee(String searchInputFavouritesPayee)
+    {
+        this.searchInputFavouritesPayee = searchInputFavouritesPayee;
+    }
+
+    public void setSearchInputFavouritesLocation(String searchInputFavouritesLocation)
+    {
+        this.searchInputFavouritesLocation = searchInputFavouritesLocation;
+    }
 }
