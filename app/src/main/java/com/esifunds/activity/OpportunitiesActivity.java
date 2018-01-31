@@ -251,6 +251,8 @@ public class OpportunitiesActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+                drawerResult.setSelection(0);
+
                 hideSearchBar();
 
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
