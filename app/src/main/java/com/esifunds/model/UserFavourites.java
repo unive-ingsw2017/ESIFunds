@@ -23,6 +23,11 @@ public class UserFavourites
     LongSparseArray<Boolean> mFavourites = new LongSparseArray<>();
 
     private UserFavourites() {
+        loadFavourites();
+    }
+
+    public void loadFavourites()
+    {
         if(UserFavourites.getAll() == null)
         {
             return;

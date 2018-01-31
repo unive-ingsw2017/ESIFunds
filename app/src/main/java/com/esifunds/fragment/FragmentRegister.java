@@ -79,7 +79,6 @@ public class FragmentRegister extends Fragment implements View.OnClickListener
 
                                 intentOpportunities.putExtra("USER_FIRSTNAME", firstName);
                                 intentOpportunities.putExtra("USER_LASTNAME", lastName);
-                                intentOpportunities.putExtra("USER_MAIL", "email@gmail.com");
 
                                 startActivity(intentOpportunities);
                                 if(MainActivity.getInstance() != null)
@@ -91,7 +90,7 @@ public class FragmentRegister extends Fragment implements View.OnClickListener
                             else
                             {
                                 // If sign in fails, display a message to the user.
-                                Toast.makeText(getContext(), R.string.string_authentication_failed, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), getActivity().getResources().getString(R.string.string_authentication_failed) + ": " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

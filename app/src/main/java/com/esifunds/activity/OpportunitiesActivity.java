@@ -161,7 +161,7 @@ public class OpportunitiesActivity extends AppCompatActivity
         setContentView(R.layout.activity_opportunities);
 
         IconTags.getInstance();
-        UserFavourites.getInstance();
+        UserFavourites.getInstance().loadFavourites();
 
         // Intent Parsing
         Intent intentRoot = getIntent();
