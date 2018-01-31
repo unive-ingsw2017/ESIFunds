@@ -128,10 +128,14 @@ public class OpportunitiesActivity extends AppCompatActivity
             {
                 if(fragmentSearch.getSearchFragment() != null)
                 {
-                    fragmentSearch.getSearchFragment().searchWithString(textInputEditTextSearch.getText().toString(),
-                            advancedSearchThemeInput.getText().toString(),
-                            advancedSearchPayeeInput.getText().toString(),
-                            charSequence.toString());
+                    if(textInputEditTextSearch != null && advancedSearchThemeInput != null && advancedSearchPayeeInput != null)
+                    {
+                        fragmentSearch.getSearchFragment().searchWithString(textInputEditTextSearch.getText().toString(), advancedSearchThemeInput.getText().toString(), advancedSearchPayeeInput.getText().toString(), charSequence.toString());
+                    }
+                    else
+                    {
+                        fragmentSearch.getSearchFragment().searchWithString("", "", "", charSequence.toString());
+                    }
                 }
             }
 

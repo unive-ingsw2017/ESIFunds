@@ -107,7 +107,7 @@
         app:tabMode="fixed"
         android:layoutDirection="ltr"/>
 
-    <android.support.v4.view.ViewPager
+    <com.esifunds.fragment.NonSwipeableViewPager
         android:id="@+id/viewpagerFragmentSearch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -348,4 +348,14 @@ public class FragmentOpportunities extends Fragment
             }
         });
     }
+
+    public boolean isFavourites()
+    {
+        return isFavourites;
+    }
+
+    public boolean isSearch()
+    {
+        return isSearch;
+    }
 }
